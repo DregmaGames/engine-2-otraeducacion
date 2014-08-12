@@ -1,0 +1,43 @@
+﻿Build started 12/08/2014 12:04:26.
+     1>Project "C:\Users\IC63\Desktop\myGame\Engine\Engine.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Engine.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\IC63\Desktop\myGame\Engine/include /IC:\Users\IC63\Desktop\myGame\Engine/src /ZI /nologo /W3 /WX- /Od /Oy- /D MYENGINE_EXPORTS /D _WINDLL /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp
+         Camera.cpp
+     1>c:\users\ic63\desktop\mygame\engine\include\renderer.h(40): warning C4251: 'pGr::Renderer::m_akTextures' : class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'pGr::Renderer'
+                 with
+                 [
+                     _Ty=pGr::Texture
+                 ]
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\IC63\Desktop\myGame\Debug\Engine.dll" /NOLOGO d3d9.lib d3dx9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Engine.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\IC63\Desktop\myGame\Debug\Engine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\IC63\Desktop\myGame\Debug\Engine.lib" /MACHINE:X86 /DLL Debug\Camera.obj
+         Debug\Animation.obj
+         Debug\Engine.obj
+         Debug\Entity2D.obj
+         Debug\Game.obj
+         Debug\Importer.obj
+         Debug\pg1_directinput.obj
+         Debug\pg1_input.obj
+         Debug\pg1_timer.obj
+         Debug\Quad.obj
+         Debug\Renderer.obj
+         Debug\RenderTypes.obj
+         Debug\Scene.obj
+         Debug\Sprite.obj
+         Debug\tinyxml2.obj
+         Debug\Vertexbuffer.obj
+         Debug\Window.obj
+         LINK : C:\Users\IC63\Desktop\myGame\Debug\Engine.dll not found or not built by the last incremental link; performing full link
+            Creating library C:\Users\IC63\Desktop\myGame\Debug\Engine.lib and object C:\Users\IC63\Desktop\myGame\Debug\Engine.exp
+         Engine.vcxproj -> C:\Users\IC63\Desktop\myGame\Debug\Engine.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\IC63\Desktop\myGame\Debug\Engine.dll;#2" /manifest Debug\Engine.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\Engine.unsuccessfulbuild".
+         Touching "Debug\Engine.lastbuildstate".
+     1>Done Building Project "C:\Users\IC63\Desktop\myGame\Engine\Engine.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.65
