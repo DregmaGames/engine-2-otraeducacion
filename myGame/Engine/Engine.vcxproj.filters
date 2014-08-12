@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4b22093b-b33d-4084-99f9-560e5fdfb7ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{ebcab20d-be8d-4839-a6dc-7fe05d22f753}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Game.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mathjavi.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyEngine.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\myEngine_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Quad.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Renderer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderTypes.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vertexbuffer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Window.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity2D.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sprite.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pg1_directinput.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pg1_input.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pg1_timer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Animation.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml2.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Importer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quad.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderTypes.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vertexbuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity2D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sprite.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pg1_directinput.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pg1_input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pg1_timer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Importer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\pg1_input.inl">
+      <Filter>Include</Filter>
+    </None>
+    <None Include="include\pg1_timer.inl">
+      <Filter>Include</Filter>
+    </None>
+  </ItemGroup>
+</Project>
