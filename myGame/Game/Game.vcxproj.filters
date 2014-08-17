@@ -9,28 +9,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Scene1.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene2.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\testGame.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene1.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene2.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\TestGame.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Scene1.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\testGame.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene1.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene2.h">
-      <Filter>Include</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

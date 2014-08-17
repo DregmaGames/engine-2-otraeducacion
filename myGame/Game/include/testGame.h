@@ -7,8 +7,8 @@
 #include "pg1_input.h"
 #include "pg1_timer.h"
 #include <list>
-#include "..\Scene1.h"
-#include "..\Scene2.h"
+#include "Scene1.h"
+#include "Scene2.h"
 namespace Juego{
 	class Scene1;
 	class Scene2;
