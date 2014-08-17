@@ -79,15 +79,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Scene1.cpp" />
-    <ClCompile Include="Scene2.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\TestGame.cpp" />
+    <ClInclude Include="include\Scene1.h" />
+    <ClInclude Include="include\Scene2.h" />
+    <ClInclude Include="include\testGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\testGame.h" />
-    <ClInclude Include="Scene1.h" />
-    <ClInclude Include="Scene2.h" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Scene1.cpp" />
+    <ClCompile Include="src\Scene2.cpp" />
+    <ClCompile Include="src\TestGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

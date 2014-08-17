@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "Mathjavi.h"
-#include "../Camera.h"
+#include "Camera.h"
 //-----------------------------------------------
 using namespace pGr;
 

@@ -1,8 +1,8 @@
 #include "testGame.h"
 #include "Renderer.h"
 #include "pg1_input.h"
-#include "../Scene1.h"
-#include "../Scene2.h"
+#include "Scene1.h"
+#include "Scene2.h"
 //---------------------------------------
 using namespace Juego;
 //---------------------------------------

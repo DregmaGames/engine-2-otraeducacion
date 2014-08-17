@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <string.h>
 #include <vector>
-#include "../Camera.h"
+#include "Camera.h"
 //---------------------------------------
 
 namespace pGr
