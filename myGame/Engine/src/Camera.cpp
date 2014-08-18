@@ -3,72 +3,91 @@
 using namespace pGr;
 
 Camera::Camera(IDirect3DDevice9 &device)
+	:
+	Camera_TransformMatrix(),
+	camera_eye		(0.0f, 0.0f, 0.0f),
+	camera_target	(0.0f, 1.0f, 0.0f),
+	camera_up		(0.0f, 0.0f, -1.0f),
+	camera_right	(1.0f, 0.0f, 0.0f),
+	rx(0),
+	ry(0),
+	rz(0)
 {
 	camera_device = &device;
-	Camera_TransformMatrix = new D3DXMATRIX();
-	camera_eye = new D3DXVECTOR3(0.0f, 0.0f,-1000.0f);
-	camera_target = new D3DXVECTOR3(0.0f, 0.0f, -999.0f);
-	camera_up = new D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	px,py,pz,rx,ry,rz = 0.0f;
-	pz = -1000.0f;
 	initCamera();
 }
 Camera::~Camera(){
-	camera_eye = NULL;
-	camera_target = NULL;
-	camera_up = NULL;
-	Camera_TransformMatrix=NULL;
-	delete camera_eye;
-	delete camera_target;
-	delete camera_up;
-	delete Camera_TransformMatrix;
-}
-void Camera::zoom(float zoom){
-
 }
 void Camera::fly(float distance){
-	D3DXMATRIX aux;
-	D3DXMatrixTranslation(&aux,0,distance,0);
-	//D3DXMatrixMultiply(Camera_TransformMatrix,&aux,Camera_TransformMatrix);
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	camera_eye += distance*camera_up;
+	updateTransform();
 }
 void Camera::strafe(float distance){
-	D3DXMATRIX aux;
-	D3DXMatrixTranslation(&aux,distance,0,0);
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	camera_eye += distance*camera_right;
+	updateTransform();
 }
 void Camera::walk(float distance){
-	D3DXMATRIX aux;
-	D3DXMatrixTranslation(&aux,0,0,distance);
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	camera_eye += distance*camera_target;
+	updateTransform();
 }
 void Camera::yaw(float angle){
-	ry+=angle;
-	D3DXMATRIX aux;
-	D3DXMatrixRotationY(&aux,D3DXToRadian(angle));
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	rx+=angle;
+	updateTransform();
 }
 void Camera::pitch(float angle){
-	rz+=angle;
-	D3DXMATRIX aux;
-	D3DXMatrixRotationZ(&aux,D3DXToRadian(angle));
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	ry+=angle;
+	updateTransform();
 }
 void Camera::roll(float angle){
-	rx+=angle;
-	D3DXMATRIX aux;
-	D3DXMatrixRotationX(&aux,D3DXToRadian(angle));
-	camera_device->MultiplyTransform(D3DTS_VIEW,&aux);
+	rz+=angle;
+	updateTransform();
 }
 void Camera::updateTransform(){
-	/*D3DXMATRIX aux;
-	camera_device->GetTransform(D3DTS_VIEW,&aux);
-	D3DXVECTOR3 scale;
-	D3DXQUATERNION rotation;
-	D3DXVECTOR3 position;
-	D3DXMatrixDecompose(&scale,&rotation,&position,*/
+	/*
+	para ver lo que es roll, pitch y yaw mira esta imágen o muere.
+	https://developer.valvesoftware.com/w/images/7/7e/Roll_pitch_yaw.gif
+	*/
+	D3DXMATRIX MatrixResult;
+	D3DXMATRIX MatrixRoll;
+	D3DXMATRIX MatrixPitch;
+	D3DXMATRIX MatrixYaw;
+	//crear una matriz por cada rotación.
+	D3DXMatrixRotationAxis(&MatrixRoll, &camera_right, rx);
+	D3DXMatrixRotationAxis(&MatrixPitch, &camera_target, ry);
+	D3DXMatrixRotationAxis(&MatrixYaw, &camera_up, rz);
+	//combinar las matrices en 1.
+	D3DXMatrixMultiply(&MatrixResult, &MatrixRoll,&MatrixPitch);
+	D3DXMatrixMultiply(&MatrixResult, &MatrixYaw ,&MatrixResult);
+	//transformar los vectores en la matriz.
+	D3DXVec3TransformCoord(&camera_right,&camera_right,&MatrixResult);
+	D3DXVec3TransformCoord(&camera_up,&camera_up,&MatrixResult);
+	//con los otros vectores transformados a la matriz, saco el 3º vctor haciendo
+	//producto cruz.
+	D3DXVec3Cross(&camera_target, &camera_right, &camera_up);
+	//normalize vectors
+	D3DXVec3Normalize(&camera_right,&camera_right);
+	D3DXVec3Normalize(&camera_up,&camera_up);
+	D3DXVec3Normalize(&camera_target,&camera_target);
+
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
+	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
+	float fView41,fView42,fView43;
+	fView41 = -D3DXVec3Dot(&camera_right, &camera_eye);
+    fView42 = -D3DXVec3Dot(&camera_up, &camera_eye);
+    fView43 = -D3DXVec3Dot(&camera_target, &camera_eye);
+    //Fill in the view matrix
+    D3DXMATRIX m_MatView(	camera_right.x,	camera_up.x,		camera_target.x,		0.0f,
+							camera_right.y,	camera_up.y,		camera_target.y,		0.0f,
+							camera_right.z,	camera_up.z,		camera_target.z,		0.0f,
+							fView41,		fView42,			fView43,				1.0f);
+
+    //Set view transform
+    camera_device->SetTransform(D3DTS_VIEW,&m_MatView);
+    //Reset update members
+    rx = ry = rz = 0.0f;
 }
 void Camera::initCamera(){
-	D3DXMatrixLookAtLH(Camera_TransformMatrix,camera_eye, camera_target, camera_up);
-	camera_device->SetTransform(D3DTS_VIEW,Camera_TransformMatrix);
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
+	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
+	fly(10);
 }

@@ -6,7 +6,6 @@
 #include "pg1_timer.h"
 #include "pg1_directinput.h"
 #include "testGame.h"
-#include "Camera.h"
 
 namespace Juego{
 	class Scene1 : public pGr::Scene{
