@@ -1,44 +1,58 @@
 #include "Scene2.h"
 using namespace Juego;
 void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
+	/*if(dInput.keyDown(pGr::Input::KEY_2)){
+		game.setCurrentScene("main",importer,"assets/Test.xml");
+	}*/
+
 	static float fSpeed = 1;
 	float FPosX = _Sprite->posX();
 	float FPosY = _Sprite->posY();
 	float FPosZ = _Sprite->posZ();
 	static const float scaleX=_Sprite->scaleX();
 	//input camera.
+	float movementSpeed = 0.1f;
+	float rotationSpeed = 0.1f;
+	//Aceletar//
+	if(dInput.keyDown(pGr::Input::KEY_LCONTROL)){
+		movementSpeed = 0.9f;
+	}
+	////////////
+	//******Atras y adelante************//
 	if(dInput.keyDown(pGr::Input::KEY_W)){
-		r.m_pkCamera->zoom(1.0f);
+		r.m_pkCamera->walk(movementSpeed);
 	}
 	if(dInput.keyDown(pGr::Input::KEY_S)){
-		r.m_pkCamera->walk(-5.0f);
+		r.m_pkCamera->walk(-movementSpeed);
 	}
-	if(dInput.keyDown(pGr::Input::KEY_W)){
-		r.m_pkCamera->walk(5.0f);
+	//******Atras y adelante************//
+
+	//******Girar derecha/izquierda************//
+	if(dInput.keyDown(pGr::Input::KEY_D)){
+		r.m_pkCamera->roll(rotationSpeed);
+	}if(dInput.keyDown(pGr::Input::KEY_A)){
+		r.m_pkCamera->roll(-rotationSpeed);
 	}
-	if(dInput.keyDown(pGr::Input::KEY_T)){
-		r.m_pkCamera->roll(1.0f);
-	}if(dInput.keyDown(pGr::Input::KEY_G)){
-		r.m_pkCamera->roll(-1.0f);
-	}
-	if(dInput.keyDown(pGr::Input::KEY_F)){
-		r.m_pkCamera->yaw(1.0f);
-	}if(dInput.keyDown(pGr::Input::KEY_H)){
-		r.m_pkCamera->yaw(-1.0f);
-	}
-	if(dInput.keyDown(pGr::Input::KEY_Y)){
-		r.m_pkCamera->pitch(1.0f);
-	}if(dInput.keyDown(pGr::Input::KEY_R)){
-		r.m_pkCamera->pitch(-1.0f);
-	}
+	//******Girar derecha/izquierda************//
+
+	//******Arriba y abajo************//
 	if(dInput.keyDown(pGr::Input::KEY_SPACE)){
-		r.m_pkCamera->fly(1.0f);
-	}if(dInput.keyDown(pGr::Input::KEY_D)){
-		r.m_pkCamera->strafe(1.0f);
+		r.m_pkCamera->fly(movementSpeed);
 	}
-	if(dInput.keyDown(pGr::Input::KEY_A)){
-		r.m_pkCamera->strafe(-1.0f);
+	if(dInput.keyDown(pGr::Input::KEY_LSHIFT)){
+		r.m_pkCamera->fly(-movementSpeed);
 	}
+	//******Arriba y abajo************//
+
+	//******Moverse para los costados************//
+	if(dInput.keyDown(pGr::Input::KEY_E)){
+		r.m_pkCamera->strafe(movementSpeed);
+	}
+	if(dInput.keyDown(pGr::Input::KEY_Q)){
+		r.m_pkCamera->strafe(-movementSpeed);
+	}
+	//******Moverse para los costados************//
+	movementSpeed=0.1f;
 	//Input Sprite 1
 	bool w = false;
 	if(dInput.keyDown(pGr::Input::KEY_UP)) {

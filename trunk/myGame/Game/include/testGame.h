@@ -9,6 +9,7 @@
 #include <list>
 #include "Scene1.h"
 #include "Scene2.h"
+#include "Camera.h"
 namespace Juego{
 	class Scene1;
 	class Scene2;
@@ -19,6 +20,6 @@ namespace Juego{
 		void frame(pGr::Renderer&,pGr::DirectInput&,pGr::Timer& rkTimer,pGr::Importer&);
 		void deinit();
 		Scene1* m_kScene;
-		Scene2* m_Scene2;
+		Scene2* m_kScene1;
 	};
 }
