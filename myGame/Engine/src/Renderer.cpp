@@ -96,13 +96,15 @@ Renderer::Renderer():
 
 			D3DXMATRIX kProjectionMatrix;
 			D3DXMatrixPerspectiveFovLH(&kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,1,3000);
-			//D3DXMatrixOrthoLH(&kProjectionMatrix,fViewportWidth,fViewportHeight,-1.0f,1.0f);
 			
 			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
+			//m_pkColorVB = new pGr::VertexBuffer(m_rkRenderer,m_pkDevice,
+			//m_pkColorVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::ColorVertex),pGr::ColorVertexType);
+			//m_pkTextureCoordVB = new pGr::VertexBuffer(,m_pkDevice, 
 
-			m_pkColorVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::ColorVertex),pGr::ColorVertexType);
 
-			m_pkTextureCoordVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::TextureCoordVertex),pGr::TextureCoordVertexType);
+			//m_pkTextureCoordVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::TextureCoordVertex),pGr::TextureCoordVertexType);
+			
 			m_pkCamera = new Camera(*m_pkDevice);
 			return true;
 		}
