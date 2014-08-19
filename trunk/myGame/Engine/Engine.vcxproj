@@ -90,13 +90,14 @@
     <ClCompile Include="src\pg1_directinput.cpp" />
     <ClCompile Include="src\pg1_input.cpp" />
     <ClCompile Include="src\pg1_timer.cpp" />
+    <ClCompile Include="src\pg2_indexbuffer.cpp" />
+    <ClCompile Include="src\pg2_vertexbuffer.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\RenderTypes.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
-    <ClCompile Include="src\Vertexbuffer.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,18 +112,21 @@
     <ClInclude Include="include\pg1_directinput.h" />
     <ClInclude Include="include\pg1_input.h" />
     <ClInclude Include="include\pg1_timer.h" />
+    <ClInclude Include="include\pg2_indexbuffer.h" />
+    <ClInclude Include="include\pg2_vertexbuffer.h" />
     <ClInclude Include="include\Quad.h" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\RenderTypes.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\Sprite.h" />
     <ClInclude Include="include\tinyxml2.h" />
-    <ClInclude Include="include\Vertexbuffer.h" />
     <ClInclude Include="include\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\pg1_input.inl" />
     <None Include="include\pg1_timer.inl" />
+    <None Include="include\pg2_indexbuffer.inl" />
+    <None Include="include\pg2_vertexbuffer.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

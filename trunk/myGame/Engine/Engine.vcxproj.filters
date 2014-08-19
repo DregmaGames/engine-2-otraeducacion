@@ -54,10 +54,13 @@
     <ClCompile Include="src\tinyxml2.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vertexbuffer.cpp">
+    <ClCompile Include="src\Window.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Window.cpp">
+    <ClCompile Include="src\pg2_indexbuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pg2_vertexbuffer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,10 +116,13 @@
     <ClInclude Include="include\tinyxml2.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Vertexbuffer.h">
+    <ClInclude Include="include\Window.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Window.h">
+    <ClInclude Include="include\pg2_indexbuffer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pg2_vertexbuffer.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,6 +131,12 @@
       <Filter>Include</Filter>
     </None>
     <None Include="include\pg1_timer.inl">
+      <Filter>Include</Filter>
+    </None>
+    <None Include="include\pg2_indexbuffer.inl">
+      <Filter>Include</Filter>
+    </None>
+    <None Include="include\pg2_vertexbuffer.inl">
       <Filter>Include</Filter>
     </None>
   </ItemGroup>
