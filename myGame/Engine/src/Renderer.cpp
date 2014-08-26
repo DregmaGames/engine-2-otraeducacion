@@ -201,12 +201,12 @@ Renderer::Renderer():
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
 
-	void Renderer::CreateVB(){
+	VertexBuffer Renderer::CreateVB(){
 
 
 	}
 
-	void Renderer::CreateIB(){
+	IndexBuffer Renderer::CreateIB(){
 
 
 	}
