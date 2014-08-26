@@ -63,6 +63,9 @@
     <ClCompile Include="src\pg2_vertexbuffer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Animation.h">
@@ -123,6 +126,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="include\pg2_vertexbuffer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

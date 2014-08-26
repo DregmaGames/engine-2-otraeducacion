@@ -200,3 +200,13 @@ Renderer::Renderer():
 	void Renderer::setCurrentTexture(const Texture& rkTexture){
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
+
+	void Renderer::CreateVB(){
+
+
+	}
+
+	void Renderer::CreateIB(){
+
+
+	}

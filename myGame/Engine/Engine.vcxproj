@@ -87,6 +87,7 @@
     <ClCompile Include="src\Entity2D.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Importer.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\pg1_directinput.cpp" />
     <ClCompile Include="src\pg1_input.cpp" />
     <ClCompile Include="src\pg1_timer.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Importer.h" />
     <ClInclude Include="include\Mathjavi.h" />
+    <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\MyEngine.h" />
     <ClInclude Include="include\myEngine_API.h" />
     <ClInclude Include="include\pg1_directinput.h" />
