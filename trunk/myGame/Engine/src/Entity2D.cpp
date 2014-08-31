@@ -60,18 +60,24 @@ namespace pGr{
 		m_fScaleY= fScaleY;
 		updateLocalTransformation();
 	}
+	void Entity2D::setScale(float fScaleX, float fScaleY, float fScaleZ){
+		m_fScaleX= fScaleX;
+		m_fScaleY= fScaleY;
+		m_fScaleZ= fScaleZ;
+		updateLocalTransformation();
+	}
 	void Entity2D:: updateLocalTransformation ()
 	{
 		//tranlation matrix
 		D3DXMATRIX kTransMat;
-		D3DXMatrixTranslation(&kTransMat,m_fPosX,m_fPosY,0);
+		D3DXMatrixTranslation(&kTransMat,m_fPosX,m_fPosY,m_fPosZ);
 
 		//rotacion en z de la matrix
 		D3DXMATRIX kRotationMat;
 		D3DXMatrixRotationZ(&kRotationMat,m_fRotation);
 
 		D3DXMATRIX kScaleMat;
-		D3DXMatrixScaling(&kScaleMat,m_fScaleX,m_fScaleY,1);
+		D3DXMatrixScaling(&kScaleMat,m_fScaleX,m_fScaleY,m_fScaleZ);
 
 		//build matrix
 
@@ -102,6 +108,9 @@ namespace pGr{
 
 	float Entity2D::scaleY() const{
 		return m_fScaleY;
+	}
+	float Entity2D::scaleZ() const{
+		return m_fScaleZ;
 	}
 	void Entity2D::returnToPos(float fPosX, float fPosY, float fPosZ = 0.0f){
 		m_fPosX = fPosX;
