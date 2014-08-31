@@ -18,6 +18,7 @@ namespace pGr{
 		void setPos(float fPosX,float fPosY,float fPosZ);
 		void setRotation (float fRotation);
 		void setScale(float m_fScaleX,float m_fScaleY);
+		void setScale(float m_fScaleX,float m_fScaleY, float m_fScaleZ);
 		void returnToPos(float fPosX, float fPosY, float fPosZ);
 		virtual void Update(Timer& rkTimer){}
 		virtual void draw(Renderer& rkRenderer){}
@@ -34,6 +35,7 @@ namespace pGr{
 		float rotation () const;
 		float scaleX () const;
 		float scaleY () const;
+		float scaleZ () const;
 		float prevPosX() const;
 		float prevPosY() const;
 		float prevPosZ() const;
@@ -55,7 +57,7 @@ namespace pGr{
 		float m_fPrevPosX, m_fPrevPosY, m_fPrevPosZ;
 		float m_fPosX, m_fPosY, m_fPosZ;
 		float m_fRotation;
-		float m_fScaleX,m_fScaleY;
+		float m_fScaleX,m_fScaleY, m_fScaleZ;
 		
 	protected:
 		Matrix m_pkTransformationMatrix;

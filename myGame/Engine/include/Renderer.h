@@ -27,19 +27,24 @@ namespace pGr
 		void endFrame();
 		void draw(ColorVertex* apkVertices, Primitive ePrimitive,size_t vertexCount);
 		void draw(TextureCoordVertex* apkVertex, Primitive ePrimitive, size_t vertexCount);
+
+		// --------------------------- 3D
+		void draw(pGr::Primitive p);
+		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
+		void setCurrentIndexBuffer(pGr::IndexBuffer* m_IB);
+		VertexBuffer* CreateVB(size_t vSize, unsigned int FVF);
+		IndexBuffer* CreateIB();
+		// --------------------------- /3D
 		void setMatrix(MatrixType eMatrixType,const Matrix& );
 		void setCurrentTexture(const Texture& rkTexture);
 		const Texture loadTexture(const std::string& rkFilename,int COLOR);
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
-		VertexBuffer CreateVB();
-		IndexBuffer CreateIB();
-		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
-		void setCurrentIndexBuffer(pGr::IndexBuffer* m_IB);
+
 
 		Camera * m_pkCamera;
 	private:
-		VertexBuffer* m_pkColorVB;
-		VertexBuffer* m_pkTextureCoordVB;
+		//VertexBuffer* m_pkColorVB;
+		//VertexBuffer* m_pkTextureCoordVB;
 		
 		//directx stuff
 	private:
@@ -48,8 +53,10 @@ namespace pGr
 		// Representa al hardware
 		
 		IDirect3DDevice9* m_pkDevice;
+
 		VertexBuffer* m_pkVertexbuffer;
 		IndexBuffer* m_pkIndexBuffer;
+
 		Renderer* m_rkRenderer;
 
 		UINT r;
