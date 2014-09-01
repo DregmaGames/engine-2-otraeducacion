@@ -81,12 +81,14 @@
   <ItemGroup>
     <ClInclude Include="include\Scene1.h" />
     <ClInclude Include="include\Scene2.h" />
+    <ClInclude Include="include\Scene3.h" />
     <ClInclude Include="include\testGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Scene1.cpp" />
     <ClCompile Include="src\Scene2.cpp" />
+    <ClCompile Include="src\Scene3.cpp" />
     <ClCompile Include="src\TestGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
