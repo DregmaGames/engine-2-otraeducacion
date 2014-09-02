@@ -24,21 +24,12 @@ Renderer::Renderer():
 	m_pkDevice(NULL),
 	m_pkVertexbuffer(NULL),
 	m_pkIndexBuffer(NULL)
-	//m_pkColorVB(NULL)
 	{
 
 	}
 
 	//-----------------------------------------------
 	Renderer::~Renderer(){
-		/*	if(m_pkColorVB){
-			delete m_pkColorVB;
-			m_pkColorVB = NULL;
-		}
-		if(m_pkTextureCoordVB){
-			delete m_pkTextureCoordVB;
-			m_pkTextureCoordVB=NULL;
-		}*/
 		if(m_pkD3D){
 		m_pkD3D->Release();
 		m_pkD3D=NULL;
@@ -79,10 +70,7 @@ Renderer::Renderer():
 			m_pkDevice->SetRenderState(D3DRS_LIGHTING,
 								   FALSE);
 			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
-			//m_pkDevice->SetRenderState(D3DRS_FILLMODE,
-			//					   D3DFILL_WIREFRAME);
 
-			//BLENDING
 			m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
 			m_pkDevice->SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
 			m_pkDevice->SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);
@@ -101,11 +89,7 @@ Renderer::Renderer():
 			
 			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
 
-			//m_pkColorVB = new pGr::VertexBuffer(m_rkRenderer,m_pkDevice,
-			//m_pkColorVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::ColorVertex),pGr::ColorVertexType);
-			//m_pkTextureCoordVB = new pGr::VertexBuffer(,m_pkDevice, 
-			//m_pkTextureCoordVB = new pGr::VertexBuffer(m_pkDevice,sizeof(pGr::TextureCoordVertex),pGr::TextureCoordVertexType);
-			
+
 			m_pkCamera = new Camera(*m_pkDevice);
 			return true;
 		}
@@ -134,11 +118,6 @@ Renderer::Renderer():
 						  D3DCOLOR_XRGB(0, 255, 0), 
 						  1.0f, 
 						  0);
-
-		//codigo flashero
-		
-		//fin codigo flashero
-
 		// Comienzo el render de una escena
 		m_pkDevice->BeginScene();
 	}
@@ -156,19 +135,10 @@ Renderer::Renderer():
 	//-----------------------------------------------
 	void Renderer::draw(ColorVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
 	{
-		/*m_pkColorVB->bind();
-		m_pkColorVB->draw(apkVertices,
-						  primitivesMapping[primitive],
-						  vertexCount);*/
 	}
 	void Renderer::draw(TextureCoordVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
 	{
-		/*m_pkTextureCoordVB->bind();
-		m_pkTextureCoordVB->draw(apkVertices,
-						  primitivesMapping[primitive],
-						  vertexCount);*/
 	}
-
 	void Renderer::setMatrix(MatrixType eMatrixType, const Matrix& rkMatrix)
 	{
 		m_pkDevice->SetTransform(g_eMatrixTypeMapping[eMatrixType],rkMatrix);
@@ -201,7 +171,6 @@ Renderer::Renderer():
 	void Renderer::setCurrentTexture(const Texture& rkTexture){
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
-
 
 	// ----------------------------------------------------------- 3D
 	void Renderer::draw(pGr::Primitive thePrimitive){
