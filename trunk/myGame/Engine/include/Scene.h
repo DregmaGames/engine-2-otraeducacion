@@ -20,8 +20,7 @@ namespace pGr{
 		Scene();
 		~Scene();
 		virtual void frame(pGr::Renderer&,pGr::Importer&, pGr::Game&, pGr::DirectInput&) { };
-		virtual bool init() { return true; }
-		//void SearchObjByName(std::string& m_String,pGr::Entity2D* m_Entity);
+		virtual bool init(pGr::Renderer&,pGr::Importer&) { return true; }
 		void drawScene(pGr::Renderer*, pGr::Timer*);
 		bool getEntity(Sprite**, std::string);
 		bool getEntity(Quad**, std::string);

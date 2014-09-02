@@ -7,10 +7,9 @@
 #include "pg1_input.h"
 #include "pg1_timer.h"
 #include <list>
-#include "Scene1.h"
 #include "Scene2.h"
-#include "Scene3.h"
 #include "Camera.h"
+#include "Mesh.h"
 namespace Juego{
 	class Scene1;
 	class Scene2;
@@ -21,8 +20,7 @@ namespace Juego{
 		bool init(pGr::Renderer&,pGr::Importer&);
 		void frame(pGr::Renderer&,pGr::DirectInput&,pGr::Timer& rkTimer,pGr::Importer&);
 		void deinit();
-		Scene3* m_kScene2;
-		Scene1* m_kScene;
-		Scene2* m_kScene1;
+		Scene2* m_kScene;
+		pGr::Mesh* theMesh;
 	};
 }

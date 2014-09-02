@@ -25,7 +25,7 @@ namespace pGr
 		std::vector<pGr::Scene*> scene_List;
 		Scene* currentScene;
 		pGr::Scene* getCurrentScene() { return currentScene;};
-		void setCurrentScene(std::string, pGr::Importer&, std::string);
+		void setCurrentScene(std::string, pGr::Importer&, std::string, pGr::Renderer&);
 		void addScene(Scene*);
 	};
 }
