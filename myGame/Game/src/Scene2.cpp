@@ -1,15 +1,26 @@
 #include "Scene2.h"
+
+pGr::ColorVertex VBuffer[] = {
+{-0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 0 
+{0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 0, 255, 0 )}, // 1 
+{ 0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 40, 0, 120 )}, // 2 
+{ -0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 3
+
+{ -0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 0, 255, 0 )}, // 4
+{  0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 40, 0, 120 )}, // 5
+{  0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 6
+{ -0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 0, 255, 0 )} // 7
+};
+
+USHORT VIndex[] = { 0, 1, 2, 0, 2, 3,
+					4, 5, 6, 4, 6, 7,
+					3, 2, 5, 3, 5, 4,
+					2, 1, 6, 2, 6, 5,
+					1, 7, 6, 1, 0, 7,
+					0, 3, 4, 0, 4, 7};
+
 using namespace Juego;
 void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
-	/*if(dInput.keyDown(pGr::Input::KEY_2)){
-		game.setCurrentScene("main",importer,"assets/Test.xml");
-	}*/
-
-	static float fSpeed = 1;
-	float FPosX = _Sprite->posX();
-	float FPosY = _Sprite->posY();
-	float FPosZ = _Sprite->posZ();
-	static const float scaleX=_Sprite->scaleX();
 	//input camera.
 	float movementSpeed = 0.1f;
 	float rotationSpeed = 0.1f;
@@ -52,65 +63,15 @@ void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, p
 		r.m_pkCamera->strafe(-movementSpeed);
 	}
 	//******Moverse para los costados************//
-	movementSpeed=0.1f;
-	//Input Sprite 1
-	bool w = false;
-	if(dInput.keyDown(pGr::Input::KEY_UP)) {
-		FPosY += fSpeed;
-		_Sprite->setRotation(D3DXToRadian(+90));
-		if(w==false){
-			_Sprite->setAnimation("Run");
-			w=true;
-		}
-	}
-	if(dInput.keyDown(pGr::Input::KEY_DOWN)) {
-		FPosY -= fSpeed;
-		_Sprite->setRotation(D3DXToRadian(-90));
-		if(w==false){
-			_Sprite->setAnimation("Run");
-			w=true;
-		}
-	}
-	if(dInput.keyDown(pGr::Input::KEY_RIGHT)) {
-		FPosX += fSpeed;
-		_Sprite->setRotation(D3DXToRadian(0));
-		_Sprite->setScale(scaleX,_Sprite->scaleY());
-		if(w==false){
-			_Sprite->setAnimation("Run");
-			w=true;
-		}
-	}
-	if(dInput.keyDown(pGr::Input::KEY_LEFT)) {
-		FPosX -= fSpeed;
-		_Sprite->setRotation(D3DXToRadian(0));
-		_Sprite->setScale(-scaleX,_Sprite->scaleY());
-		if(w==false){
-			_Sprite->setAnimation("Run");
-			w=true;
-		}
-	}
-	if(w==false){
-	_Sprite->setAnimation("Idle");
-	}
-	_Sprite->setPos(FPosX,FPosY,FPosZ);
-	//Colisiones
-	for (int i=0;i<m_kObjects.size();i++){
-		if(m_kObjects[i]!=NULL){
-			if(m_kObjects[i]->getName()!="Link"){
-					if(_Sprite->checkCollision(*m_kObjects[i]) == pGr::Entity2D::CollisionHorizontal)
-					{
-						_Sprite->returnToPos(_Sprite->prevPosX(), _Sprite->posY(), _Sprite->posZ());
-					}
-					if(_Sprite->checkCollision(*m_kObjects[i]) == pGr::Entity2D::CollisionVertical)
-					{
-						_Sprite->returnToPos(_Sprite->posX(), _Sprite->prevPosY(), _Sprite->prevPosZ());
-					}
-			}
-		}
-	}
+	theMesh->draw(r);
 }
-
-bool Scene2::init(){
-	getEntity(&_Sprite,"Link");
+bool Scene2::init(pGr::Renderer& r,pGr::Importer& i){
+	theMesh = new pGr::Mesh(r);
+	theMesh->setData(VBuffer,8,pGr::Primitive::TriangleList,VIndex,36);
+	theMesh->setPos(0,0,10);
+	theMesh->setScale(1,1,1);
+	return true;
+}
+bool Scene2::deInit(){
 	return true;
 }

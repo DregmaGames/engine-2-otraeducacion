@@ -6,15 +6,16 @@
 #include "pg1_timer.h"
 #include "pg1_directinput.h"
 #include "testGame.h"
+#include "Mesh.h"
+#include "RenderTypes.h"
 
 namespace Juego{
 	class Scene2 : public pGr::Scene{
-		public:
+	public:
 		void frame(pGr::Renderer&,pGr::Importer&, pGr::Game&, pGr::DirectInput&);
-		bool init();
-
-		private:
-			pGr::Quad * _Quad;
-			pGr::Sprite * _Sprite;
+		bool init(pGr::Renderer&,pGr::Importer&);
+		bool deInit();
+	public:
+		pGr::Mesh* theMesh;
 	};
 }
