@@ -14,6 +14,7 @@
 namespace Juego{
 	class Scene1;
 	class Scene2;
+	class Scene3;
 	class MyGame : public pGr::Game{
 	public:
 		MyGame();
