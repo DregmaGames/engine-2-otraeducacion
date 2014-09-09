@@ -70,13 +70,16 @@ void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, p
 		r.m_pkCamera->strafe(-movementSpeed);
 	}
 	//******Moverse para los costados************//
+	OutputDebugString("en el orto");
 	theMesh->draw(r);
+
+
 }
 bool Scene2::init(pGr::Renderer& r,pGr::Importer& i){
 	theMesh = new pGr::Mesh(r);
 	 theMesh->setData(VBuffer,8,pGr::Primitive::TriangleList,VIndex,36);
-        theMesh->setPos(0,0,10);
-        theMesh->setScale(25,25,25);
+        theMesh->setPos(0,5,-10);
+        theMesh->setScale(1,1,1);
 	return true;
 }
 bool Scene2::deInit(){

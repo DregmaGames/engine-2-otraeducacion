@@ -9,21 +9,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Scene2.h">
+    <ClInclude Include="Scene2.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\testGame.h">
+    <ClInclude Include="testGame.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene2.cpp">
+    <ClCompile Include="Scene2.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\TestGame.cpp">
+    <ClCompile Include="TestGame.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

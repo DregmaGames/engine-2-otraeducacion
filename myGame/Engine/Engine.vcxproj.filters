@@ -9,141 +9,127 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Animation.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity2D.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Importer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pg1_directinput.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pg1_input.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pg1_timer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Quad.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderTypes.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sprite.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyxml2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pg2_indexbuffer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pg2_vertexbuffer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Animation.h">
+    <ClInclude Include="Animation.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Camera.h">
+    <ClInclude Include="Camera.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Entity2D.h">
+    <ClInclude Include="Entity2D.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game.h">
+    <ClInclude Include="Game.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Importer.h">
+    <ClInclude Include="Importer.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Mathjavi.h">
+    <ClInclude Include="Mathjavi.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\MyEngine.h">
+    <ClInclude Include="Mesh.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\myEngine_API.h">
+    <ClInclude Include="MyEngine.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pg1_directinput.h">
+    <ClInclude Include="myEngine_API.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pg1_input.h">
+    <ClInclude Include="pg1_directinput.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pg1_timer.h">
+    <ClInclude Include="pg1_input.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Quad.h">
+    <ClInclude Include="pg1_timer.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Renderer.h">
+    <ClInclude Include="pg2_indexbuffer.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderTypes.h">
+    <ClInclude Include="pg2_vertexbuffer.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Scene.h">
+    <ClInclude Include="Quad.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Sprite.h">
+    <ClInclude Include="Renderer.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\tinyxml2.h">
+    <ClInclude Include="RenderTypes.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Window.h">
+    <ClInclude Include="Scene.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pg2_indexbuffer.h">
+    <ClInclude Include="Sprite.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\pg2_vertexbuffer.h">
+    <ClInclude Include="tinyxml2.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Mesh.h">
+    <ClInclude Include="Window.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="include\pg1_input.inl">
-      <Filter>Include</Filter>
-    </None>
-    <None Include="include\pg1_timer.inl">
-      <Filter>Include</Filter>
-    </None>
-    <None Include="include\pg2_indexbuffer.inl">
-      <Filter>Include</Filter>
-    </None>
-    <None Include="include\pg2_vertexbuffer.inl">
-      <Filter>Include</Filter>
-    </None>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity2D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Importer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pg1_directinput.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pg1_input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pg1_timer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pg2_indexbuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pg2_vertexbuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTypes.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
