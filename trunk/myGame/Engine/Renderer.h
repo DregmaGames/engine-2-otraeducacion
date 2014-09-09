@@ -27,7 +27,6 @@ namespace pGr
 		void endFrame();
 		void draw(ColorVertex* apkVertices, Primitive ePrimitive,size_t vertexCount);
 		void draw(TextureCoordVertex* apkVertex, Primitive ePrimitive, size_t vertexCount);
-
 		// --------------------------- 3D
 		void draw(pGr::Primitive p);
 		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
@@ -39,7 +38,6 @@ namespace pGr
 		void setCurrentTexture(const Texture& rkTexture);
 		const Texture loadTexture(const std::string& rkFilename,int COLOR);
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
-
 
 		Camera * m_pkCamera;
 	private:
