@@ -173,8 +173,8 @@ Renderer::Renderer():
 	}
 
 	// ----------------------------------------------------------- 3D
-	void Renderer::draw(pGr::Primitive &thePrimitive){
-		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, m_pkIndexBuffer->indexCount() / 3);
+	void Renderer::draw(pGr::Primitive *thePrimitive){
+		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[*thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, m_pkIndexBuffer->indexCount() / 3);
 	}
 
 	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB){
