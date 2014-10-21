@@ -29,5 +29,5 @@ void Mesh::draw(Renderer& theRenderer){
 	m_pkIndexBuffer->bind();
 	theRenderer.setCurrentTexture(NoTexture);
 	theRenderer.setMatrix(World, m_pkTransformationMatrix);
-	theRenderer.draw(m_pkPrimitive);
+	theRenderer.draw(&m_pkPrimitive);
 }
