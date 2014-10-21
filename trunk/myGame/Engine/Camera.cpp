@@ -1,5 +1,8 @@
 #include "Camera.h"
 #include "Renderer.h"
+
+#include<sstream>
+
 using namespace pGr;
 
 Camera::Camera(IDirect3DDevice9 &device)
@@ -92,4 +95,14 @@ void Camera::initCamera(){
 	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
 	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
 	fly(10);
+}
+void Camera::DebugCamPos(){
+	std::stringstream ss;
+	ss << "Camerta" << "x: " << camera_eye.x << "y: " << camera_eye.y << "z: " << camera_eye.z << std::endl;
+
+	std::string s( ss.str() );
+
+	OutputDebugString( s.c_str() );
+	//OutputDebugString("z");
+	//std::string a= "datos: "+ camera_eye.x +"cueck"+(int)camera_eye.y +"cueck"+(int)camera_eye.z;
 }

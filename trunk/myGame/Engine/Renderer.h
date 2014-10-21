@@ -28,7 +28,7 @@ namespace pGr
 		void draw(ColorVertex* apkVertices, Primitive ePrimitive,size_t vertexCount);
 		void draw(TextureCoordVertex* apkVertex, Primitive ePrimitive, size_t vertexCount);
 		// --------------------------- 3D
-		void draw(pGr::Primitive p);
+		void draw(pGr::Primitive&);
 		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
 		void setCurrentIndexBuffer(pGr::IndexBuffer* m_IB);
 		VertexBuffer* CreateVB(size_t vSize, unsigned int FVF);
