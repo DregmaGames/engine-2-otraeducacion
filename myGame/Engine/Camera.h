@@ -2,6 +2,7 @@
 #include "myEngine_API.h"
 #include "Renderer.h"
 #include "Mathjavi.h"
+#include <string>
 namespace pGr{
 	class MYENGINE_API Camera{
 	public:
@@ -10,6 +11,7 @@ namespace pGr{
 
 		void updateTransform();
 		void initCamera();
+		void DebugCamPos();
 
 		void yaw(float angle);
 		void roll(float angle);
