@@ -19,12 +19,14 @@ Mesh::~Mesh(){
 	}
 }
 
-void Mesh::setData(const ColorVertex* the_vertex, size_t vertexCount, pGr::Primitive thePrimitive, const unsigned short*, size_t indexCount){
+void Mesh::setData(const ColorVertex* the_vertex, size_t vertexCount, pGr::Primitive thePrimitive, const unsigned short* pausIndices, size_t indexCount){
 	m_pkPrimitive = thePrimitive;
 	m_pkVertexBuffer->setVertexData((void*) the_vertex, vertexCount);
+	m_pkIndexBuffer->setIndexData(pausIndices,indexCount);
 }
 
 void Mesh::draw(Renderer& theRenderer){
+	
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
 	theRenderer.setCurrentTexture(NoTexture);

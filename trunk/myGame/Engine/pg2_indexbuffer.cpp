@@ -3,6 +3,9 @@
 #include "pg2_indexbuffer.h"
 //---------------------------------------------------------------------------
 #include "Renderer.h"
+
+#include <sstream>
+#include <string>
 //---------------------------------------------------------------------------
 using namespace pGr;
 //---------------------------------------------------------------------------
@@ -43,9 +46,7 @@ void IndexBuffer::setIndexData (const unsigned short* pausIndices, size_t uiInde
 												&m_IndexBuffer,
 												NULL
 	);
-
-	assert(hr == D3D_OK);
-
+	
 	// copy index data
 	void* pvIndices;
 
