@@ -11,7 +11,7 @@ namespace pGr{
 		public:
 			Mesh(Renderer&);
 			~Mesh();
-			void setData(const ColorVertex*, size_t vertexCount, pGr::Primitive, const unsigned short*, size_t indexCount);
+			void setData(const ColorVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
 			void Update(Timer& rkTimer){}
 			void draw(Renderer& rkRenderer);
 		protected:

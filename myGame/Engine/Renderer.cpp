@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include "Mathjavi.h"
 #include "Camera.h"
+
+
 //-----------------------------------------------
 using namespace pGr;
 
@@ -54,7 +56,8 @@ Renderer::Renderer():
 		d.Windowed = TRUE;
 		d.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d.hDeviceWindow = hWnd;
-
+		d.EnableAutoDepthStencil = TRUE;
+		d.AutoDepthStencilFormat = D3DFMT_D16;
 		
 		
 		if( m_pkD3D->CreateDevice(D3DADAPTER_DEFAULT,
@@ -75,6 +78,7 @@ Renderer::Renderer():
 			m_pkDevice->SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
 			m_pkDevice->SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);
 			m_pkDevice->SetRenderState(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);
+			m_pkDevice->SetRenderState(D3DRS_ZENABLE, TRUE);  
 
 			D3DVIEWPORT9 kViewport;
 			m_pkDevice->GetViewport(&kViewport);
@@ -114,7 +118,7 @@ Renderer::Renderer():
 		b+=25;
 		m_pkDevice->Clear(0, 
 						  NULL, 
-						  D3DCLEAR_TARGET, 
+						  D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 
 						  D3DCOLOR_XRGB(0, 255, 0), 
 						  1.0f, 
 						  0);
@@ -174,7 +178,9 @@ Renderer::Renderer():
 
 	// ----------------------------------------------------------- 3D
 	void Renderer::draw(pGr::Primitive *thePrimitive){
+		
 		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[*thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, m_pkIndexBuffer->indexCount() / 3);
+
 	}
 
 	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB){
@@ -191,5 +197,6 @@ Renderer::Renderer():
 
 	IndexBuffer* Renderer::CreateIB(){
 		return new IndexBuffer(*this,m_pkDevice);
+
 	}
 	// -----------------------------------------------------------/3D

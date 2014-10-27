@@ -55,7 +55,7 @@ namespace pGr
 		VertexBuffer* m_pkVertexbuffer;
 		IndexBuffer* m_pkIndexBuffer;
 
-		Renderer* m_rkRenderer;
+		//Renderer* m_rkRenderer;
 
 		UINT r;
 		UINT g;

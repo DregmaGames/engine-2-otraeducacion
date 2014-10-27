@@ -3,28 +3,28 @@
 #include<string>
 pGr::ColorVertex VBuffer[] = {
 {-0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 0 
-{0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 0, 255, 0 )}, // 1 
-{ 0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 40, 0, 120 )}, // 2 
+{0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 1 
+{ 0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 2 
 { -0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 3
 
-{ -0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 0, 255, 0 )}, // 4
-{  0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 40, 0, 120 )}, // 5
-{  0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 6
-{ -0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 0, 255, 0 )} // 7
+{ -0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 4
+{  0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 5
+{  0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 6
+{ -0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 255, 0, 0 )} // 7
 };
 USHORT VIndex[] ={
     0, 1, 2,    // Lado 1
-    2, 1, 3,
-    4, 0, 6,    // Lado 2
-    6, 0, 2,
-    7, 5, 6,    // Lado 3
-    6, 5, 4,
-    3, 1, 7,    // Lado 4
-    7, 1, 5,
-    4, 5, 0,    // Lado 5
-    0, 5, 1,
-    3, 7, 2,    // Lado 6
-    2, 7, 6,
+    0, 2, 3,
+    4, 5, 6,    // Lado 2
+    4, 6, 7,
+    3, 2, 5,    // Lado 3
+    3, 5, 4,
+    2, 1, 6,    // Lado 4
+    2, 6, 5,
+    1, 7, 6,    // Lado 5
+    1, 0, 7,
+    0, 3, 4,    // Lado 6
+    0, 4, 7,
 };
 
 using namespace Juego;
