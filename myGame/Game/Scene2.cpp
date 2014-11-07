@@ -1,16 +1,19 @@
 #include "Scene2.h"
 #include<sstream>
 #include<string>
-pGr::ColorVertex VBuffer[] = {
-{-0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 0 
-{0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 1 
-{ 0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 2 
-{ -0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 3
+#include "Node.h"
 
-{ -0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 4
-{  0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 5
-{  0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 6
-{ -0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 255, 0, 0 )} // 7
+pGr::ColorVertex VBuffer[] = {
+
+	{-0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 0 
+	{0.5f, 0.5f, -0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 1 
+	{ 0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 2 
+	{ -0.5f, 0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 3
+
+	{ -0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 255, 0, 0 )}, // 4
+	{  0.5f, -0.5f, 0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 5
+	{  0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 0, 0, 255 )}, // 6
+	{ -0.5f, -0.5f,-0.5f, D3DCOLOR_XRGB( 255, 0, 0 )} // 7
 };
 USHORT VIndex[] ={
     0, 1, 2,    // Lado 1
@@ -27,8 +30,8 @@ USHORT VIndex[] ={
     0, 4, 7,
 };
 
-using namespace Juego;
-void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
+
+void Juego::Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
 	//input camera.
 	float movementSpeed = 0.1f;
 	float rotationSpeed = 0.1f;
@@ -73,21 +76,23 @@ void Scene2::frame(pGr::Renderer& r ,pGr::Importer& importer, pGr::Game& game, p
 	//******Moverse para los costados************//
 	//OutputDebugString("en el orto");
 	r.m_pkCamera->DebugCamPos();
-	theMesh->draw(r);
-	std::stringstream ss;
-	ss << "Cuberto" << "x: " << theMesh->posX() << "y: " << theMesh->posY() << "z: " << theMesh->posZ() << std::endl;
+	//theMesh->draw();
+	//std::stringstream ss;
+	//ss << "Cuberto" << "x: " << theMesh->posX() << "y: " << theMesh->posY() << "z: " << theMesh->posZ() << std::endl;
 
-	std::string s( ss.str() );
+	//std::string s( ss.str() );
 
-	OutputDebugString( s.c_str() );
+	//OutputDebugString( s.c_str() );
 }
-bool Scene2::init(pGr::Renderer& r,pGr::Importer& i){
-	theMesh = new pGr::Mesh(r);
-	 theMesh->setData(VBuffer,8,pGr::Primitive::TriangleList,VIndex,36);
-        theMesh->setPos(0,0,0);
-        theMesh->setScale(10,10,10);
+bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
+	
+	node = new pGr::Node();
+	
+	importer.import3DScene("TEST.obj", *node);
+	//node->setPos(0,0,0);
+   
 	return true;
 }
-bool Scene2::deInit(){
+bool Juego::Scene2::deInit(){
 	return true;
 }

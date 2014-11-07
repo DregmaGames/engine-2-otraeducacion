@@ -72,7 +72,7 @@ void Engine::run(){
 	if(!pgGame->init(*m_pkRenderer,*m_pkImport)){
 		return;
 	}
-	if( !pgGame->getCurrentScene()->init(*m_pkRenderer,*m_pkImport) ){
+	if( !pgGame->getCurrentScene()->init(*m_pkImport) ){
 		return;
 	}
 	m_pkTimer->firstMeasure();

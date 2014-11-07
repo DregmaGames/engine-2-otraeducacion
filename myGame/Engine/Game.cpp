@@ -28,7 +28,7 @@ void Game::setCurrentScene(std::string pkString, pGr::Importer& importer, std::s
 			currentScene = *it._Ptr; 
 			// ASDFGH
 			importer.importScene(fName,*currentScene);
-			currentScene->init(m_pKrenderer,importer);
+			currentScene->init(importer);
 			return;
 		}
 	}

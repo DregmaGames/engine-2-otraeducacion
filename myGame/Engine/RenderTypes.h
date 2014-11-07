@@ -8,7 +8,9 @@
 #include <d3d9.h>
 
 //--------------------------------------
-namespace pGr{
+namespace pGr
+{
+
 	struct MYENGINE_API ColorVertex
 	{
 		//Guarda las coordenadas del vertice
@@ -28,7 +30,17 @@ namespace pGr{
 		float u;
 		float V;
 	};
+
 	extern const int TextureCoordVertexType;
+
+		struct MYENGINE_API	MeshVertex
+	{
+		float x,y,z;
+		float nx,ny,nz;
+		float u,v;
+	};
+
+	extern const int MeshVertexType;
 	//--------------------------------------
 
 	typedef IDirect3DTexture9* Texture;

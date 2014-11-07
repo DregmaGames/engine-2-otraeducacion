@@ -37,6 +37,7 @@ namespace pGr
 		void setMatrix(MatrixType eMatrixType,const Matrix& );
 		void setCurrentTexture(const Texture& rkTexture);
 		const Texture loadTexture(const std::string& rkFilename,int COLOR);
+		const Texture loadTexture (const std::string& Fname);
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
 
 		Camera * m_pkCamera;

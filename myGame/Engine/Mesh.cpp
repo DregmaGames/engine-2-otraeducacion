@@ -3,12 +3,14 @@
 #include "RenderTypes.h"
 using namespace pGr;
 
-Mesh::Mesh(Renderer& p_Renderer) : m_pkRenderer(p_Renderer){
+Mesh::Mesh(Renderer& p_Renderer) : m_pkRenderer(p_Renderer)
+{
 	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::ColorVertex), pGr::ColorVertexType);
 	m_pkIndexBuffer	 = m_pkRenderer.CreateIB();
 }
 
-Mesh::~Mesh(){
+Mesh::~Mesh()
+{
 	if(m_pkIndexBuffer){
 		delete m_pkIndexBuffer;
 		m_pkIndexBuffer = NULL;
@@ -19,17 +21,28 @@ Mesh::~Mesh(){
 	}
 }
 
-void Mesh::setData(const ColorVertex* the_vertex, size_t vertexCount, pGr::Primitive thePrimitive, const unsigned short* pausIndices, size_t indexCount){
+void Mesh::setData(const MeshVertex* the_vertex, size_t vertexCount, Primitive thePrimitive, const unsigned short* pausIndices, size_t indexCount)
+{
 	m_pkPrimitive = thePrimitive;
 	m_pkVertexBuffer->setVertexData((void*) the_vertex, vertexCount);
 	m_pkIndexBuffer->setIndexData(pausIndices,indexCount);
 }
 
-void Mesh::draw(Renderer& theRenderer){
-	
+void Mesh::draw()
+{
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
-	theRenderer.setCurrentTexture(NoTexture);
-	theRenderer.setMatrix(World, m_pkTransformationMatrix);
-	theRenderer.draw(&m_pkPrimitive);
+	m_pkRenderer.setCurrentTexture(NoTexture);
+	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
+	m_pkRenderer.draw(&m_pkPrimitive);
+}
+
+void Mesh::setTexture(std::string pkTextureFile, DWORD theColor)
+{
+	s_Texture = m_pkRenderer.loadTexture(pkTextureFile,theColor);
+}
+
+void Mesh::setTexture(Texture& theTexture)
+{
+	s_Texture = theTexture;
 }
