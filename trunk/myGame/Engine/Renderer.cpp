@@ -172,6 +172,25 @@ Renderer::Renderer():
 	
 	}
 
+	const Texture Renderer::loadTexture(const std::string& Fname){
+	IDirect3DTexture9* p_Texture = NULL;
+	HRESULT HR = D3DXCreateTextureFromFileEx(m_pkDevice,
+											Fname.c_str(),
+											0,0,0,0,
+											D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+											D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+											0,
+											NULL,
+											NULL,
+											&p_Texture);
+	if(HR != D3D_OK){
+		return NoTexture;
+	}
+	else{
+		m_akTextures.push_back(p_Texture);
+		return p_Texture;
+	}
+}
 	void Renderer::setCurrentTexture(const Texture& rkTexture){
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
