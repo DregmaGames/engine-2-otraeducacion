@@ -2,14 +2,14 @@
 #define SPRITE_H
 #include "myEngine_API.h"
 #include "RenderTypes.h"
-#include "Entity2D.h"
+#include "Entity3D.h"
 #include "Renderer.h"
 #include "Animation.h"
 #include "pg1_timer.h"
 #include <vector>
 #include <string>
 namespace pGr{
-	class MYENGINE_API Sprite:public Entity2D
+	class MYENGINE_API Sprite:public Entity3D
 	{
 	public:
 		Sprite();

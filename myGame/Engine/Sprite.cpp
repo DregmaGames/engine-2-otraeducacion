@@ -1,11 +1,10 @@
 #include "Sprite.h"
 #include "Renderer.h"
-#include "Entity2D.h"
 #include <d3dx9.h>
 using namespace pGr;
 Sprite::Sprite()
 	:
-	Entity2D(),
+	Entity3D(),
 	m_kTexture(NoTexture),/*el NoTexture lo hace mas claro que ponerle NULL, en si NoTexture es igual a un NULL*/
 	m_pakVertex(new TextureCoordVertex[4])
 {

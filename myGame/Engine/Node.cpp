@@ -1,6 +1,7 @@
 #define NOMINMAX
 #include "Node.h"
 #include <algorithm>
+
 using namespace pGr;
 
 Node::Node() : Entity3D() 
@@ -50,13 +51,13 @@ void Node::updateTransformation()
 
 		//---
 		
-		float fAabbMaxX = (*it)->posX() + ( (*it)->aabb().offset()->x + ( (*it)->aabb().width() / 2 ) );
-		float fAabbMaxY = (*it)->posY() + ( (*it)->aabb().offset()->y + ( (*it)->aabb().height() / 2 ) );
-		float fAabbMaxZ = (*it)->posZ() + ( (*it)->aabb().offset()->z + ( (*it)->aabb().depth() / 2 ) );
+		float fAabbMaxX = (*it)->getPosX() + ( (*it)->aabb().offset()->x + ( (*it)->aabb().width() / 2 ) );
+		float fAabbMaxY = (*it)->getPosY() + ( (*it)->aabb().offset()->y + ( (*it)->aabb().height() / 2 ) );
+		float fAabbMaxZ = (*it)->getPosZ() + ( (*it)->aabb().offset()->z + ( (*it)->aabb().depth() / 2 ) );
 
-		float fAabbMinX = (*it)->posX() + ( (*it)->aabb().offset()->x - ( (*it)->aabb().width() / 2 ) );
-		float fAabbMinY = (*it)->posY() + ( (*it)->aabb().offset()->y - ( (*it)->aabb().height() / 2 ) );
-		float fAabbMinZ = (*it)->posZ() + ( (*it)->aabb().offset()->z - ( (*it)->aabb().depth() / 2 ) );
+		float fAabbMinX = (*it)->getPosX() + ( (*it)->aabb().offset()->x - ( (*it)->aabb().width() / 2 ) );
+		float fAabbMinY = (*it)->getPosY() + ( (*it)->aabb().offset()->y - ( (*it)->aabb().height() / 2 ) );
+		float fAabbMinZ = (*it)->getPosZ() + ( (*it)->aabb().offset()->z - ( (*it)->aabb().depth() / 2 ) );
 	
 		if(fMaxX < fAabbMaxX) fMaxX = fAabbMaxX;
 		if(fMaxY < fAabbMaxY) fMaxY = fAabbMaxY;
@@ -68,11 +69,17 @@ void Node::updateTransformation()
 		//---
 
 	}
-	aabb().setData( fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ), (fMinX + fMaxX) / 2 - this->posX() , (fMinY + fMaxY) / 2 - this->posY(), (fMinZ + fMaxZ) / 2 - this->posZ());	
+	aabb().setData( fabs(fMaxX - fMinX), 
+						 fabs(fMaxY - fMinY), 
+						 fabs(fMaxZ - fMinZ), 
+						(fMinX + fMaxX) / 2 - this->getPosX() , 
+						(fMinY + fMaxY) / 2 - this->getPosY(), 
+						(fMinZ + fMaxZ) / 2 - this->getPosZ());	
 }
 
 void Node::draw()
 {
+	
 	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) {
 		(*it)->draw();
 	}

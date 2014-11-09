@@ -5,7 +5,7 @@ using namespace pGr;
 
 Mesh::Mesh(Renderer& p_Renderer) : m_pkRenderer(p_Renderer)
 {
-	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::ColorVertex), pGr::ColorVertexType);
+	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::MeshVertex), pGr::MeshVertexType);
 	m_pkIndexBuffer	 = m_pkRenderer.CreateIB();
 }
 

@@ -14,35 +14,23 @@ Entity3D::Entity3D() :
 	m_fPosX (0.0f),
 	m_fPosY(0.0f),
 	m_fPosZ(0.0f),
-	_RotX(0.0f),
-	_RotY(0.0f),
-	_RotZ(0.0f),
+	m_fRotX(0.0f),
+	m_fRotY(0.0f),
+	m_fRotZ(0.0f),
 	m_fScaleX(1.0f),
 	m_fScaleY(1.0f),
 	m_fScaleZ(1.0f),
-	m_pkTransformationMatrix(new D3DXMATRIX()){}
-
-	Entity3D::CollisionResult Entity3D::checkCollision(Entity3D& rkEntity2D) const
+	m_fPrevPosX(0.0f), 
+	m_fPrevPosY(0.0f), 
+	m_fPrevPosZ(0.0f),
+	m_pkTransformationMatrix(new D3DXMATRIX()),
+	m_pkTransformationLocalMatrix(new D3DXMATRIX()),
+	m_kAABB(new AABB()),
+	m_pkParent(NULL)
 	{
-		float fOverlapX = std::max( 0.0f, 
-									std::min( m_fPosX + fabs( scaleX() ) / 2.0f,rkEntity2D.posX() + fabs( rkEntity2D.scaleX() ) / 2.0f) -  
-									std::max( m_fPosX - fabs( scaleX() ) / 2.0f,rkEntity2D.posX() - fabs( rkEntity2D.scaleX() ) / 2.0f)
-		);
-		float fOverlapY = std::max( 0.0f,
-									std::min( m_fPosY + fabs( scaleY() ) / 2.0f,  rkEntity2D.posY() + fabs( rkEntity2D.scaleY() ) / 2.0f) -  
-									std::max( m_fPosY - fabs( scaleY() ) / 2.0f, rkEntity2D.posY() - fabs( rkEntity2D.scaleY() ) / 2.0f)
-		);
-
-		if(fOverlapX != 0.0f && fOverlapY != 0.0f){
-			if(fOverlapX > fOverlapY){
-				return CollisionVertical;
-			}else{
-				return CollisionHorizontal;
-			}
-		}
-		return NoCollision;
+		D3DXMatrixIdentity(m_pkTransformationMatrix);
+		updateLocalTransformation();
 	}
-
 	Entity3D::~Entity3D()
 	{
 		delete m_pkTransformationMatrix;
@@ -114,56 +102,12 @@ Entity3D::Entity3D() :
 		return(m_pkTransformationMatrix);
 	}
 
-	float Entity3D::posX()
-	{
-		return m_fPosX;
-	}
-
-	float Entity3D::posY()
-	{
-		return m_fPosY;
-	}
-
-	float Entity3D::posZ()
-	{
-		return m_fPosZ;
-	}
-
-	float Entity3D::scaleX() const
-	{
-		return m_fScaleX;
-	}
-
-	float Entity3D::scaleY() const
-	{
-		return m_fScaleY;
-	}
-
-	float Entity3D::scaleZ() const
-	{
-		return m_fScaleZ;
-	}
 
 	void Entity3D::returnToPos(float fPosX, float fPosY, float fPosZ)
 	{
 		m_fPosX = fPosX;
 		m_fPosY = fPosY;
 		m_fPosZ = fPosZ;
-	}
-
-	float Entity3D::prevPosX() const
-	{
-		return m_fPrevPosX;
-	}
-
-	float Entity3D::prevPosY() const
-	{
-		return m_fPrevPosY;
-	}
-
-	float Entity3D::prevPosZ() const
-	{
-		return m_fPrevPosZ;
 	}
 
 	void Entity3D::setParent (Node* pkParent)
@@ -183,7 +127,6 @@ Entity3D::Entity3D() :
 		}
 	}
 
-	
 
 	void Entity3D::drawAABB(Renderer& pkRenderer) const
 	{

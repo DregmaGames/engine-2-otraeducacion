@@ -22,9 +22,7 @@ namespace pGr{
 
 	class Mesh;
 	class Node;
-	class Quad;
 	class Scene;
-	class Sprite;
 	class Renderer;
 	class Animation;
 
@@ -34,9 +32,6 @@ namespace pGr{
 		public:
 		   
 			bool init(Renderer*);
-			bool importScene(std::string xmlPath,pGr::Scene& m_Scene);
-
-			// 3D things
 			Importer* getInstance();
 			void importMesh(Mesh&, std::string);
 			Renderer& getRenderer() const{ return *m_Renderer; }
@@ -58,9 +53,6 @@ namespace pGr{
 								  float& orfRotX, float& orfRotY, float& orfRotZ);
 
 			//OLD THINGS IMPORTER 2D
-			bool importQuad (tinyxml2::XMLElement* quadNode, pGr::Scene&);
-			bool importSprite (tinyxml2::XMLElement* spriteNode, pGr::Scene& m_Scene);
-			bool importAnimation (tinyxml2::XMLElement* Elem, std::vector<Animation>** Anim);
 	};
 }
 #endif//IMPORTER_H
