@@ -51,8 +51,8 @@ void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr:
 	//******Moverse para los costados************//
 }
 bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
-	
 	node = new pGr::Node();
+	//importer.import3DScene("assets/dragons.obj", *node);
 	importer.import3DScene("assets/Chari.obj", *node);
 	node->setPos(0,0,0);
    
