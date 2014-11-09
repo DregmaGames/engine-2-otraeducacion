@@ -2,15 +2,14 @@
 #include "Renderer.h"
 
 #include<sstream>
-
 using namespace pGr;
 
 Camera::Camera(IDirect3DDevice9 &device)
 	:
 	Camera_TransformMatrix(),
 	camera_eye		(0.0f, 0.0f, 0.0f),
-	camera_target	(0.0f, 1.0f, 0.0f),
-	camera_up		(0.0f, 0.0f, -1.0f),
+	camera_target	(0.0f, 0.0f, 1.0f),
+	camera_up		(0.0f, 1.0f, 0.0f),
 	camera_right	(1.0f, 0.0f, 0.0f),
 	rx(0),
 	ry(0),
@@ -94,7 +93,8 @@ void Camera::updateTransform(){
 void Camera::initCamera(){
 	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
 	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
-	fly(10);
+	walk(-20);
+	fly(15);
 }
 void Camera::DebugCamPos(){
 	

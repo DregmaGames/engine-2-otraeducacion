@@ -25,7 +25,8 @@ namespace pGr
 
 			Texture s_Texture;
 			Renderer& m_pkRenderer;
-			Primitive m_pkPrimitive;
+			Primitive m_pkPrimitive;	//`rinitiva -> es un enum
+
 			IndexBuffer*	m_pkIndexBuffer;
 			VertexBuffer*	m_pkVertexBuffer;
 	};

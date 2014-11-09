@@ -20,7 +20,7 @@ namespace pGr
 		~Engine();
 		bool init ();
 		void run();
-		Game *pgGame;
+		Game* pgGame;
 		
 		//rendering
 	private:

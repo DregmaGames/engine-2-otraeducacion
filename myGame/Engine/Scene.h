@@ -27,15 +27,16 @@ namespace pGr{
 			~Scene();
 			virtual bool init(pGr::Importer&) { return true; }
 			virtual void frame(pGr::Renderer&,pGr::Importer&, pGr::Game&, pGr::DirectInput&){};
+			void deInit();
+
 			void drawScene(pGr::Renderer*, pGr::Timer*);
 			bool getEntity(Mesh**, std::string);
 			bool getNode(Node& theNodeDir);
 			bool addEntity(Entity3D*);
-			void deInit();
+			
 			char* xmlPath;
 			Node* node;
 			std::string m_pkName;
-			
 			std::vector<Entity3D*> m_pkEntity3D;
 	};
 }

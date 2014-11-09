@@ -32,7 +32,7 @@ void Mesh::draw()
 {
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
-	m_pkRenderer.setCurrentTexture(NoTexture);
+	m_pkRenderer.setCurrentTexture(s_Texture);
 	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
 	m_pkRenderer.draw(&m_pkPrimitive);
 }
