@@ -31,24 +31,20 @@ namespace pGr{
 				CollisionHorizontal,
 				NoCollision
 			};
+			float getPosX(){ return m_fPosX;}
+			float getPosY(){ return m_fPosY;}
+			float getPosZ(){ return m_fPosZ;}
+			float getRotationX() const { return m_fRotX;}
+			float getRotationY() const { return m_fRotY;}
+			float getRotationZ() const { return m_fRotZ;}
 
-			
-		
-			float posX();
-			float posY();
-			float posZ();
-			float _RotX, _RotY, _RotZ;
-		
-			float rotationX() const { return _RotX;}
-			float rotationY() const { return _RotY;}
-			float rotationZ() const { return _RotZ;}
+			float getScaleX () const{ return m_fScaleX;}
+			float getScaleY () const{ return m_fScaleY;}
+			float getScaleZ () const{ return m_fScaleZ;}
 
-			float scaleX () const;
-			float scaleY () const;
-			float scaleZ () const;
-			float prevPosX() const;
-			float prevPosY() const;
-			float prevPosZ() const;
+			float getPrevPosX() const{ return m_fPrevPosX;}
+			float getPrevPosY() const{ return m_fPrevPosY;}
+			float getPrevPosZ() const{ return m_fPrevPosZ;}
 
 			AABB& aabb();
 			bool m_Coll;//si es o no colisionable.
@@ -86,11 +82,11 @@ namespace pGr{
 			AABB* m_kAABB;
 			Node* m_pkParent;
 
-			float m_fRotX, m_fRotY, m_fRotZ;
 			float m_fPosX, m_fPosY, m_fPosZ;
+			float m_fRotX, m_fRotY, m_fRotZ;
 			float m_fScaleX,m_fScaleY, m_fScaleZ;
 			float m_fPrevPosX, m_fPrevPosY, m_fPrevPosZ;
 	
 	};
 }
-#endif //ENTITY2D_H
+#endif 

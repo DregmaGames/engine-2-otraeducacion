@@ -78,9 +78,6 @@
     <ClInclude Include="AABB.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Entity2D.h">
-      <Filter>Include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -144,9 +141,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="AABB.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity2D.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,12 +1,11 @@
 #include "quad.h"
 #include "Renderer.h"
 #include <d3dx9.h>
-#include "Entity2D.h"
 using namespace pGr;
 
 Quad::Quad ()
 	:
-	Entity2D(),
+	Entity3D(),
 	m_pakVertices ( new ColorVertex[4])
 	{
 		m_pakVertices[0].x = -0.5; m_pakVertices[0].y = 0.5; m_pakVertices[0].z = 0.5;

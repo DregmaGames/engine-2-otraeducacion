@@ -10,6 +10,7 @@ using namespace Juego;
  bool MyGame::init(pGr::Renderer& rkRenderer,pGr::Importer& rkImporter)
 {
 	m_kScene = new Scene2();
+	m_kScene->init(rkRenderer,rkImporter);
 	m_kScene->m_pkName = "Main";
 	addScene(m_kScene);
 
@@ -19,6 +20,7 @@ using namespace Juego;
 //---------------------------------------
 void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Timer& rkTimer,pGr::Importer& rkImporter)
 {
+
 }
 //---------------------------------------
 void MyGame::deinit()

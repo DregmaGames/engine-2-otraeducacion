@@ -97,12 +97,7 @@ void Camera::initCamera(){
 	fly(10);
 }
 void Camera::DebugCamPos(){
-	std::stringstream ss;
-	ss << "Camerta" << "x: " << camera_eye.x << "y: " << camera_eye.y << "z: " << camera_eye.z << std::endl;
-
-	std::string s( ss.str() );
-
-	OutputDebugString( s.c_str() );
+	
 	//OutputDebugString("z");
 	//std::string a= "datos: "+ camera_eye.x +"cueck"+(int)camera_eye.y +"cueck"+(int)camera_eye.z;
 }

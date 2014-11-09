@@ -2,14 +2,14 @@
 #define QUAD_H
 #include "myEngine_API.h"
 #include "RenderTypes.h"
-#include "Entity2D.h"
+#include "Entity3D.h"
 #include <list>
 
 namespace pGr
 {
 	class Renderer;
 	class Timer;
-	class MYENGINE_API Quad:public Entity2D
+	class MYENGINE_API Quad:public Entity3D
 	{
 	public:
 		Quad();
