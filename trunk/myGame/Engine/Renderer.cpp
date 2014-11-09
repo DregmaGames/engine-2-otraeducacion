@@ -23,9 +23,9 @@ D3DTRANSFORMSTATETYPE g_eMatrixTypeMapping [MatrixTypeCount] =
 };
 Renderer::Renderer():
 	m_pkD3D(NULL),
-	m_pkDevice(NULL),
-	m_pkVertexbuffer(NULL),
-	m_pkIndexBuffer(NULL)
+		m_pkDevice(NULL),
+		m_pkVertexbuffer(NULL),
+		m_pkIndexBuffer(NULL)
 	{
 
 	}
@@ -33,12 +33,12 @@ Renderer::Renderer():
 	//-----------------------------------------------
 	Renderer::~Renderer(){
 		if(m_pkD3D){
-		m_pkD3D->Release();
-		m_pkD3D=NULL;
+			m_pkD3D->Release();
+			m_pkD3D=NULL;
 		}
 		if(m_pkDevice){
-		m_pkDevice->Release();
-		m_pkDevice = NULL;
+			m_pkDevice->Release();
+			m_pkDevice = NULL;
 		}
 		//borrar texturas
 		for(std::vector<Texture>::iterator it= m_akTextures.begin();it!=m_akTextures.end();it++)
@@ -58,8 +58,7 @@ Renderer::Renderer():
 		d.hDeviceWindow = hWnd;
 		d.EnableAutoDepthStencil = TRUE;
 		d.AutoDepthStencilFormat = D3DFMT_D16;
-		
-		
+
 		if( m_pkD3D->CreateDevice(D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL, 
 			hWnd, 
@@ -68,31 +67,28 @@ Renderer::Renderer():
 			&m_pkDevice) 
 			== D3D_OK )
 		{
-			
-			
 			m_pkDevice->SetRenderState(D3DRS_LIGHTING,
-								   FALSE);
+				FALSE);
 			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
+
+			//m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME); //renderiza en ireframe.
 
 			m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
 			m_pkDevice->SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);
 			m_pkDevice->SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);
 			m_pkDevice->SetRenderState(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);
-			m_pkDevice->SetRenderState(D3DRS_ZENABLE, TRUE);  
+			m_pkDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 			D3DVIEWPORT9 kViewport;
 			m_pkDevice->GetViewport(&kViewport);
 
-
 			float fViewportWidth= static_cast<float>(kViewport.Width);
 			float fViewportHeight= static_cast<float>(kViewport.Height);
 
-
 			D3DXMATRIX kProjectionMatrix;
 			D3DXMatrixPerspectiveFovLH(&kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,1,3000);
-			
-			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
 
+			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
 
 			m_pkCamera = new Camera(*m_pkDevice);
 			return true;
@@ -107,21 +103,12 @@ Renderer::Renderer():
 	//-----------------------------------------------
 	void Renderer::beginFrame(){
 		// Limpia la escena
-		if(r>=255)
-			r=0;
-		r+=3;
-		if(g>=255)
-			g=0;
-		g+=12;
-		if(b>=255)
-			b=0;
-		b+=25;
 		m_pkDevice->Clear(0, 
-						  NULL, 
-						  D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 
-						  D3DCOLOR_XRGB(0, 255, 0), 
-						  1.0f, 
-						  0);
+			NULL, 
+			D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+			D3DCOLOR_XRGB(100, 100, 100),	//COLOr escena
+			1.0f, 
+			0);
 		// Comienzo el render de una escena
 		m_pkDevice->BeginScene();
 	}
@@ -131,9 +118,9 @@ Renderer::Renderer():
 		//m_pkColorVB->flush();
 		m_pkDevice->EndScene();
 		m_pkDevice->Present(NULL, 
-							NULL, 
-							NULL, 
-							NULL);
+			NULL, 
+			NULL, 
+			NULL);
 
 	}
 	//-----------------------------------------------
@@ -151,17 +138,17 @@ Renderer::Renderer():
 	const Texture Renderer::loadTexture (const std::string& rkFilename,int iColorKey){
 		IDirect3DTexture9* pkTexture = NULL;
 		HRESULT hr= D3DXCreateTextureFromFileEx(
-												m_pkDevice,
-												rkFilename.c_str(),
-												0,0,0,0,
-												D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
-												D3DX_FILTER_NONE, D3DX_FILTER_NONE,
-												iColorKey,
-												NULL,
-												NULL,
-												&pkTexture
-		);
-		
+			m_pkDevice,
+			rkFilename.c_str(),
+			0,0,0,0,
+			D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+			D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+			iColorKey,
+			NULL,
+			NULL,
+			&pkTexture
+			);
+
 		if(hr!=D3D_OK){
 			return NoTexture;
 		}
@@ -169,37 +156,35 @@ Renderer::Renderer():
 			m_akTextures.push_back(pkTexture);
 			return pkTexture;
 		}
-	
+
 	}
 
 	const Texture Renderer::loadTexture(const std::string& Fname){
-	IDirect3DTexture9* p_Texture = NULL;
-	HRESULT HR = D3DXCreateTextureFromFileEx(m_pkDevice,
-											Fname.c_str(),
-											0,0,0,0,
-											D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
-											D3DX_FILTER_NONE, D3DX_FILTER_NONE,
-											0,
-											NULL,
-											NULL,
-											&p_Texture);
-	if(HR != D3D_OK){
-		return NoTexture;
+		IDirect3DTexture9* p_Texture = NULL;
+		HRESULT HR = D3DXCreateTextureFromFileEx(m_pkDevice,
+			Fname.c_str(),
+			0,0,0,0,
+			D3DFMT_UNKNOWN, D3DPOOL_MANAGED,
+			D3DX_FILTER_NONE, D3DX_FILTER_NONE,
+			0,
+			NULL,
+			NULL,
+			&p_Texture);
+		if(HR != D3D_OK){
+			return NoTexture;
+		}
+		else{
+			m_akTextures.push_back(p_Texture);
+			return p_Texture;
+		}
 	}
-	else{
-		m_akTextures.push_back(p_Texture);
-		return p_Texture;
-	}
-}
 	void Renderer::setCurrentTexture(const Texture& rkTexture){
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
 
 	// ----------------------------------------------------------- 3D
 	void Renderer::draw(pGr::Primitive *thePrimitive){
-		
 		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[*thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, m_pkIndexBuffer->indexCount() / 3);
-
 	}
 
 	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB){

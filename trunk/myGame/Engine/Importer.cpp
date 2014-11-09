@@ -12,15 +12,18 @@
 #include <limits>
 #include <cstddef>
 #include <iostream>
-
+#include<sstream>
+#include<string>
 
 using namespace pGr;
 Importer* Importer::Instance = NULL;
 Importer::Importer () 
 {
+
 }
 Importer::~Importer()
 {
+
 }
 
 bool Importer::init(Renderer* renderer)
@@ -91,12 +94,9 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		if(fMinX > fAabbMinX) fMinX = fAabbMinX;
 		if(fMinY > fAabbMinY) fMinY = fAabbMinY;
 		if(fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
-
-		
 	}
 
 	// Importo Child Meshes
-
 	for(unsigned int i=0; i<pkAiNode->mNumMeshes; i++)
 	{
 		Mesh* pkMesh = new Mesh(this->getRenderer());
@@ -135,14 +135,10 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 								(fMinY + fMaxY) / 2 - node.getPosY(), 
 								(fMinZ + fMaxZ) / 2 - node.getPosZ());
 	
-
-
 	return true;
 }
 bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& orkMesh)
 {
-	
-			
 	float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();
 	float fMaxZ = std::numeric_limits<float>::lowest();
@@ -164,7 +160,6 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 			pakVertices[i].v = pkAiMesh->mTextureCoords[0][i].y;
 		}
 
-		
 		// Actualizo AABB
 			if( fMaxX < pakVertices[i].x ) fMaxX = pakVertices[i].x;
 			if( fMaxY < pakVertices[i].y ) fMaxY = pakVertices[i].y;
@@ -174,7 +169,6 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 			if( fMinY > pakVertices[i].y ) fMinY = pakVertices[i].y;
 			if( fMinZ > pakVertices[i].z ) fMinZ = pakVertices[i].z;
 
-		
 		if(pkAiMesh->HasNormals())
 		{
 			pakVertices[i].nx = pkAiMesh->mNormals[i].x;
@@ -200,14 +194,20 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 		aiString kAiTexturePath;
 		pkAiMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &kAiTexturePath);
 
-		std::string kTexturePath( kAiTexturePath.C_Str() );
+		std::string kTexturePath( kAiTexturePath.C_Str());
 
 		// append '.' if texture is inside folder
 		if( !kTexturePath.empty() && kTexturePath.at(0) == '/' )
 		{
 			kTexturePath = "." + kTexturePath;
 		}
-		Texture TheTexture = m_Renderer->loadTexture(kTexturePath);
+		std::stringstream ss;
+		ss << "CARA DE CHOTA: "<<kAiTexturePath.C_Str()<< std::endl;
+		std::string s( ss.str() );
+		OutputDebugString( s.c_str() );
+
+		Texture TheTexture = m_Renderer->loadTexture("assets/"+kTexturePath);
+		//Texture TheTexture = m_Renderer->loadTexture("assets/TextureMap.png");
 		orkMesh.setTexture(TheTexture);
 	}
 	
@@ -217,7 +217,6 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 		//Cargo Termino de Actualizar los AABB Seteando Data...
 
 		orkMesh.aabb().setData( fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ),(fMinX + fMaxX) / 2, (fMinY + fMaxY) / 2, (fMinZ + fMaxZ) / 2);
-	
 	
 	return true;
 }

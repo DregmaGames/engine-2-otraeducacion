@@ -5,15 +5,14 @@
 #include "pg1_timer.h"
 #include "Scene.h"
 //-----------------------------------------------
-
 #include "Game.h"
 #include "Importer.h"
 //-----------------------------------------------
+#include <sstream>
+//-----------------------------------------------
 using namespace pGr;
 // Declaraciones.
-Engine::Engine(HINSTANCE hInstance,
-			   unsigned int uiWidth,
-			   unsigned int uiHeight)
+Engine::Engine(HINSTANCE hInstance,unsigned int uiWidth,unsigned int uiHeight)
 	:
 	m_hInstance(hInstance),
 	m_uiWidth(uiWidth),
@@ -25,7 +24,7 @@ Engine::Engine(HINSTANCE hInstance,
 	m_pkTimer(new Timer()),
 	m_pkImport(new Importer())
 	{
-		//nada
+		//Nothing to do
 	}
 
 Engine::~Engine(){
@@ -39,11 +38,9 @@ Engine::~Engine(){
 	m_pkRenderer = NULL;
 	delete m_pkWindow;
 	m_pkWindow = NULL;
-
 }
 bool Engine::init (){
 	//create window
-
 	if(m_pkWindow->createWindow(m_uiWidth,m_uiHeight) == TRUE 
 		&& 
 		m_pkRenderer->init(m_pkWindow->getHWND()) == TRUE 
@@ -52,18 +49,10 @@ bool Engine::init (){
 		&&
 		m_pkImport->init(m_pkRenderer) == TRUE)
 		return true;
-	/*if(m_pkWindow->createWindow(m_uiWidth,m_uiHeight)){
-		return true;
-	}
-	//init rendering system
-	if(!m_pkRenderer->init(m_pkWindow->getHWND())){
-		return false;
-	}*/
 	return false;
 }
 void Engine::run(){
 	//frame loop
-
 	bool bDone= false;
 	MSG kMsg;
 	if(!pgGame){
@@ -78,9 +67,13 @@ void Engine::run(){
 	m_pkTimer->firstMeasure();
 	while(!bDone){
 		m_pkTimer->measure();
+		
 		//Update FPS
-		/*static std::stringstream KSS;
-		KSS.str("");*/
+		static std::stringstream Title;
+		Title.str("");
+		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: " << pgGame->getCurrentScene()->m_pkName << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
+		m_pkWindow->setWindowName(Title.str());
+		//---------------------------------------
 
 		m_pkInput->reacquire();
 		//render frame
@@ -89,6 +82,7 @@ void Engine::run(){
 		pgGame->getCurrentScene()->frame(*m_pkRenderer,*m_pkImport,*pgGame,*m_pkInput);
 		pgGame->getCurrentScene()->drawScene(m_pkRenderer,m_pkTimer);
 		m_pkRenderer->endFrame();
+
 		// capturo el mensaje de Windows
 		if(PeekMessage(&kMsg,NULL,0,0,PM_REMOVE))
 		{
@@ -96,6 +90,7 @@ void Engine::run(){
 			TranslateMessage(&kMsg);
 			DispatchMessage(&kMsg);
 		}
+
 		if(kMsg.message == WM_QUIT)
 			bDone = true;
 	}

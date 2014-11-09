@@ -10,7 +10,7 @@ using namespace pGr;
 
 Scene::Scene() : node(NULL) 
 {
-	
+	//Nothing to do.
 }
 Scene::~Scene() 
 {

@@ -8,11 +8,13 @@ void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr:
 	//input camera.
 	float movementSpeed = 0.1f;
 	float rotationSpeed = 0.1f;
+
 	//Aceletar//
-	if(dInput.keyDown(pGr::Input::KEY_LCONTROL)){
-		movementSpeed = 0.9f;
+	if(dInput.keyDown(pGr::Input::KEY_LSHIFT)){
+		movementSpeed = 0.5f;
 	}
-	////////////
+	//Aceletar//
+
 	//******Atras y adelante************//
 	if(dInput.keyDown(pGr::Input::KEY_W)){
 		renderer.m_pkCamera->walk(movementSpeed);
@@ -34,7 +36,7 @@ void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr:
 	if(dInput.keyDown(pGr::Input::KEY_SPACE)){
 		renderer.m_pkCamera->fly(movementSpeed);
 	}
-	if(dInput.keyDown(pGr::Input::KEY_LSHIFT)){
+	if(dInput.keyDown(pGr::Input::KEY_LCONTROL)){
 		renderer.m_pkCamera->fly(-movementSpeed);
 	}
 	//******Arriba y abajo************//
@@ -47,25 +49,11 @@ void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr:
 		renderer.m_pkCamera->strafe(-movementSpeed);
 	}
 	//******Moverse para los costados************//
-	//OutputDebugString("en el orto");
-	renderer.m_pkCamera->DebugCamPos();
-	//theMesh->draw();
-	//std::stringstream ss;
-	//ss << "Cuberto" << "x: " << theMesh->posX() << "y: " << theMesh->posY() << "z: " << theMesh->posZ() << std::endl;
-
-	//std::string s( ss.str() );
-
-	//OutputDebugString( s.c_str() );
 }
 bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
-	std::stringstream ss;
-	//ss << "CARA DE CHOTA"<< std::endl;
-
-	std::string s( ss.str() );
-
-	OutputDebugString( s.c_str() );
+	
 	node = new pGr::Node();
-	importer.import3DScene("Mesh.obj", *node);
+	importer.import3DScene("assets/Chari.obj", *node);
 	node->setPos(0,0,0);
    
 	return true;
