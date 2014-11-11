@@ -157,7 +157,7 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 		if( pkAiMesh->mTextureCoords[0] != NULL )
 		{
 			pakVertices[i].u = pkAiMesh->mTextureCoords[0][i].x;
-			pakVertices[i].v = pkAiMesh->mTextureCoords[0][i].y;
+			pakVertices[i].v = -pkAiMesh->mTextureCoords[0][i].y;
 		}
 
 		// Actualizo AABB

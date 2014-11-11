@@ -67,10 +67,8 @@ Renderer::Renderer():
 			&m_pkDevice) 
 			== D3D_OK )
 		{
-			m_pkDevice->SetRenderState(D3DRS_LIGHTING,
-				FALSE);
-			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
-
+			m_pkDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
+			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_CCW);
 			//m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME); //renderiza en ireframe.
 
 			m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);

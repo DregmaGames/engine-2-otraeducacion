@@ -9,7 +9,7 @@ Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\bOX.png
+map_Kd bOX.png
 
 newmtl mat1
 Ns 7.843137
@@ -19,7 +19,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\LizardonDh.tga
+map_Kd LizardonDh.tga
 
 newmtl mat1.001
 Ns 7.843137
@@ -29,7 +29,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\MijumaruBodyNl.tga
+map_Kd MijumaruBodyNl.tga
 
 newmtl mat1.002
 Ns 7.843137
@@ -39,7 +39,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\VictiniBodyNl.tga
+map_Kd VictiniBodyNl.tga
 
 newmtl mat1.003
 Ns 7.843137
@@ -49,7 +49,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\KibagoBodyNl.tga
+map_Kd KibagoBodyNl.tga
 
 newmtl mat1.004
 Ns 7.843137
@@ -59,7 +59,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuBodyNl.tga
+map_Kd PokabuBodyNl.tga
 
 newmtl mat2
 Ns 7.843137
@@ -69,7 +69,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\LizardonEyeDh.tga
+map_Kd LizardonEyeDh.tga
 
 newmtl mat2.001
 Ns 7.843137
@@ -79,7 +79,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\MijumaruEyeNl.tga
+map_Kd MijumaruEyeNl.tga
 
 newmtl mat2.002
 Ns 7.843137
@@ -89,7 +89,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\VictiniEyeNl.tga
+map_Kd VictiniEyeNl.tga
 
 newmtl mat2.003
 Ns 7.843137
@@ -99,7 +99,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\KibagoEyeNl.tga
+map_Kd KibagoEyeNl.tga
 
 newmtl mat2.004
 Ns 7.843137
@@ -109,7 +109,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuEyeNl.tga
+map_Kd PokabuEyeNl.tga
 
 newmtl mat3
 Ns 7.843137
@@ -119,7 +119,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\MijumaruMouthNl.tga
+map_Kd MijumaruMouthNl.tga
 
 newmtl mat3.001
 Ns 7.843137
@@ -129,7 +129,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\VictiniMouthNl.tga
+map_Kd VictiniMouthNl.tga
 
 newmtl mat3.002
 Ns 7.843137
@@ -139,7 +139,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuTailGlowNl.tga
+map_Kd PokabuTailGlowNl.tga
 
 newmtl mat4
 Ns 7.843137
@@ -149,7 +149,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\MijumaruShellBradeNl.tga
+map_Kd MijumaruShellBradeNl.tga
 
 newmtl mat4.001
 Ns 7.843137
@@ -159,7 +159,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuMouthNl.tga
+map_Kd PokabuMouthNl.tga
 
 newmtl mat5
 Ns 7.843137
@@ -169,7 +169,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuTailNl.tga
+map_Kd PokabuTailNl.tga
 
 newmtl mat6
 Ns 7.843137
@@ -179,4 +179,4 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd Textures\PokabuTailNl.tga
+map_Kd PokabuTailNl.tga
