@@ -15,7 +15,6 @@ namespace pGr
 
 			Node();
 			~Node();
-
 			void draw();
 			void updateTransformation();
 			void addChild (Entity3D* pkChild);
@@ -23,7 +22,6 @@ namespace pGr
 			const std::vector<Entity3D*>& childs () const{ return m_pkChilds; }
 	
 		private:
-
 			std::vector<Entity3D*> m_pkChilds;
 	};
 }
