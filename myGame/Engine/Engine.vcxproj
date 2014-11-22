@@ -14,6 +14,8 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="EMath.h" />
     <ClInclude Include="Entity3D.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Importer.h" />
@@ -27,9 +29,11 @@
     <ClInclude Include="pg1_timer.h" />
     <ClInclude Include="pg2_indexbuffer.h" />
     <ClInclude Include="pg2_vertexbuffer.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderTypes.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="tinyxml2.h" />
@@ -39,6 +43,8 @@
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="EMath.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity3D.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -50,9 +56,11 @@
     <ClCompile Include="pg1_timer.cpp" />
     <ClCompile Include="pg2_indexbuffer.cpp" />
     <ClCompile Include="pg2_vertexbuffer.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderTypes.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -100,14 +108,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine/include;%(AdditionalIncludeDirectories);$(SolutionDir)Engine/src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)havok\havok\Source;$(SolutionDir)Engine/include;%(AdditionalIncludeDirectories);$(SolutionDir)Engine/src;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>MYENGINE_EXPORTS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)havok\havok\Lib\win32_vs2010\release_dll</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,7 +123,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine/include;%(AdditionalIncludeDirectories);$(SolutionDir)Engine/src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)havok\havok\Source;$(SolutionDir)Engine/include;%(AdditionalIncludeDirectories);$(SolutionDir)Engine/src;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>MYENGINE_EXPORTS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -124,8 +131,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)havok\havok\Lib\win32_vs2010\release_dll</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

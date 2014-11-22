@@ -78,6 +78,18 @@
     <ClInclude Include="AABB.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="EMath.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -141,6 +153,18 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="AABB.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EMath.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
