@@ -20,8 +20,14 @@ namespace pGr
 			void setTexture(Texture& theTexture);
 			void setTexture(std::string, DWORD theColor);
 			void setData(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
+			
+			const VertexBuffer* vertexBuffer() const;
+			const IndexBuffer*	  indexBuffer() const;
 
-		protected:
+			const std::vector<MeshVertex>& vertexs() const;
+			const std::vector<unsigned short> indexs() const;
+
+			protected:
 
 			Texture s_Texture;
 			Renderer& m_pkRenderer;
@@ -29,5 +35,9 @@ namespace pGr
 
 			IndexBuffer*	m_pkIndexBuffer;
 			VertexBuffer*	m_pkVertexBuffer;
+
+			private:
+			std::vector<MeshVertex> m_pkVertex;
+			std::vector<unsigned short> m_pkIndex;
 	};
 }
