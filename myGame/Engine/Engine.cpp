@@ -1,4 +1,4 @@
-#include "MyEngine.h"
+#include "Engine.h"
 //-----------------------------------------------
 #include "Window.h"
 #include "Renderer.h"
@@ -22,7 +22,8 @@ Engine::Engine(HINSTANCE hInstance,unsigned int uiWidth,unsigned int uiHeight)
 	pgGame(NULL),
 	m_pkInput( new DirectInput()),
 	m_pkTimer(new Timer()),
-	m_pkImport(new Importer())
+	m_pkImport(new Importer()),
+	m_pkPhysics(new Physics())
 	{
 		//Nothing to do
 	}
@@ -68,7 +69,7 @@ void Engine::run(){
 	while(!bDone){
 		m_pkTimer->measure();
 		
-		//Update FPS
+		//Update FPS-----------------------------
 		static std::stringstream Title;
 		Title.str("");
 		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: " << pgGame->getCurrentScene()->m_pkName << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
@@ -77,19 +78,23 @@ void Engine::run(){
 
 		m_pkInput->reacquire();
 		//render frame
+
+		m_pkPhysics->update(m_pkTimer->timeBetweenFrames());
+
 		m_pkRenderer->beginFrame();
 		pgGame->frame(*m_pkRenderer,*m_pkInput, *m_pkTimer,*m_pkImport);
 		pgGame->getCurrentScene()->frame(*m_pkRenderer,*m_pkImport,*pgGame,*m_pkInput);
 		pgGame->getCurrentScene()->drawScene(m_pkRenderer,m_pkTimer);
 		m_pkRenderer->endFrame();
 
-		// capturo el mensaje de Windows
+		// capturo el mensaje de Windows---------
 		if(PeekMessage(&kMsg,NULL,0,0,PM_REMOVE))
 		{
 		// Pasamos el mensaje de vuelta a Windows
 			TranslateMessage(&kMsg);
 			DispatchMessage(&kMsg);
 		}
+		//---------------------------------------
 
 		if(kMsg.message == WM_QUIT)
 			bDone = true;

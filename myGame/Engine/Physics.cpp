@@ -29,12 +29,12 @@
 
 // Cositas de prueba
 #include <Physics2012/Dynamics/Entity/hkpRigidBody.h>
-/*#include <Physics2012/Collide/Shape/Convex/Box/hkpBoxShape.h>
+#include <Physics2012/Collide/Shape/Convex/Box/hkpBoxShape.h>
 #include <Physics2012\Collide\Shape\Convex\Sphere\hkpSphereShape.h>
 #include <Physics2012/Utilities/Dynamics/Inertia/hkpInertiaTensorComputer.h>
-
+#include <Physics2012\Collide\Shape\Convex\hkpConvexShape.h>
 #include <Physics2012\Collide\Shape\Convex\ConvexVertices\hkpConvexVerticesShape.h>
-#include <Common\Internal\ConvexHull\hkGeometryUtility.h>*/
+#include <Common\Internal\ConvexHull\hkGeometryUtility.h>
 //**************************************************************
 using namespace pGr;
 
@@ -49,68 +49,73 @@ hkpWorld* Physics::s_HvkWorld = NULL;
 bool Physics::s_HavokIsStarted = false;
 //*************************************************************
 // Cositas para la escena de prueba
-/*hkpRigidBody* Physics::s_RigidBody1 = NULL;
+hkpRigidBody* Physics::s_RigidBody1 = NULL;
 hkpRigidBody* Physics::s_RigidBody2 = NULL;
-hkpRigidBody* Physics::s_RigidBody3 = NULL;*/
+hkpRigidBody* Physics::s_RigidBody3 = NULL;
+
 Physics*	  Physics::Instance		= NULL;
 //**************************************************************
 Physics::Physics ()
 {
 	if(!s_HavokIsStarted) {
-		
 		#if defined(HK_COMPILER_HAS_INTRINSICS_IA32) && (HK_CONFIG_SIMD ==  HK_CONFIG_SIMD_ENABLED)
 			_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 		#endif
 
-		// Arrancamos Havok con Memory Leak Detector. Leer documentación para saber mas :)
+		//Havok con Memory Leak Detector
 		hkMemoryRouter* memoryRouter = hkMemoryInitUtil::initChecking( hkMallocAllocator::m_defaultMallocAllocator,  hkMemorySystem::FrameInfo(1024 * 1024));
 		hkBaseSystem::init(memoryRouter, HavokFailure);
+		//------------------------------
 
-		//*********************************** COMIENZO A CONFIGURAR WORLD ****************************
-		// Configuro la Fisica del World
 
-		hkpWorldCinfo HavokWorldInfo;
-		HavokWorldInfo.m_gravity = hkVector4(0.0f, -9.8f, 0.0f); // Ajusto Gravedad YAY!
-		HavokWorldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_CONTINUOUS;
+		//------------WORLD CONFIG-------------
+			//Physics-----
+			hkpWorldCinfo HavokWorldInfo;
+			HavokWorldInfo.m_gravity = hkVector4(0.0f, -9.8f, 0.0f);//Gravity
+			HavokWorldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_CONTINUOUS;
+			//------------
+			//World Limits
+			HavokWorldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
+			HavokWorldInfo.setBroadPhaseWorldSize(1000.0f);
+			//------------
+			//------------WORLD CREATION------
+				s_HvkWorld = new hkpWorld(HavokWorldInfo);
+				s_HvkWorld->m_wantDeactivation = false;
+				//World Block
+				//para poder modificarlo.
+				s_HvkWorld->markForWrite();
+				//-------------
+			//--------------------------------
+			//Collition detect
+			hkpAgentRegisterUtil::registerAllAgents(s_HvkWorld->getCollisionDispatcher());
 
-		// ¿Seteo el Frustum? y el Size del World.
-		HavokWorldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_REMOVE_ENTITY;
-		HavokWorldInfo.setBroadPhaseWorldSize(1000.0f);
+		//-----------WORLD CONFIG END---------
 
-		s_HvkWorld = new hkpWorld(HavokWorldInfo);
-		s_HvkWorld->m_wantDeactivation = false;
 
-		// Bloqueo el World para poder modificarlo :D!
-		s_HvkWorld->markForWrite();
+		//-----------VISUAL DEBUGER CONFIG----
+			//Visual Debugger Tnitialization
+			s_HvkContext = new hkpPhysicsContext();
+			hkpPhysicsContext::registerAllPhysicsProcesses();
+			s_HvkContext->addWorld(s_HvkWorld);
 
-		// Detecto colisiones a travez de Havok Agents.
-		hkpAgentRegisterUtil::registerAllAgents( s_HvkWorld->getCollisionDispatcher() );
+			// Desbloqueo el World para que el resto lo use (AL SER MULTITHREADING ES NECESARIO ESTO)
+			s_HvkWorld->unmarkForWrite();
 
-		//*********************************** TERMINO DE CONFIGURAR WORLD *****************************
-		//*********************************** CONFIGURO EL VISUAL DEBUGER *****************************
-		// Inicio Visual Debugger
-	
-		s_HvkContext = new hkpPhysicsContext();
-		hkpPhysicsContext::registerAllPhysicsProcesses();
-		s_HvkContext->addWorld(s_HvkWorld);
+			hkArray<hkProcessContext*> havokContexts;
+			havokContexts.pushBack(s_HvkContext);
 
-		// Desbloqueo el World para que el resto lo use (AL SER MULTITHREADING ES NECESARIO ESTO)
-		s_HvkWorld->unmarkForWrite();
+			s_VDebugger = new hkVisualDebugger(havokContexts);
+			s_VDebugger->serve();
+		//----------VISUAL DEBUGER CONFIG END--
 
-		hkArray<hkProcessContext*> havokContexts;
-		havokContexts.pushBack(s_HvkContext);
+		//----------TEST SCENE START---------
+		StartTestScene();
+		//----------TEST SCENE START END---------
 
-		s_VDebugger = new hkVisualDebugger(havokContexts);
-		s_VDebugger->serve();
-
-		//*********************************** TERMINO EL VISUAL DEBUGER *******************************
-
-		//****************************************** LLAMO A TEST SCENE *******************************
-		//StartTestScene();
-		//****************************** TERMINO DE LLAMAR A TEST SCENE *******************************
-
-		s_HavokIsStarted = true;				// Seteo mi trigger a True para no poder inicializar todo de nuevo :D!
+		//----------Initialized------------------
+		s_HavokIsStarted = true;
 		Instance = this;
+		//----------Initialized------------------
 	}
 }
 
@@ -123,10 +128,10 @@ Physics* Physics::getInstance(){
 
 void Physics::StartTestScene(){
 		//*********************************** COMIENZO LA TEST SCENE  *********************************
-	/*			//******************************* CAJA 1 ****************************************
+		//******************************* CAJA 1 ****************************************
 		// Creo la Caja
+		
 		hkpBoxShape* m_Box1 = new hkpBoxShape( hkVector4(0.5f, 0.5f, 0.5f) );
-
 		// Seteo el Rigidbody :)
 		hkpRigidBodyCinfo HavokRBodyInfo1;
 		HavokRBodyInfo1.m_shape = m_Box1;
@@ -150,7 +155,7 @@ void Physics::StartTestScene(){
 		m_Box1->removeReference();
 				//*************************** TERMINO CAJA 1 ************************************ */
 				//******************************* CAJA 2 ****************************************
-	/*
+	
 		hkpBoxShape* m_Box2 = new hkpBoxShape( hkVector4(5.0f, 1.0f, 5.0f) );
 
 		hkpRigidBodyCinfo HavokRBodyInfo2;
@@ -183,19 +188,19 @@ void Physics::StartTestScene(){
 		 s_HvkWorld->addEntity(s_RigidBody3);
 		 sphereShape->removeReference();
 				//*************************** TERMINO SPHERE 1 **********************************
-		//*********************************** TERMINO LA TEST SCENE  *********************************** */
+		//*********************************** TERMINO LA TEST SCENE  ***********************************
 }
 
 Physics::~Physics (){
 	// Escena de Prueba!
-	/*s_RigidBody1->removeReference();
-	s_RigidBody1 = NULL;*/
+	s_RigidBody1->removeReference();
+	s_RigidBody1 = NULL;
 
-/*	s_RigidBody2->removeReference();
+	s_RigidBody2->removeReference();
 	s_RigidBody2 = NULL;
 
 	s_RigidBody3->removeReference();
-	s_RigidBody3 = NULL;*/
+	s_RigidBody3 = NULL;
 	// Borro el VDebugger y el vector de Context
 	s_VDebugger->shutdown();
 	s_VDebugger->removeReference();
@@ -209,7 +214,7 @@ Physics::~Physics (){
 	hkMemoryInitUtil::quit();
 }
 
-void Physics::addEntity(DoMaRe::RigidBody* rigidBody){
+void Physics::addEntity(pGr::RigidBody* rigidBody){
 	s_HvkWorld->markForWrite();
 	s_HvkWorld->addEntity(rigidBody->rigidbody());
 	s_HvkWorld->unmarkForWrite();
@@ -217,7 +222,6 @@ void Physics::addEntity(DoMaRe::RigidBody* rigidBody){
 
 void Physics::update (float fk_DeltaTime){
 	s_VDebugger->step();
-
 	float fHavokStep = (fk_DeltaTime / 1000.0f);
 	if(fHavokStep < 0.00000001f) {
 		return;

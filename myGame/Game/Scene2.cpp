@@ -55,7 +55,6 @@ bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
 	//importer.import3DScene("assets/dragons.obj", *node);
 	importer.import3DScene("assets/Chari.obj", *node);
 	node->setPos(0,0,0);
-   
 	return true;
 }
 bool Juego::Scene2::deInit(){
