@@ -68,7 +68,6 @@ void Engine::run(){
 	m_pkTimer->firstMeasure();
 	while(!bDone){
 		m_pkTimer->measure();
-		
 		//Update FPS-----------------------------
 		static std::stringstream Title;
 		Title.str("");

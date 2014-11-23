@@ -120,18 +120,18 @@ Physics* Physics::getInstance(){
 void Physics::StartTestScene(){
 		//--------------------Test Scene--------------------
 			//--------Floor---------
-			hkpBoxShape* Box = new hkpBoxShape( hkVector4(5.0f, 1.0f, 5.0f) );
+	hkpBoxShape* Floor = new hkpBoxShape(hkVector4(5.0f, 1.0f, 5.0f));
 
 			hkpRigidBodyCinfo HavokRBodyInfo1;
-			HavokRBodyInfo1.m_shape = Box;
+			HavokRBodyInfo1.m_shape = Floor;
 			HavokRBodyInfo1.m_position = hkVector4(0.0f, 0.0f, 0.0f);
 			HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_FIXED;
-			Box->setRadius(0.0f);
+			Floor->setRadius(0.0f);
 
 			m_RBody2 = new hkpRigidBody(HavokRBodyInfo1);
 			m_HWorld->addEntity(m_RBody2);
 	
-			Box->removeReference();
+			Floor->removeReference();
 			//-------Floor end--------
 			 //-------------Sphere--------------
 			 hkpSphereShape* sphereShape = new hkpSphereShape(0.5f);
