@@ -11,8 +11,6 @@ namespace pGr{
 	class hkpConvexVerticesShape;
 
 namespace pGr{
-
-	// ------- Virtual Collider
 	class MYENGINE_API Collider{
 	friend class Physics;
 	friend class RigidBody;
@@ -30,8 +28,6 @@ namespace pGr{
 		hkpRigidBody* m_pkRigidBody;
 	};
 
-
-	// ------------------ Box Collider
 	class MYENGINE_API BoxCollider : public Collider{
 		public:
 			BoxCollider();
@@ -45,8 +41,6 @@ namespace pGr{
 			hkpBoxShape* m_pkBox;
 	};
 
-
-	// ------------------ Mesh Collider
 	class MYENGINE_API MeshCollider : public Collider{
 		public:
 			MeshCollider();

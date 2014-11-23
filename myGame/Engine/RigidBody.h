@@ -12,8 +12,6 @@ namespace pGr{
 		RigidBody();
 		virtual ~RigidBody();
 
-		// TR Matrix
-
 		void setPosition(float,float,float);
 		float posX() const;
 		float posY() const;
@@ -25,8 +23,6 @@ namespace pGr{
 		float rotationZ () const;
 
 		const Matrix& transform () const { return m_pTransformation; };
-
-		// Collider
 	
 		void setCollider(Collider*);
 		const Collider* collider() const { return m_pkCollider; };
@@ -42,9 +38,7 @@ namespace pGr{
 
 	private:
 		Matrix m_pTransformation;
-
 		Collider* m_pkCollider;
-
 		HavokMotion m_HMotion;
 
 	protected:
