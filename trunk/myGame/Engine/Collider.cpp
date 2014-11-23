@@ -1,43 +1,42 @@
-// ----- Collider Class.
 #include "Collider.h"
-// ----- Mesh Class
 #include "Mesh.h"
-// ----- External Librarys
 #include "pg2_indexbuffer.h"
 #include "pg2_vertexbuffer.h"
-// ----- HAVOK
+
 #include <Common/Base/hkBase.h>
 #include <Physics2012/Dynamics/Entity/hkpRigidBody.h>
 #include <Common/Base/Types/Geometry/hkStridedVertices.h>
 #include <Physics2012/Collide/Shape/Convex/Box/hkpBoxShape.h>
 #include <Physics2012/Collide/Shape/Convex/ConvexVertices/hkpConvexVerticesShape.h>
-//------
+
 using namespace pGr;
 
-//------------------------------------------------------------- COLLIDER
 Collider::Collider() : m_pkRigidBody(NULL){
 }
 Collider::~Collider(){
-	m_pkRigidBody->removeReference();		// DELETE RIGIDBODY!
+	m_pkRigidBody->removeReference();
 	m_pkRigidBody = NULL;
 }
 void Collider::setPosition(float x,float y,float z){
 	m_pkRigidBody->setPosition( hkVector4(x,y,z) );
 }
-//------------------------------------------------------------- BoxCollider
+
 BoxCollider::BoxCollider()	:	Collider(),	m_pkBox(NULL){
-	// FALTA HACER LA BOX!
+
 }
+
 BoxCollider::~BoxCollider(){
 
 }
+
 void BoxCollider::calculate(const Mesh* pkMesh){
-	// DO CALCULATIONS!
+
 }
+
 hkpShape* BoxCollider::shape(){
 	return m_pkBox;
 }
-//------------------------------------------------------------ MeshCollider
+
 MeshCollider::MeshCollider() :	Collider(),	m_pkMeshCollider(NULL){
 
 }

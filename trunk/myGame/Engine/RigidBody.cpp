@@ -13,10 +13,10 @@ hkpMotion::MotionType s_HavokMType [RigidBody::HavokMotionCount] = {
 };
 
 RigidBody::RigidBody() :	m_pTransformation (new D3DXMATRIX()), m_pkRigidBody(NULL), m_HMotion(Dynamic){
-	     // create a box as a dummy shape
         hkpBoxShape* pkBox = new hkpBoxShape( hkVector4(1.0f, 1.0f, 1.0f) );
 
         hkpRigidBodyCinfo kRigidBodyInfo;
+
         kRigidBodyInfo.m_shape = pkBox;
         kRigidBodyInfo.m_position = hkVector4(0, 0, 0);
         kRigidBodyInfo.m_motionType = hkpMotion::MOTION_DYNAMIC;
@@ -112,10 +112,6 @@ float RigidBody::rotationZ () const{
 
         return fRotZ;
 }
-/*
-hkTransform trans = RigidBody::m_pkRigidBody->getTransform();
-
-*/
 
 void RigidBody::setCollider(Collider* pkCollider){
 	m_pkCollider = pkCollider;

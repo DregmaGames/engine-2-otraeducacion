@@ -1,8 +1,6 @@
 #include "Physics.h"
 #include "RigidBody.h"
 #include <iostream>
-
-//**************************************************************
 // Havok Library LINK!
 #pragma comment (lib, "hkBase.lib")
 #pragma comment (lib, "hkVisualize.lib")
@@ -27,7 +25,6 @@
 #include <Common/Base/Memory/Allocator/Malloc/hkMallocAllocator.h>
 #include <Physics2012/Collide/Dispatch/hkpAgentRegisterUtil.h>
 
-// Cositas de prueba
 #include <Physics2012/Dynamics/Entity/hkpRigidBody.h>
 #include <Physics2012/Collide/Shape/Convex/Box/hkpBoxShape.h>
 #include <Physics2012\Collide\Shape\Convex\Sphere\hkpSphereShape.h>
@@ -35,29 +32,23 @@
 #include <Physics2012\Collide\Shape\Convex\hkpConvexShape.h>
 #include <Physics2012\Collide\Shape\Convex\ConvexVertices\hkpConvexVerticesShape.h>
 #include <Common\Internal\ConvexHull\hkGeometryUtility.h>
-//**************************************************************
+
 using namespace pGr;
-
-
-//*************************************************************
 //Inicializadores que necesita Havok =/
-hkVisualDebugger* Physics::s_VDebugger = NULL;
-hkpPhysicsContext* Physics::s_HvkContext = NULL;
+hkVisualDebugger* Physics::m_VDebugger = NULL;
+hkpPhysicsContext* Physics::m_HContext = NULL;
 
-hkpWorld* Physics::s_HvkWorld = NULL;
+hkpWorld* Physics::m_HWorld = NULL;
 
-bool Physics::s_HavokIsStarted = false;
+bool Physics::HavokStarted = false;
 //*************************************************************
-// Cositas para la escena de prueba
-hkpRigidBody* Physics::s_RigidBody1 = NULL;
-hkpRigidBody* Physics::s_RigidBody2 = NULL;
-hkpRigidBody* Physics::s_RigidBody3 = NULL;
-
+hkpRigidBody* Physics::m_RBody1 = NULL;
+hkpRigidBody* Physics::m_RBody2 = NULL;
 Physics*	  Physics::Instance		= NULL;
 //**************************************************************
 Physics::Physics ()
 {
-	if(!s_HavokIsStarted) {
+	if(!HavokStarted) {
 		#if defined(HK_COMPILER_HAS_INTRINSICS_IA32) && (HK_CONFIG_SIMD ==  HK_CONFIG_SIMD_ENABLED)
 			_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
 		#endif
@@ -79,33 +70,33 @@ Physics::Physics ()
 			HavokWorldInfo.setBroadPhaseWorldSize(1000.0f);
 			//------------
 			//------------WORLD CREATION------
-				s_HvkWorld = new hkpWorld(HavokWorldInfo);
-				s_HvkWorld->m_wantDeactivation = false;
+				m_HWorld = new hkpWorld(HavokWorldInfo);
+				m_HWorld->m_wantDeactivation = false;
 				//World Block
 				//para poder modificarlo.
-				s_HvkWorld->markForWrite();
+				m_HWorld->markForWrite();
 				//-------------
 			//--------------------------------
 			//Collition detect
-			hkpAgentRegisterUtil::registerAllAgents(s_HvkWorld->getCollisionDispatcher());
+			hkpAgentRegisterUtil::registerAllAgents(m_HWorld->getCollisionDispatcher());
 
 		//-----------WORLD CONFIG END---------
 
 
 		//-----------VISUAL DEBUGER CONFIG----
 			//Visual Debugger Tnitialization
-			s_HvkContext = new hkpPhysicsContext();
+			m_HContext = new hkpPhysicsContext();
 			hkpPhysicsContext::registerAllPhysicsProcesses();
-			s_HvkContext->addWorld(s_HvkWorld);
+			m_HContext->addWorld(m_HWorld);
 
 			// Desbloqueo el World para que el resto lo use (AL SER MULTITHREADING ES NECESARIO ESTO)
-			s_HvkWorld->unmarkForWrite();
+			m_HWorld->unmarkForWrite();
 
 			hkArray<hkProcessContext*> havokContexts;
-			havokContexts.pushBack(s_HvkContext);
+			havokContexts.pushBack(m_HContext);
 
-			s_VDebugger = new hkVisualDebugger(havokContexts);
-			s_VDebugger->serve();
+			m_VDebugger = new hkVisualDebugger(havokContexts);
+			m_VDebugger->serve();
 		//----------VISUAL DEBUGER CONFIG END--
 
 		//----------TEST SCENE START---------
@@ -113,7 +104,7 @@ Physics::Physics ()
 		//----------TEST SCENE START END---------
 
 		//----------Initialized------------------
-		s_HavokIsStarted = true;
+		HavokStarted = true;
 		Instance = this;
 		//----------Initialized------------------
 	}
@@ -127,102 +118,70 @@ Physics* Physics::getInstance(){
 }
 
 void Physics::StartTestScene(){
-		//*********************************** COMIENZO LA TEST SCENE  *********************************
-		//******************************* CAJA 1 ****************************************
-		// Creo la Caja
-		
-		hkpBoxShape* m_Box1 = new hkpBoxShape( hkVector4(0.5f, 0.5f, 0.5f) );
-		// Seteo el Rigidbody :)
-		hkpRigidBodyCinfo HavokRBodyInfo1;
-		HavokRBodyInfo1.m_shape = m_Box1;
-		HavokRBodyInfo1.m_position = hkVector4(0, 15, 0);
-		HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_DYNAMIC;
+		//--------------------Test Scene--------------------
+			//--------Floor---------
+			hkpBoxShape* Box = new hkpBoxShape( hkVector4(5.0f, 1.0f, 5.0f) );
 
-		m_Box1->setRadius(0.001f);
-		// Configuro la Masa del rigidbody :)
-		const hkReal fBoxMass(10.0f);
-		hkMassProperties kMassProperties;
+			hkpRigidBodyCinfo HavokRBodyInfo1;
+			HavokRBodyInfo1.m_shape = Box;
+			HavokRBodyInfo1.m_position = hkVector4(0.0f, 0.0f, 0.0f);
+			HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_FIXED;
+			Box->setRadius(0.0f);
+
+			m_RBody2 = new hkpRigidBody(HavokRBodyInfo1);
+			m_HWorld->addEntity(m_RBody2);
+	
+			Box->removeReference();
+			//-------Floor end--------
+			 //-------------Sphere--------------
+			 hkpSphereShape* sphereShape = new hkpSphereShape(0.5f);
+			 hkpRigidBodyCinfo HRBodyInfo2;
+
+			 HRBodyInfo2.m_shape = sphereShape;
+			 HRBodyInfo2.m_position = hkVector4(0.0f, 10.0f, 0.0f);
+			 HRBodyInfo2.m_motionType = hkpMotion::MOTION_DYNAMIC;
+			 const hkReal sphereMass = 5.0f;
  
-		// Le digo a havok que calcule los datos del Shape en cuestion.
-		hkpInertiaTensorComputer::computeShapeVolumeMassProperties(m_Box1, fBoxMass, kMassProperties);
-		HavokRBodyInfo1.setMassProperties(kMassProperties);
-
-		// Creo el rigidbory con la data que le cargué antes, y agrego la entity a mi World.
-		s_RigidBody1 = new hkpRigidBody(HavokRBodyInfo1);
-		s_HvkWorld->addEntity(s_RigidBody1);
-	
-		// Elimino la referencia a mi Box, ya que puedo acceder a ella a travez de mi Rigidbody Estatico.
-		m_Box1->removeReference();
-				//*************************** TERMINO CAJA 1 ************************************ */
-				//******************************* CAJA 2 ****************************************
-	
-		hkpBoxShape* m_Box2 = new hkpBoxShape( hkVector4(5.0f, 1.0f, 5.0f) );
-
-		hkpRigidBodyCinfo HavokRBodyInfo2;
-		HavokRBodyInfo2.m_shape = m_Box2;
-		HavokRBodyInfo2.m_position = hkVector4(0.0f, 0.0f, 0.0f);
-		HavokRBodyInfo2.m_motionType = hkpMotion::MOTION_FIXED;  // Fixed a Dinamica... Se sobre entiende esto no?
-		m_Box2->setRadius(0.0f);
-
-		s_RigidBody2 = new hkpRigidBody(HavokRBodyInfo2);
-		s_HvkWorld->addEntity(s_RigidBody2);
-	
-		m_Box2->removeReference();
-				//*************************** TERMINO CAJA 2 ************************************
-				//******************************* SPHERE 1 **************************************
-		 hkpSphereShape* sphereShape = new hkpSphereShape(0.5f);
-		 hkpRigidBodyCinfo HavokRBodyInfo3;
-		 HavokRBodyInfo3.m_shape = sphereShape;
-		 HavokRBodyInfo3.m_position = hkVector4(0.0f,15.0f,0.0f);
-		 HavokRBodyInfo3.m_motionType = hkpMotion::MOTION_DYNAMIC;
-		 const hkReal sphereMass = 10.0f;
- 
-         hkMassProperties massProperties;
-         hkpInertiaTensorComputer::computeShapeVolumeMassProperties(sphereShape, sphereMass, massProperties);
+			 hkMassProperties massProperties;
+			 hkpInertiaTensorComputer::computeShapeVolumeMassProperties(sphereShape, sphereMass, massProperties);
          
-		 HavokRBodyInfo3.setMassProperties(massProperties);  
-         HavokRBodyInfo3.m_restitution = (hkReal) 1.9;
+			 HRBodyInfo2.setMassProperties(massProperties);
+			 HRBodyInfo2.m_restitution = (hkReal) 2.5;
          
 
-		 s_RigidBody3 = new hkpRigidBody(HavokRBodyInfo3);
-		 s_HvkWorld->addEntity(s_RigidBody3);
-		 sphereShape->removeReference();
-				//*************************** TERMINO SPHERE 1 **********************************
-		//*********************************** TERMINO LA TEST SCENE  ***********************************
+			 m_RBody2 = new hkpRigidBody(HRBodyInfo2);
+			 m_HWorld->addEntity(m_RBody2);
+			 sphereShape->removeReference();
+			 //-------------Sphere end--------------
+		 //--------------------Test Scene--------------------
 }
 
 Physics::~Physics (){
-	// Escena de Prueba!
-	s_RigidBody1->removeReference();
-	s_RigidBody1 = NULL;
+	m_RBody1->removeReference();
+	m_RBody1 = NULL;
 
-	s_RigidBody2->removeReference();
-	s_RigidBody2 = NULL;
+	m_RBody2->removeReference();
+	m_RBody2 = NULL;
 
-	s_RigidBody3->removeReference();
-	s_RigidBody3 = NULL;
-	// Borro el VDebugger y el vector de Context
-	s_VDebugger->shutdown();
-	s_VDebugger->removeReference();
-	s_HvkContext->removeReference();
+	m_VDebugger->shutdown();
+	m_VDebugger->removeReference();
+	m_HContext->removeReference();
 
-	// Elimino el World!
-	s_HvkWorld->removeReference();
+	m_HWorld->removeReference();
 
-	// Cierro Havok Base System y el MemoryLeak System.
 	hkBaseSystem::quit();
 	hkMemoryInitUtil::quit();
 }
 
 void Physics::addEntity(pGr::RigidBody* rigidBody){
-	s_HvkWorld->markForWrite();
-	s_HvkWorld->addEntity(rigidBody->rigidbody());
-	s_HvkWorld->unmarkForWrite();
+	m_HWorld->markForWrite();
+	m_HWorld->addEntity(rigidBody->rigidbody());
+	m_HWorld->unmarkForWrite();
 }
 
-void Physics::update (float fk_DeltaTime){
-	s_VDebugger->step();
-	float fHavokStep = (fk_DeltaTime / 1000.0f);
+void Physics::update (float DeltaTime){
+	m_VDebugger->step();
+	float fHavokStep = (DeltaTime / 1000.0f);
 	if(fHavokStep < 0.00000001f) {
 		return;
 	}
@@ -231,7 +190,7 @@ void Physics::update (float fk_DeltaTime){
 		fHavokStep = 3.9f;
 	}
 
-	s_HvkWorld->stepDeltaTime(fHavokStep);
+	m_HWorld->stepDeltaTime(fHavokStep);
 }
 
 void Physics::HavokFailure (const char* msg, void* userAgent){
@@ -239,8 +198,7 @@ void Physics::HavokFailure (const char* msg, void* userAgent){
 }
 
 #include <Common\Base\KeyCode.cxx>
-//**************************************************************
-// Saco Cositas que no me interesan (Al menos por ahora)
+
 #undef HK_FEATURE_PRODUCT_AI
 #undef HK_FEATURE_PRODUCT_ANIMATION
 #undef HK_FEATURE_PRODUCT_CLOTH
@@ -268,5 +226,4 @@ void Physics::HavokFailure (const char* msg, void* userAgent){
 #define HK_EXCLUDE_FEATURE_hkpSimpleMeshShape
 #define HK_EXCLUDE_FEATURE_hkpPoweredChainData
 #define HK_EXCLUDE_FEATURE_hkMonitorStream
-//Fin Cositas que no me interesan :)
 #include <Common/Base/Config/hkProductFeatures.cxx>
