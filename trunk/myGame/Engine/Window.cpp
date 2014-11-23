@@ -18,7 +18,6 @@ bool Window::setWindowName(std::string p){
 //----------------------------------
 bool Window::createWindow(unsigned int uiWidth,unsigned int uiHeight)
 {   //reg window
-
 	WNDCLASS kWC={0}; // estructura de la clase ventana
 	memset(static_cast<void *> (&kWC), 0, sizeof(WNDCLASS));
 	kWC.style = CS_HREDRAW | CS_VREDRAW;
