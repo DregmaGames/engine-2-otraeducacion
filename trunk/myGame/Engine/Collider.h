@@ -1,5 +1,6 @@
 #pragma once
 #include "../myEngine_API.h"
+#include "Physics.h"
 namespace pGr{
 	class Mesh;
 }
@@ -49,8 +50,8 @@ namespace pGr{
 	class MYENGINE_API MeshCollider : public Collider{
 		public:
 			MeshCollider();
+			~MeshCollider();
 			void calculate(const Mesh* pkMesh);
-			//~MeshCollider();
 		protected:
 			hkpShape* shape();
 		private:

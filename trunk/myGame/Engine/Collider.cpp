@@ -42,6 +42,9 @@ MeshCollider::MeshCollider() :	Collider(),	m_pkMeshCollider(NULL){
 
 }
 
+MeshCollider::~MeshCollider(){
+}
+
 void MeshCollider::calculate(const Mesh* pkMesh){
 	size_t iCount = pkMesh->indexs().size();
 	hkArray<hkVector4> aVertexs(iCount);

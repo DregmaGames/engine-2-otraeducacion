@@ -8,9 +8,9 @@ struct D3DXPLANE;
 #include <cstddef>
 #include <iostream>
 
-#include "assimp/assimp/include/Importer.hpp"
-#include "assimp/assimp/include/scene.h"
-#include "assimp/assimp/include/postprocess.h"
+#include "../assimp/assimp/include/Importer.hpp"
+#include "../assimp/assimp/include/scene.h"
+#include "../assimp/assimp/include/postprocess.h"
 
 namespace pGr{
 	typedef D3DXMATRIX* Matrix;

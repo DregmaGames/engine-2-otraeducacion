@@ -5,6 +5,7 @@
 #include "pg1_input.h"
 #include "pg1_directinput.h"
 #include "pg1_timer.h"
+#include "Physics.h"
 //-------------------------------
 namespace pGr
 {
@@ -13,6 +14,7 @@ namespace pGr
 	class Timer;
 	class Game;
 	class Importer;
+	class Physics;
 	//------------------------------------------
 	class MYENGINE_API Engine{
 	public:
@@ -32,6 +34,7 @@ namespace pGr
 		Renderer* m_pkRenderer;
 		DirectInput* m_pkInput;		
 		Timer* m_pkTimer;
+		Physics* m_pkPhysics;
 	};
 	//-----------------------------------------------
 }
