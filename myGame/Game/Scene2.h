@@ -20,6 +20,7 @@ namespace Juego{
 			void frame(pGr::Renderer&,pGr::Importer&, pGr::Game&, pGr::DirectInput&);
 			bool init(pGr::Renderer&,pGr::Importer&);
 			bool deInit();
+			void doRigidBodys(pGr::Node & pkNode);
 
 			pGr::Mesh* theMesh;
 	};

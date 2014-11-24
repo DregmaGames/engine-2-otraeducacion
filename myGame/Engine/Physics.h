@@ -31,7 +31,7 @@ namespace pGr{
 		static hkpWorld* m_HWorld;
 		static bool HavokStarted;
 
-		static hkpRigidBody* m_RBody1;
-		static hkpRigidBody* m_RBody2;
+		//static hkpRigidBody* m_RBody1;
+		//static hkpRigidBody* m_RBody2;
 	};
 }

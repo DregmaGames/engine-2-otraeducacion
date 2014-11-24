@@ -14,7 +14,7 @@ namespace pGr{
 	class Node;
 	class Timer;
 	class Renderer;
-
+	class Rigidbody;
 	class MYENGINE_API Entity3D
 	{
 		friend class Node;
@@ -36,6 +36,7 @@ namespace pGr{
 			float getRotationX() const { return m_pkRigidBody->rotationX(); }
 			float getRotationY() const { return m_pkRigidBody->rotationY(); }
 			float getRotationZ() const { return m_pkRigidBody->rotationZ(); }
+			RigidBody* rigidBody() const{ return m_pkRigidBody; }
 			float getScaleX () const{ return m_fScaleX;}
 			float getScaleY () const{ return m_fScaleY;}
 			float getScaleZ () const{ return m_fScaleZ;}

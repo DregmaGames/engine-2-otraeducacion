@@ -42,8 +42,8 @@ hkpWorld* Physics::m_HWorld = NULL;
 
 bool Physics::HavokStarted = false;
 //*************************************************************
-hkpRigidBody* Physics::m_RBody1 = NULL;
-hkpRigidBody* Physics::m_RBody2 = NULL;
+//hkpRigidBody* Physics::m_RBody1 = NULL;
+//hkpRigidBody* Physics::m_RBody2 = NULL;
 Physics*	  Physics::Instance		= NULL;
 //**************************************************************
 Physics::Physics ()
@@ -98,7 +98,7 @@ Physics::Physics ()
 		//----------VISUAL DEBUGER CONFIG END--
 
 		//----------TEST SCENE START---------
-		StartTestScene();
+		//StartTestScene();
 		//----------TEST SCENE START END---------
 
 		//----------Initialized------------------
@@ -118,7 +118,7 @@ Physics* Physics::getInstance(){
 void Physics::StartTestScene(){
 		//--------------------Test Scene--------------------
 			//--------Floor---------
-	hkpBoxShape* Floor = new hkpBoxShape(hkVector4(5.0f, 1.0f, 5.0f));
+	/*hkpBoxShape* Floor = new hkpBoxShape(hkVector4(5.0f, 1.0f, 5.0f));
 
 			hkpRigidBodyCinfo HavokRBodyInfo1;
 			HavokRBodyInfo1.m_shape = Floor;
@@ -151,15 +151,15 @@ void Physics::StartTestScene(){
 			 m_HWorld->addEntity(m_RBody2);
 			 sphereShape->removeReference();
 			 //-------------Sphere end--------------
-		 //--------------------Test Scene--------------------
+		 //--------------------Test Scene--------------------*/
 }
 
 Physics::~Physics (){
-	m_RBody1->removeReference();
+/*	m_RBody1->removeReference();
 	m_RBody1 = NULL;
 
 	m_RBody2->removeReference();
-	m_RBody2 = NULL;
+	m_RBody2 = NULL;*/
 
 	m_VDebugger->shutdown();
 	m_VDebugger->removeReference();
