@@ -34,8 +34,12 @@ void Node::updateTransformation()
 {
 	Entity3D::updateTransformation();
 
+	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); it++)
+	{
+		(*it)->updateTransformation();
+	}
 	//--
-	float fMaxX = std::numeric_limits<float>::lowest();
+	/*float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();
 	float fMaxZ = std::numeric_limits<float>::lowest();
 
@@ -74,13 +78,14 @@ void Node::updateTransformation()
 						 fabs(fMaxZ - fMinZ), 
 						(fMinX + fMaxX) / 2 - this->getPosX() , 
 						(fMinY + fMaxY) / 2 - this->getPosY(), 
-						(fMinZ + fMaxZ) / 2 - this->getPosZ());	
+						(fMinZ + fMaxZ) / 2 - this->getPosZ());	*/
 }
 
 void Node::draw()
 {
 	
-	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) {
+	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) 
+	{
 		(*it)->draw();
 	}
 }

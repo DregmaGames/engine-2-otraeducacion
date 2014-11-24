@@ -35,7 +35,7 @@ namespace pGr{
 			bool addEntity(Entity3D*);
 			
 			char* xmlPath;
-			Node* node;
+			Node* rootNode;
 			std::string m_pkName;
 			std::vector<Entity3D*> m_pkEntity3D;
 	};
