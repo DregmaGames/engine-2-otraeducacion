@@ -45,9 +45,6 @@
     <ClInclude Include="RigidBody.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="EMath.h">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="AABB.h">
       <Filter>Include</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Include</Filter>
     </ClInclude>
@@ -99,9 +93,6 @@
       <Filter>Include</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Include</Filter>
-    </ClCompile>
-    <ClCompile Include="EMath.cpp">
       <Filter>Include</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -140,9 +131,6 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Include</Filter>
     </ClCompile>
-    <ClCompile Include="Quad.cpp">
-      <Filter>Include</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Include</Filter>
     </ClCompile>
@@ -162,6 +150,9 @@
       <Filter>Include</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathjavi.cpp">
       <Filter>Include</Filter>
     </ClCompile>
   </ItemGroup>

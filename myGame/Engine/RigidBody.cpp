@@ -1,5 +1,5 @@
 #include "RigidBody.h"
-#include "EMath.h"
+#include "Mathjavi.h"
 #include "Collider.h"
 #include <d3dx9.h>
 #include <Common/Base/hkBase.h>
@@ -59,7 +59,7 @@ void RigidBody::setRotation(float px, float py, float pz){
 	    m_pkRigidBody->markForWrite();
 
         float x, y, z, w;
-        MATHF::eulerAnglesToQuaternion(px, py, pz, x, y, z, w);
+        MATHJAVI::eulerToQuaternion(px, py, pz, x, y, z, w);
         hkQuaternion kRotation(x, y, z, w);
         m_pkRigidBody->setRotation(kRotation);
 
@@ -70,7 +70,7 @@ float RigidBody::rotationX () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
-		MATHF::quaternionToEulerAngles( m_pkRigidBody->getRotation()(0), 
+		MATHJAVI::quaternionToEuler( m_pkRigidBody->getRotation()(0), 
                                                                    m_pkRigidBody->getRotation()(1), 
                                                                    m_pkRigidBody->getRotation()(2), 
                                                                    m_pkRigidBody->getRotation()(3), 
@@ -85,7 +85,7 @@ float RigidBody::rotationY () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
-        MATHF::quaternionToEulerAngles( m_pkRigidBody->getRotation()(0), 
+        MATHJAVI::quaternionToEuler( m_pkRigidBody->getRotation()(0), 
                                                                    m_pkRigidBody->getRotation()(1), 
                                                                    m_pkRigidBody->getRotation()(2), 
                                                                    m_pkRigidBody->getRotation()(3), 
@@ -100,7 +100,7 @@ float RigidBody::rotationZ () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
-        MATHF::quaternionToEulerAngles( m_pkRigidBody->getRotation()(0), 
+		MATHJAVI::quaternionToEuler( m_pkRigidBody->getRotation()(0), 
                                                                    m_pkRigidBody->getRotation()(1), 
                                                                    m_pkRigidBody->getRotation()(2), 
                                                                    m_pkRigidBody->getRotation()(3), 

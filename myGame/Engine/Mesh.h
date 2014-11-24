@@ -18,7 +18,7 @@ namespace pGr
 			void draw();
 			void setTexture(Texture& theTexture);
 			void setTexture(std::string, DWORD theColor);
-			void setData(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
+			void setDataMesh(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
 			
 			const VertexBuffer* vertexBuffer() const;
 			const IndexBuffer*	  indexBuffer() const;

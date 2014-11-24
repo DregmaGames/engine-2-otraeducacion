@@ -21,19 +21,17 @@ Engine::Engine(HINSTANCE hInstance,unsigned int uiWidth,unsigned int uiHeight)
 	pgGame(NULL),
 	m_pkInput( new DirectInput()),
 	m_pkTimer(new Timer()),
-	m_pkImport(new Importer()),
 	m_pkPhysics(new Physics())
 	{
 		//Nothing to do
 	}
 
-Engine::~Engine(){
+Engine::~Engine()
+{
 	delete m_pkTimer;
 	m_pkTimer = NULL;
 	delete m_pkInput;
 	m_pkInput = NULL;
-	delete m_pkImport;
-	m_pkImport = NULL;
 	delete m_pkRenderer;
 	m_pkRenderer = NULL;
 	delete m_pkWindow;
@@ -41,36 +39,32 @@ Engine::~Engine(){
 }
 bool Engine::init (){
 	//create window
-	if(m_pkWindow->createWindow(m_uiWidth,m_uiHeight) == TRUE 
-		&& 
-		m_pkRenderer->init(m_pkWindow->getHWND()) == TRUE 
-		&&
-		m_pkInput->init(m_hInstance,m_pkWindow->getHWND())
-		&&
-		m_pkImport->init(m_pkRenderer) == TRUE)
-		return true;
+	if(m_pkWindow->createWindow(m_uiWidth,m_uiHeight) == TRUE && m_pkRenderer->init(m_pkWindow->getHWND()) == TRUE &&
+		m_pkInput->init(m_hInstance,m_pkWindow->getHWND()))return true;
+
 	return false;
 }
-void Engine::run(){
+void Engine::run()
+{
 	//frame loop
 	bool bDone= false;
 	MSG kMsg;
 	if(!pgGame){
 		return;
 	}
-	if(!pgGame->init(*m_pkRenderer,*m_pkImport)){
+	if(!pgGame->init(*m_pkRenderer,*m_pkPhysics)){
 		return;
 	}
-	if( !pgGame->getCurrentScene()->init(*m_pkImport) ){
-		return;
-	}
+	
 	m_pkTimer->firstMeasure();
+
 	while(!bDone){
+
 		m_pkTimer->measure();
 		//Update FPS-----------------------------
 		static std::stringstream Title;
 		Title.str("");
-		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: " << pgGame->getCurrentScene()->m_pkName << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
+		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: "  << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
 		m_pkWindow->setWindowName(Title.str());
 		//---------------------------------------
 
@@ -79,9 +73,9 @@ void Engine::run(){
 		m_pkPhysics->update(m_pkTimer->timeBetweenFrames());
 
 		m_pkRenderer->beginFrame();
-		pgGame->frame(*m_pkRenderer,*m_pkInput, *m_pkTimer,*m_pkImport);
-		pgGame->getCurrentScene()->frame(*m_pkRenderer,*m_pkImport,*pgGame,*m_pkInput);
-		pgGame->getCurrentScene()->drawScene(m_pkRenderer,m_pkTimer);
+		pgGame->frame(*m_pkRenderer,*m_pkInput, *m_pkTimer);
+		//pgGame->getCurrentScene()->frame(*m_pkRenderer,*m_pkImport,*pgGame,*m_pkInput);
+		//pgGame->getCurrentScene()->drawScene(m_pkRenderer,m_pkTimer);
 		m_pkRenderer->endFrame();
 
 		// capturo el mensaje de Windows---------
@@ -96,7 +90,11 @@ void Engine::run(){
 		if(kMsg.message == WM_QUIT)
 			bDone = true;
 	}
-	pgGame->getCurrentScene()->deInit();
 	pgGame->deinit();
+}
+
+void Engine::setGame(Game* game)
+{
+	pgGame = game;
 }
 //-----------------------------------------------

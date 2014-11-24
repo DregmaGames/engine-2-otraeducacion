@@ -68,7 +68,7 @@ Mesh::~Mesh(){
 
 }
 
-void Mesh::setData(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Primitive Prim, const unsigned short* pInt, size_t indexCount){
+void Mesh::setDataMesh(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Primitive Prim, const unsigned short* pInt, size_t indexCount){
 	m_pkPrimitive = Prim;
 	m_pkVertexBuffer->setVertexData((void *)Tex_Vertex, vertexCount);
 	m_pkIndexBuffer->setIndexData(pInt,indexCount);

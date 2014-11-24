@@ -25,7 +25,7 @@ namespace pGr
 
 			const Vector3& offset () const;
 			const Vector3* corners() const;
-			void setData(float fWidth, float fHeight, float fDepth, float fOffsetX, float fOffsetY, float fOffsetZ);
+			void setDataAABB(float fWidth, float fHeight, float fDepth, float fOffsetX, float fOffsetY, float fOffsetZ);
 			
 		private:
 

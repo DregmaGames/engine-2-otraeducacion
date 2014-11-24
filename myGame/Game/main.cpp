@@ -7,6 +7,7 @@ using namespace Juego;
 int WINAPI WinMain(HINSTANCE hInstance , HINSTANCE hPrevInstance , LPSTR lpCmdLine , int intnShowCmd){
 	pGr::Engine eng(hInstance,1280,920);
 	eng.init();
-	eng.pgGame = new MyGame();
+	MyGame* game = new MyGame();
+	eng.setGame(game);
 	eng.run();
 }

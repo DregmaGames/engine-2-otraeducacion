@@ -1,6 +1,6 @@
 #pragma once
 #include "myEngine_API.h"
-#include "EMath.h"
+#include "Mathjavi.h"
 
 class hkpRigidBody;
 namespace pGr{
