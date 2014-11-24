@@ -1,11 +1,12 @@
 #ifndef IMPORTER_H
 #define IMPORTER_H
 
-#include "myEngine_API.h"
 #include <map>
 #include <list>
 #include <vector>
 #include <string>
+
+#include "myEngine_API.h"
 #include "tinyxml2.h"
 #include "RenderTypes.h"
 
@@ -22,15 +23,15 @@ namespace pGr{
 	class Node;
 	class Scene;
 	class Renderer;
-	class Animation;
-
+	
 	class MYENGINE_API Importer
 	{
 		friend class Engine;
+
 		public:
-		   
+
 			bool init(Renderer*);
-			Importer* getInstance();
+			static Importer* getInstance();
 			void importMesh(Mesh&, std::string);
 			Renderer& getRenderer() const{ return *m_Renderer; }
 			bool import3DScene(const std::string& fileName, Node& node);

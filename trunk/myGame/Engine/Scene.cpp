@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "Sprite.h"
-#include "Quad.h"
 #include "Renderer.h"
 #include "pg1_timer.h"
 #include "Node.h"

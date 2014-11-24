@@ -15,6 +15,7 @@ namespace pGr
 
 			Node();
 			~Node();
+
 			void draw();
 			void updateTransformation();
 			void addChild (Entity3D* pkChild);

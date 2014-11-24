@@ -1,19 +1,21 @@
 #define NOMINMAX
 #include "Importer.h"
-#include "Scene.h"
-#include "Animation.h"
+#include "Entity3D.h"
 #include "Renderer.h"
+#include "Mathjavi.h"
+#include "Scene.h"
 #include "Mesh.h"
 #include "Node.h"
-#include "Entity3D.h"
-#include "../assimp/assimp/include/Importer.hpp"
-#include "../assimp/assimp/include/scene.h"
-#include "../assimp/assimp/include/postprocess.h"
+
 #include <limits>
 #include <cstddef>
 #include <iostream>
 #include<sstream>
-#include<string>
+
+#include "../assimp/assimp/include/Importer.hpp"
+#include "../assimp/assimp/include/scene.h"
+#include "../assimp/assimp/include/postprocess.h"
+
 
 using namespace pGr;
 Importer* Importer::Instance = NULL;
@@ -37,6 +39,8 @@ bool Importer::import3DScene (const std::string& rkFilename, Node& node){
 }
 bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node)
 {
+	node.setName( pkAiNode->mName.C_Str() );
+
 	aiVector3t<float> v3AiScaling;
 	aiQuaterniont<float> qAiRotation;
 	aiVector3t<float> v3AiPosition;
@@ -46,7 +50,7 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	node.setPos(v3AiPosition.x, v3AiPosition.y, v3AiPosition.z);
 	node.setScale(v3AiScaling.x, v3AiScaling.y, v3AiScaling.z);
 	float fRotX, fRotY, fRotZ;
-	quaternionToEulerAngles(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ);
+	MATHJAVI::quaternionToEuler(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ);
 	
 	node.setRotation(fRotX, fRotY, fRotZ);
 
@@ -63,25 +67,8 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		Node* pkNode = new Node();
 		node.addChild(pkNode);
 
-		pkNode->setParent(&node);
-
 		importNode(pkAiNode->mChildren[i], pkAiScene, *pkNode);
 
-		float fAabbMaxX = pkNode->getPosX() + ( pkNode->aabb().offset()->x + ( pkNode->aabb().width() / 2 ) );
-		float fAabbMaxY = pkNode->getPosY() + ( pkNode->aabb().offset()->y + ( pkNode->aabb().height() / 2 ) );
-		float fAabbMaxZ = pkNode->getPosZ() + ( pkNode->aabb().offset()->z + ( pkNode->aabb().depth() / 2 ) );
-
-		float fAabbMinX = pkNode->getPosX() + ( pkNode->aabb().offset()->x - ( pkNode->aabb().width() / 2 ) );
-		float fAabbMinY = pkNode->getPosY() + ( pkNode->aabb().offset()->y - ( pkNode->aabb().height() / 2 ) );
-		float fAabbMinZ = pkNode->getPosZ() + ( pkNode->aabb().offset()->z - ( pkNode->aabb().depth() / 2 ) );
-
-		if(fMaxX < fAabbMaxX) fMaxX = fAabbMaxX;
-		if(fMaxY < fAabbMaxY) fMaxY = fAabbMaxY;
-		if(fMaxZ < fAabbMaxZ) fMaxZ = fAabbMaxZ;
-
-		if(fMinX > fAabbMinX) fMinX = fAabbMinX;
-		if(fMinY > fAabbMinY) fMinY = fAabbMinY;
-		if(fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
 	}
 
 	for(unsigned int i=0; i<pkAiNode->mNumMeshes; i++)
@@ -89,42 +76,18 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		Mesh* pkMesh = new Mesh(this->getRenderer());
 		node.addChild(pkMesh);
 
-		pkMesh->setParent(&node);
-
 		aiMesh* pkAiMesh = pkAiScene->mMeshes[ pkAiNode->mMeshes[i] ];
 		aiMaterial* pkAiMaterial = pkAiScene->mMaterials[pkAiMesh->mMaterialIndex];
 		importMesh(pkAiMesh, pkAiMaterial, *pkMesh);
 
-		float fAabbMaxX = pkMesh->getPosX() + ( pkMesh->aabb().offset()->x + ( pkMesh->aabb().width() / 2 ) );
-		float fAabbMaxY = pkMesh->getPosY() + ( pkMesh->aabb().offset()->y + ( pkMesh->aabb().height() / 2 ) );
-		float fAabbMaxZ = pkMesh->getPosZ() + ( pkMesh->aabb().offset()->z + ( pkMesh->aabb().depth() / 2 ) );
-
-		float fAabbMinX = pkMesh->getPosX() + ( pkMesh->aabb().offset()->x - ( pkMesh->aabb().width() / 2 ) );
-		float fAabbMinY = pkMesh->getPosY() + ( pkMesh->aabb().offset()->y - ( pkMesh->aabb().height() / 2 ) );
-		float fAabbMinZ = pkMesh->getPosZ() + ( pkMesh->aabb().offset()->z - ( pkMesh->aabb().depth() / 2 ) );
-
-		if(fMaxX < fAabbMaxX) fMaxX = fAabbMaxX;
-		if(fMaxY < fAabbMaxY) fMaxY = fAabbMaxY;
-		if(fMaxZ < fAabbMaxZ) fMaxZ = fAabbMaxZ;
-
-		if(fMinX > fAabbMinX) fMinX = fAabbMinX;
-		if(fMinY > fAabbMinY) fMinY = fAabbMinY;
-		if(fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
-		
 	}
 
-		node.aabb().setData( fabs(fMaxX - fMinX), 
-								fabs(fMaxY - fMinY), 
-								fabs(fMaxZ - fMinZ), 
-								
-								(fMinX + fMaxX) / 2 - node.getPosX(), 
-								(fMinY + fMaxY) / 2 - node.getPosY(), 
-								(fMinZ + fMaxZ) / 2 - node.getPosZ());
-	
 	return true;
 }
-bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& orkMesh)
+bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh)
 {
+	mesh.setName( pkAiMesh->mName.C_Str() );
+
 	float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();
 	float fMaxZ = std::numeric_limits<float>::lowest();
@@ -171,8 +134,8 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 		pausIndices[i * 3 + 1] = pkAiMesh->mFaces[i].mIndices[1];
 		pausIndices[i * 3 + 2] = pkAiMesh->mFaces[i].mIndices[2];
 	}
-	orkMesh.setData(pakVertices, pkAiMesh->mNumVertices, pGr::Primitive::TriangleList, pausIndices, uiIndexCount);
-	orkMesh.setName(pkAiMesh->mName.C_Str());
+	mesh.setDataMesh(pakVertices, pkAiMesh->mNumVertices, pGr::Primitive::TriangleList, pausIndices, uiIndexCount);
+	mesh.setName(pkAiMesh->mName.C_Str());
 
 	if(pkAiMaterial){
 		aiString kAiTexturePath;
@@ -184,54 +147,21 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 		{
 			kTexturePath = "." + kTexturePath;
 		}
+		
 		std::stringstream ss;
-		ss << "CARA DE CHOTA: "<<kAiTexturePath.C_Str()<< std::endl;
 		std::string s( ss.str() );
 		OutputDebugString( s.c_str() );
 
 		Texture TheTexture = m_Renderer->loadTexture("assets/"+kTexturePath);
-		//Texture TheTexture = m_Renderer->loadTexture("assets/TextureMap.png");
-		orkMesh.setTexture(TheTexture);
+		mesh.setTexture(TheTexture);
 	}
 	
 	delete[] pakVertices;
 	pakVertices = NULL;
 
-		orkMesh.aabb().setData( fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ),(fMinX + fMaxX) / 2, (fMinY + fMaxY) / 2, (fMinZ + fMaxZ) / 2);
-	
 	return true;
 }
-void Importer::quaternionToEulerAngles (float qX, float qY, float qZ, float qW, float& orfRotX, float& orfRotY, float& orfRotZ)
-{
-	double test = qX * qY + qZ * qW;
-	if(test > 0.499f){
-		// singularity at north pole
-		orfRotX = 2.0f * atan2(qX, qW);
-		orfRotY = AI_MATH_PI_F / 2.0f;
-		orfRotZ = 0.0f;
-		return;
-	}
 
-	if (test < -0.499f){
-		// singularity at south pole
-		orfRotX = -2.0f * atan2(qX, qW);
-		orfRotY = - AI_MATH_PI_F / 2.0f;
-		orfRotZ = 0.0f;
-		return;
-	}
-
-    float sqx = qX * qX;
-    float sqy = qY * qY;
-    float sqz = qZ * qZ;
-    
-	orfRotX = atan2(2.0f * qY * qW - 2.0f * qX * qZ, 
-					1.0f - 2.0f * sqy - 2.0f * sqz);
-	
-	orfRotY = static_cast<float>( asin(2.0f * test) );
-
-	orfRotZ = atan2(2.0f * qX * qW - 2.0f * qY * qZ, 
-					1.0f - 2.0f * sqx - 2.0f * sqz);
-}
 Importer* Importer::getInstance()
 {
 	if(Instance == NULL){

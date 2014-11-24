@@ -15,7 +15,6 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="EMath.h" />
     <ClInclude Include="Entity3D.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Importer.h" />
@@ -30,7 +29,6 @@
     <ClInclude Include="pg2_indexbuffer.h" />
     <ClInclude Include="pg2_vertexbuffer.h" />
     <ClInclude Include="Physics.h" />
-    <ClInclude Include="Quad.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderTypes.h" />
     <ClInclude Include="RigidBody.h" />
@@ -44,11 +42,11 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="EMath.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity3D.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Importer.cpp" />
+    <ClCompile Include="Mathjavi.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="pg1_directinput.cpp" />
@@ -57,7 +55,6 @@
     <ClCompile Include="pg2_indexbuffer.cpp" />
     <ClCompile Include="pg2_vertexbuffer.cpp" />
     <ClCompile Include="Physics.cpp" />
-    <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderTypes.cpp" />
     <ClCompile Include="RigidBody.cpp" />

@@ -1,26 +1,42 @@
 #pragma once
+
+
+#include <list>
+
 #include "Game.h"
-#include "Quad.h"
-#include "Sprite.h"
-#include "RenderTypes.h"
-#include "pg1_directinput.h"
+#include "Mesh.h"
+#include "Node.h"
+#include "Camera.h"
+#include "Importer.h"
 #include "pg1_input.h"
 #include "pg1_timer.h"
-#include <list>
-#include "Scene2.h"
-#include "Camera.h"
-#include "Mesh.h"
-namespace Juego{
-	class Scene1;
-	class Scene2;
-	class Scene3;
-	class MyGame : public pGr::Game{
+#include "RenderTypes.h"
+#include "pg1_directinput.h"
+
+
+namespace Juego
+{
+	
+
+	class MyGame : public pGr::Game
+	{
+
 	public:
 		MyGame();
-		bool init(pGr::Renderer&,pGr::Importer&);
-		void frame(pGr::Renderer&,pGr::DirectInput&,pGr::Timer& rkTimer,pGr::Importer&);
+		bool init(pGr::Renderer&,pGr::Physics& physics);
+		void frame(pGr::Renderer&,pGr::DirectInput&,pGr::Timer& rkTimer);
 		void deinit();
-		Scene2* m_kScene;
-		pGr::Mesh* theMesh;
+
+		pGr::Node* rootNode;
+
+		void doRigidBodys(pGr::Node & pkNode);
+			
+		
+	private:
+
+		pGr::Mesh* mesh;
+
+		pGr::Entity3D* lookForMesh(const std::string& name, const pGr::Node* rootNode);
+		
 	};
 }
