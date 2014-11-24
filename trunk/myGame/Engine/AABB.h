@@ -8,7 +8,6 @@ struct D3DXPLANE;
 
 namespace pGr
 {
-	
 	typedef D3DXPLANE* Plane;
 	typedef D3DXMATRIX* Matrix;
 	typedef D3DXVECTOR3* Vector3;

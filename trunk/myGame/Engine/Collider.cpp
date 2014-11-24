@@ -11,7 +11,9 @@
 
 using namespace pGr;
 
-Collider::Collider() : m_pkRigidBody(NULL){
+Collider::Collider() : m_pkRigidBody(NULL)
+{
+
 }
 Collider::~Collider(){
 	m_pkRigidBody->removeReference();

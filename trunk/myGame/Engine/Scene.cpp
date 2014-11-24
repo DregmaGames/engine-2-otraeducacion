@@ -8,7 +8,7 @@
 
 using namespace pGr;
 
-Scene::Scene() : node(NULL) 
+Scene::Scene() : rootNode(NULL) 
 {
 	//Nothing to do.
 }
@@ -32,10 +32,10 @@ void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 		m_pkEntity3D[i]->draw();
 	}
 
-	if(node != NULL)
+	if(rootNode != NULL)
 	{
-		node->updateTransformation();
-		node->draw();
+		rootNode->updateTransformation();
+		rootNode->draw();
 	}
 
 }
@@ -46,7 +46,7 @@ bool Scene::addEntity(Entity3D* Entity){
 }
 
 bool Scene::getNode(Node& theNodeDir){
-	theNodeDir = *node;
+	theNodeDir = *rootNode;
 	return true;
 }
 

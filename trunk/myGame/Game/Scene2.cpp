@@ -1,11 +1,23 @@
 #include "Scene2.h"
-#include<sstream>
-#include<string>
+
 #include "Node.h"
-#include<sstream>
 #include"RigidBody.h"
 #include"Mesh.h"
 #include"Collider.h"
+
+bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
+	rootNode = new pGr::Node();
+	//importer.import3DScene("assets/dragons.obj", *rootNode);
+	importer.import3DScene("assets/Chari.obj", *rootNode);
+	//rootNode->setPos(0,0,0);
+
+	pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
+	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
+
+	doRigidBodys(*rootNode);
+
+	return true;
+}
 
 void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
 	//input camera.
@@ -52,16 +64,12 @@ void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr:
 		renderer.m_pkCamera->strafe(-movementSpeed);
 	}
 	//******Moverse para los costados************//
-}
-bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
-	node = new pGr::Node();
-	//importer.import3DScene("assets/dragons.obj", *node);
-	importer.import3DScene("assets/Chari.obj", *node);
-	node->setPos(0,0,0);
 
-	doRigidBodys(*node);
-	return true;
+	rootNode->updateTransformation();
+
+	rootNode->draw();
 }
+
 bool Juego::Scene2::deInit(){
 	return true;
 }
@@ -86,3 +94,30 @@ void Juego::Scene2::doRigidBodys(pGr::Node& pkNode){
 		}
 	}
 }
+
+	pGr::Entity3D* lookForMesh(const std::string& name, const pGr::Node* rootNode)
+	{
+		for(std::vector<pGr::Entity3D*>::const_iterator it = rootNode->childs().begin(); it != rootNode->childs().end();it++)
+		{
+			if((*it)->getName() == name )
+			{
+				return (*it);
+			}
+
+			pGr::Node* childNode = dynamic_cast<pGr::Node*>(*it);
+			if(childNode)
+			{
+				for(std::vector<pGr::Entity3D*>::const_iterator it = childNode->childs().begin(); it != childNode->childs().end();
+					it++)
+				{
+					pGr::Entity3D* grandsonNode = lookForMesh(name, childNode);
+					if(grandsonNode)
+					{
+						return grandsonNode;
+					}
+				}
+			}
+		}
+
+		return NULL;
+	}
