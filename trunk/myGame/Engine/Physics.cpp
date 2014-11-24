@@ -1,7 +1,7 @@
 #include "Physics.h"
 #include "RigidBody.h"
 #include <iostream>
-// Havok Library LINK!
+
 #pragma comment (lib, "hkBase.lib")
 #pragma comment (lib, "hkVisualize.lib")
 #pragma comment (lib, "hkInternal.lib")
@@ -15,7 +15,7 @@
 #pragma comment (lib, "hkpDynamics.lib")
 #pragma comment (lib, "hkpInternal.lib")
 #pragma comment (lib, "hkpUtilities.lib")
-// Havok headers
+
 #include <xmmintrin.h>
 #include <Common/Base/hkBase.h>
 #include <Physics2012/Dynamics/World/hkpWorld.h>
@@ -27,14 +27,14 @@
 
 #include <Physics2012/Dynamics/Entity/hkpRigidBody.h>
 #include <Physics2012/Collide/Shape/Convex/Box/hkpBoxShape.h>
-#include <Physics2012\Collide\Shape\Convex\Sphere\hkpSphereShape.h>
+#include <Physics2012/Collide/Shape/Convex/Sphere/hkpSphereShape.h>
 #include <Physics2012/Utilities/Dynamics/Inertia/hkpInertiaTensorComputer.h>
-#include <Physics2012\Collide\Shape\Convex\hkpConvexShape.h>
-#include <Physics2012\Collide\Shape\Convex\ConvexVertices\hkpConvexVerticesShape.h>
-#include <Common\Internal\ConvexHull\hkGeometryUtility.h>
+#include <Physics2012/Collide/Shape/Convex/hkpConvexShape.h>
+#include <Physics2012/Collide/Shape/Convex/ConvexVertices/hkpConvexVerticesShape.h>
+#include <Common/Internal/ConvexHull/hkGeometryUtility.h>
 
 using namespace pGr;
-//Inicializadores que necesita Havok =/
+
 hkVisualDebugger* Physics::m_VDebugger = NULL;
 hkpPhysicsContext* Physics::m_HContext = NULL;
 
@@ -88,8 +88,6 @@ Physics::Physics ()
 			m_HContext = new hkpPhysicsContext();
 			hkpPhysicsContext::registerAllPhysicsProcesses();
 			m_HContext->addWorld(m_HWorld);
-
-			// Desbloqueo el World para que el resto lo use (AL SER MULTITHREADING ES NECESARIO ESTO)
 			m_HWorld->unmarkForWrite();
 
 			hkArray<hkProcessContext*> havokContexts;

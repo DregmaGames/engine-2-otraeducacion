@@ -69,12 +69,6 @@ void Sprite::setAnimation(std::string Name){
 			return;
 		}
 	}
-	/*for (std::list<pGr::Animation>::iterator it = animation_List.begin(); it != animation_List.end(); it++){
-		if(it._Ptr->_Myval->getName() == Name){
-			m_pkAnimation = *it;
-			return;
-		}
-	}*/
 }
 void Sprite::addAnimation(std::vector<Animation> AnimVector){
 	animation_List = AnimVector;

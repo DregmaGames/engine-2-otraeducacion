@@ -9,8 +9,6 @@
 #include "tinyxml2.h"
 #include "RenderTypes.h"
 
-//Singleton Class
-
 // Assimp
 struct aiNode;
 struct aiMesh;
@@ -51,8 +49,6 @@ namespace pGr{
 			bool importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh);
 			void quaternionToEulerAngles (float qX, float qY, float qZ, float qW, 
 								  float& orfRotX, float& orfRotY, float& orfRotZ);
-
-			//OLD THINGS IMPORTER 2D
 	};
 }
 #endif//IMPORTER_H

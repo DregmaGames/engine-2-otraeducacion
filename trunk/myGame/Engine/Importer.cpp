@@ -17,47 +17,39 @@
 
 using namespace pGr;
 Importer* Importer::Instance = NULL;
-Importer::Importer () 
-{
+Importer::Importer () {
 
 }
-Importer::~Importer()
-{
-
+Importer::~Importer() {
 }
 
-bool Importer::init(Renderer* renderer)
-{
+bool Importer::init(Renderer* renderer){
 	m_Renderer = renderer;
 	return true;
 }
 
-bool Importer::import3DScene (const std::string& rkFilename, Node& node)
-{
+bool Importer::import3DScene (const std::string& rkFilename, Node& node){
 
 	Assimp::Importer kImporter;
 	const aiScene* pkAiScene = kImporter.ReadFile(rkFilename, aiProcess_Triangulate | aiProcess_SortByPType);
 	importNode(pkAiScene->mRootNode, pkAiScene, node);
-	
 	return true;
 }
 bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node)
 {
-	// import transformation
 	aiVector3t<float> v3AiScaling;
 	aiQuaterniont<float> qAiRotation;
 	aiVector3t<float> v3AiPosition;
 
 	pkAiNode->mTransformation.Decompose(v3AiScaling, qAiRotation, v3AiPosition);
 
-	node.setPos(v3AiPosition.x, v3AiPosition.y, v3AiPosition.z); // Seteo POS
-	node.setScale(v3AiScaling.x, v3AiScaling.y, v3AiScaling.z); // Seteo Scale
+	node.setPos(v3AiPosition.x, v3AiPosition.y, v3AiPosition.z);
+	node.setScale(v3AiScaling.x, v3AiScaling.y, v3AiScaling.z);
 	float fRotX, fRotY, fRotZ;
-	quaternionToEulerAngles(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ); // Uso QuaternionToEuler :)
+	quaternionToEulerAngles(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ);
 	
-	node.setRotation(fRotX, fRotY, fRotZ); // Seteo Rotation
+	node.setRotation(fRotX, fRotY, fRotZ);
 
-	//INTENTO crear AABB.
 	float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();
 	float fMaxZ = std::numeric_limits<float>::lowest();
@@ -65,9 +57,6 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	float fMinX = std::numeric_limits<float>::max();
 	float fMinY = std::numeric_limits<float>::max();
 	float fMinZ = std::numeric_limits<float>::max();
-	
-
-	// Importo Child Nodes
 
 	for(unsigned int i=0; i<pkAiNode->mNumChildren; i++)
 	{
@@ -78,7 +67,6 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 
 		importNode(pkAiNode->mChildren[i], pkAiScene, *pkNode);
 
-		//Ajusto AABB ?
 		float fAabbMaxX = pkNode->getPosX() + ( pkNode->aabb().offset()->x + ( pkNode->aabb().width() / 2 ) );
 		float fAabbMaxY = pkNode->getPosY() + ( pkNode->aabb().offset()->y + ( pkNode->aabb().height() / 2 ) );
 		float fAabbMaxZ = pkNode->getPosZ() + ( pkNode->aabb().offset()->z + ( pkNode->aabb().depth() / 2 ) );
@@ -96,7 +84,6 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		if(fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
 	}
 
-	// Importo Child Meshes
 	for(unsigned int i=0; i<pkAiNode->mNumMeshes; i++)
 	{
 		Mesh* pkMesh = new Mesh(this->getRenderer());
@@ -108,7 +95,6 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		aiMaterial* pkAiMaterial = pkAiScene->mMaterials[pkAiMesh->mMaterialIndex];
 		importMesh(pkAiMesh, pkAiMaterial, *pkMesh);
 
-		//	Actualizo nuevamente los AABB (Pero para meshes!)
 		float fAabbMaxX = pkMesh->getPosX() + ( pkMesh->aabb().offset()->x + ( pkMesh->aabb().width() / 2 ) );
 		float fAabbMaxY = pkMesh->getPosY() + ( pkMesh->aabb().offset()->y + ( pkMesh->aabb().height() / 2 ) );
 		float fAabbMaxZ = pkMesh->getPosZ() + ( pkMesh->aabb().offset()->z + ( pkMesh->aabb().depth() / 2 ) );
@@ -160,7 +146,6 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 			pakVertices[i].v = -pkAiMesh->mTextureCoords[0][i].y;
 		}
 
-		// Actualizo AABB
 			if( fMaxX < pakVertices[i].x ) fMaxX = pakVertices[i].x;
 			if( fMaxY < pakVertices[i].y ) fMaxY = pakVertices[i].y;
 			if( fMaxZ < pakVertices[i].z ) fMaxZ = pakVertices[i].z;
@@ -190,13 +175,11 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 	orkMesh.setName(pkAiMesh->mName.C_Str());
 
 	if(pkAiMaterial){
-		// diffuse texture
 		aiString kAiTexturePath;
 		pkAiMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &kAiTexturePath);
 
 		std::string kTexturePath( kAiTexturePath.C_Str());
 
-		// append '.' if texture is inside folder
 		if( !kTexturePath.empty() && kTexturePath.at(0) == '/' )
 		{
 			kTexturePath = "." + kTexturePath;
@@ -213,8 +196,6 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 	
 	delete[] pakVertices;
 	pakVertices = NULL;
-
-		//Cargo Termino de Actualizar los AABB Seteando Data...
 
 		orkMesh.aabb().setData( fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ),(fMinX + fMaxX) / 2, (fMinY + fMaxY) / 2, (fMinZ + fMaxZ) / 2);
 	

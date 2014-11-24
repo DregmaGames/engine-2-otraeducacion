@@ -11,7 +11,6 @@
 #include <sstream>
 //-----------------------------------------------
 using namespace pGr;
-// Declaraciones.
 Engine::Engine(HINSTANCE hInstance,unsigned int uiWidth,unsigned int uiHeight)
 	:
 	m_hInstance(hInstance),
@@ -77,7 +76,6 @@ void Engine::run(){
 
 		m_pkInput->reacquire();
 		//render frame
-
 		m_pkPhysics->update(m_pkTimer->timeBetweenFrames());
 
 		m_pkRenderer->beginFrame();

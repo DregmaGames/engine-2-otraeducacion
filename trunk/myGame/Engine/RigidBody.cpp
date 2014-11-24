@@ -20,7 +20,6 @@ RigidBody::RigidBody() :	m_pTransformation (new D3DXMATRIX()), m_pkRigidBody(NUL
         kRigidBodyInfo.m_shape = pkBox;
         kRigidBodyInfo.m_position = hkVector4(0, 0, 0);
         kRigidBodyInfo.m_motionType = hkpMotion::MOTION_DYNAMIC;
-
         m_pkRigidBody = new hkpRigidBody(kRigidBodyInfo);
 }
 

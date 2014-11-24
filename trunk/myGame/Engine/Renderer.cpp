@@ -113,7 +113,6 @@ Renderer::Renderer():
 	//-----------------------------------------------
 	void Renderer::endFrame(){
 		// Termina 
-		//m_pkColorVB->flush();
 		m_pkDevice->EndScene();
 		m_pkDevice->Present(NULL, 
 			NULL, 

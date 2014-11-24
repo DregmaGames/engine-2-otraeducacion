@@ -20,12 +20,10 @@ Entity3D::Entity3D() :
 	m_fScaleX(1.0f),
 	m_fScaleY(1.0f),
 	m_fScaleZ(1.0f),
-	m_fPrevPosX(0.0f), 
-	m_fPrevPosY(0.0f), 
-	m_fPrevPosZ(0.0f),
 	m_pkTransformationMatrix(new D3DXMATRIX()),
 	m_pkTransformationLocalMatrix(new D3DXMATRIX()),
 	m_kAABB(new AABB()),
+	m_pkRigidBody(new RigidBody()),
 	m_pkParent(NULL)
 	{
 		D3DXMatrixIdentity(m_pkTransformationMatrix);
@@ -41,27 +39,20 @@ Entity3D::Entity3D() :
 
 		delete m_kAABB;
 		m_kAABB = NULL;
-	
+
+		delete m_pkRigidBody,
+		m_pkRigidBody = NULL;
 	}
 
 	void Entity3D::setPos (float fPosX,float fPosY, float fPosZ)
 	{
-		m_fPrevPosX = m_fPosX;
-		m_fPrevPosY = m_fPosY;
-		m_fPrevPosZ = m_fPosZ; 
-
-		m_fPosX=fPosX;
-		m_fPosY=fPosY;
-		m_fPosZ=fPosZ;
-
+		m_pkRigidBody->setPosition(fPosX, fPosY, fPosZ);
 		updateLocalTransformation();
 	}
 
 	void Entity3D::setRotation (float fRotX, float fRotY, float fRotZ)
 	{
-		m_fRotX = fRotX;
-		m_fRotY = fRotY;
-		m_fRotZ = fRotZ;
+		m_pkRigidBody->setRotation(fRotX, fRotY, fRotZ);
 		updateLocalTransformation();
 	}
 
@@ -70,20 +61,20 @@ Entity3D::Entity3D() :
 		m_fScaleX= fScaleX;
 		m_fScaleY= fScaleY;
 		m_fScaleZ= fScaleZ;
-		updateLocalTransformation();
+		//updateLocalTransformation();
 	}
 
 	void Entity3D::updateLocalTransformation ()
 	{
 		//tranlation matrix
 		D3DXMATRIX kTransMat;
-		D3DXMatrixTranslation(&kTransMat, m_fPosX, m_fPosY,m_fPosZ);
+		D3DXMatrixTranslation(&kTransMat, m_pkRigidBody->posX(), m_pkRigidBody->posY(), m_pkRigidBody->posZ());
 
 		//rotacion en z de la matrix
 		D3DXMATRIX rotationMatrixX, rotationMatrixY, rotationMatrixZ;
-		D3DXMatrixRotationZ(&rotationMatrixX, m_fRotX);
-		D3DXMatrixRotationZ(&rotationMatrixY, m_fRotY);
-		D3DXMatrixRotationZ(&rotationMatrixZ, m_fRotZ);
+		D3DXMatrixRotationZ(&rotationMatrixX, m_pkRigidBody->rotationX());
+		D3DXMatrixRotationZ(&rotationMatrixY, m_pkRigidBody->rotationY());
+		D3DXMatrixRotationZ(&rotationMatrixZ, m_pkRigidBody->rotationZ());
 
 		D3DXMATRIX kScaleMat;
 		D3DXMatrixScaling(&kScaleMat, m_fScaleX, m_fScaleY, m_fScaleZ);
@@ -100,14 +91,6 @@ Entity3D::Entity3D() :
 	const Matrix Entity3D::transformationMatrix()
 	{
 		return(m_pkTransformationMatrix);
-	}
-
-
-	void Entity3D::returnToPos(float fPosX, float fPosY, float fPosZ)
-	{
-		m_fPosX = fPosX;
-		m_fPosY = fPosY;
-		m_fPosZ = fPosZ;
 	}
 
 	void Entity3D::setParent (Node* pkParent)
@@ -130,7 +113,7 @@ Entity3D::Entity3D() :
 
 	void Entity3D::drawAABB(Renderer& pkRenderer) const
 	{
-		static Mesh* s_AKAABBMesh;
+		/*static Mesh* s_AKAABBMesh;
 		static bool s_bIsInitialized = false;
 
 		if(!s_bIsInitialized)
@@ -170,11 +153,15 @@ Entity3D::Entity3D() :
 
 		s_AKAABBMesh->setScale(aabb().width(), aabb().height(), aabb().depth() );
 		s_AKAABBMesh->updateTransformation();
-		s_AKAABBMesh->draw();
+		s_AKAABBMesh->draw();*/
 
 	}
 
-	const AABB&	Entity3D::aabb() const{	return *m_kAABB; }
-	AABB&		Entity3D::aabb()	  {	return *m_kAABB; }
+	const AABB&	Entity3D::aabb() const{
+		return *m_kAABB; 
+	}
+	AABB& Entity3D::aabb(){
+		return *m_kAABB; 
+	}
 
 
