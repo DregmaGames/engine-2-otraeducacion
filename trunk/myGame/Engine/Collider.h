@@ -1,5 +1,5 @@
 #pragma once
-#include "../myEngine_API.h"
+#include "myEngine_API.h"
 #include "Physics.h"
 namespace pGr{
 	class Mesh;

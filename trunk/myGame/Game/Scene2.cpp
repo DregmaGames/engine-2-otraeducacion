@@ -3,6 +3,9 @@
 #include<string>
 #include "Node.h"
 #include<sstream>
+#include"RigidBody.h"
+#include"Mesh.h"
+#include"Collider.h"
 
 void Juego::Scene2::frame(pGr::Renderer& renderer ,pGr::Importer& importer, pGr::Game& game, pGr::DirectInput& dInput){
 	//input camera.
@@ -55,8 +58,31 @@ bool Juego::Scene2::init(pGr::Renderer& renderer,pGr::Importer& importer){
 	//importer.import3DScene("assets/dragons.obj", *node);
 	importer.import3DScene("assets/Chari.obj", *node);
 	node->setPos(0,0,0);
+
+	doRigidBodys(*node);
 	return true;
 }
 bool Juego::Scene2::deInit(){
 	return true;
+}
+
+void Juego::Scene2::doRigidBodys(pGr::Node& pkNode){				
+	pGr::Physics* pkPhysics = pGr::Physics::getInstance();
+
+	for(std::vector<pGr::Entity3D*>::const_iterator it = pkNode.childs().begin(); it != pkNode.childs().end(); it ++){
+		pGr::Node* pNode = dynamic_cast<pGr::Node*>(*it);
+
+		if(pNode){
+			doRigidBodys(*pNode);
+		}else{
+			pGr::Mesh* cMesh = dynamic_cast<pGr::Mesh*>(*it);
+			if(cMesh){
+				pGr::MeshCollider* collider = new pGr::MeshCollider();
+				collider->calculate(cMesh);
+				cMesh->rigidBody()->setCollider(collider);
+				cMesh->rigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Static);
+				pkPhysics->addEntity(cMesh->rigidBody());
+			}
+		}
+	}
 }
