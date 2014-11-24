@@ -42,21 +42,13 @@ namespace pGr
 
 		Camera * m_pkCamera;
 	private:
-		//VertexBuffer* m_pkColorVB;
-		//VertexBuffer* m_pkTextureCoordVB;
-		
-		//directx stuff
-	private:
 		std::vector<pGr::Texture> m_akTextures;
 		IDirect3D9 *m_pkD3D;
 		// Representa al hardware
-		
 		IDirect3DDevice9* m_pkDevice;
 
 		VertexBuffer* m_pkVertexbuffer;
 		IndexBuffer* m_pkIndexBuffer;
-
-		//Renderer* m_rkRenderer;
 
 		UINT r;
 		UINT g;

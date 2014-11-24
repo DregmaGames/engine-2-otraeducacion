@@ -1,15 +1,14 @@
 #include "EMath.h"
-using namespace pGr;
 
+using namespace pGr;
 MATHF::MATHF(){
 	// NOTHING TO DO
 }
 
 MATHF::~MATHF(){
-	// NOTHING TO DO. AGAIN!
+	// NOTHING TO DO
 }
-void MATHF::eulerAnglesToQuaternion (float fRotX, float fRotY, float fRotZ,
-                              float& orQX, float& orQY, float& orQZ, float& orQW){
+void MATHF::eulerAnglesToQuaternion (float fRotX, float fRotY, float fRotZ, float& orQX, float& orQY, float& orQZ, float& orQW){
     double c1 = cos(fRotX/2);
     double s1 = sin(fRotX/2);
     
@@ -28,11 +27,9 @@ void MATHF::eulerAnglesToQuaternion (float fRotX, float fRotY, float fRotZ,
         orQZ = c1*s2*c3 - s1*c2*s3;
 }
 
-void MATHF::quaternionToEulerAngles (float qX, float qY, float qZ, float qW, 
-							  float& orfRotX, float& orfRotY, float& orfRotZ){
+void MATHF::quaternionToEulerAngles (float qX, float qY, float qZ, float qW, float& orfRotX, float& orfRotY, float& orfRotZ){
 	double test = qX * qY + qZ * qW;
 	if(test > 0.499f){
-		// singularity at north pole
 		orfRotX = 2.0f * atan2(qX, qW);
 		orfRotY = AI_MATH_PI_F / 2.0f;
 		orfRotZ = 0.0f;
@@ -40,7 +37,6 @@ void MATHF::quaternionToEulerAngles (float qX, float qY, float qZ, float qW,
 	}
 
 	if (test < -0.499f){
-		// singularity at south pole
 		orfRotX = -2.0f * atan2(qX, qW);
 		orfRotY = - AI_MATH_PI_F / 2.0f;
 		orfRotZ = 0.0f;

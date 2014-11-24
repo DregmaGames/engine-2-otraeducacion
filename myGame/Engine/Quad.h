@@ -15,7 +15,6 @@ namespace pGr
 		Quad();
 		~Quad();
 
-		//transformation
 	public:
 		void draw (Renderer& rkRenderer);
 		void Update(Timer& rkTimer){ }

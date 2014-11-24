@@ -16,7 +16,6 @@ namespace pGr
 			~Mesh();
 
 			void draw();
-			//void Update(Timer& rkTimer);
 			void setTexture(Texture& theTexture);
 			void setTexture(std::string, DWORD theColor);
 			void setData(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
@@ -31,7 +30,7 @@ namespace pGr
 
 			Texture s_Texture;
 			Renderer& m_pkRenderer;
-			Primitive m_pkPrimitive;	//`rinitiva -> es un enum
+			Primitive m_pkPrimitive; //enum
 
 			IndexBuffer*	m_pkIndexBuffer;
 			VertexBuffer*	m_pkVertexBuffer;

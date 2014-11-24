@@ -15,7 +15,6 @@ void Game::setCurrentScene(std::string pkString, pGr::Importer& importer, std::s
 		if( (*it._Ptr)->m_pkName == pkString){
 			currentScene->deInit();
 			currentScene = *it._Ptr; 
-			// ASDFGH
 			importer.import3DScene(fName,*N_CurrentScene);
 			currentScene->init(importer);
 			return;

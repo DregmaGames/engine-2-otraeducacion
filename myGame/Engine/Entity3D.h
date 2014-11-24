@@ -6,7 +6,7 @@
 #include "Renderer.h"
 #include "RenderTypes.h"
 #include "myengine_api.h"
-
+#include "RigidBody.h"
 #include <string>
 
 namespace pGr{
@@ -18,8 +18,6 @@ namespace pGr{
 	class MYENGINE_API Entity3D
 	{
 		friend class Node;
-
-		//constructores
 		public:
 
 			Entity3D();
@@ -31,20 +29,16 @@ namespace pGr{
 				CollisionHorizontal,
 				NoCollision
 			};
-			float getPosX(){ return m_fPosX;}
-			float getPosY(){ return m_fPosY;}
-			float getPosZ(){ return m_fPosZ;}
-			float getRotationX() const { return m_fRotX;}
-			float getRotationY() const { return m_fRotY;}
-			float getRotationZ() const { return m_fRotZ;}
 
+			float getPosX(){ return m_pkRigidBody->posX(); }
+			float getPosY(){ return m_pkRigidBody->posY(); }
+			float getPosZ(){ return m_pkRigidBody->posZ(); }
+			float getRotationX() const { return m_pkRigidBody->rotationX(); }
+			float getRotationY() const { return m_pkRigidBody->rotationY(); }
+			float getRotationZ() const { return m_pkRigidBody->rotationZ(); }
 			float getScaleX () const{ return m_fScaleX;}
 			float getScaleY () const{ return m_fScaleY;}
 			float getScaleZ () const{ return m_fScaleZ;}
-
-			float getPrevPosX() const{ return m_fPrevPosX;}
-			float getPrevPosY() const{ return m_fPrevPosY;}
-			float getPrevPosZ() const{ return m_fPrevPosZ;}
 
 			AABB& aabb();
 			bool m_Coll;//si es o no colisionable.
@@ -54,26 +48,23 @@ namespace pGr{
 			const Matrix transformationMatrix();
 			
 			void setParent (Node* pkParent);
-			void updateLocalTransformation();
 			void setColl(bool col){m_Coll = col;}
-			void drawAABB(Renderer& pkRenderer) const;
 			void setName(std::string name){m_Name = name;}
 			void setPos(float fPosX,float fPosY,float fPosZ);
-			void returnToPos(float fPosX, float fPosY, float fPosZ);
 			void setScale(float m_fScaleX,float m_fScaleY, float m_fScaleZ);
 			void setRotation(float fRotationX, float fRotationY, float fRotationZ);
+
+			void updateLocalTransformation();
+			void drawAABB(Renderer& pkRenderer) const;
 		
 			virtual void draw() = 0;
-			//virtual void Update(Timer& rkTimer);
 			virtual void updateTransformation();
 		
 			CollisionResult checkCollision(Entity3D& rkEntity3D) const;
 
 			std::string getName(){return m_Name;}
-			
 
 		protected:
-
 			Matrix m_pkTransformationMatrix;
 			Matrix m_pkTransformationLocalMatrix;
 
@@ -81,12 +72,11 @@ namespace pGr{
 
 			AABB* m_kAABB;
 			Node* m_pkParent;
+			RigidBody* m_pkRigidBody;
 
 			float m_fPosX, m_fPosY, m_fPosZ;
 			float m_fRotX, m_fRotY, m_fRotZ;
 			float m_fScaleX,m_fScaleY, m_fScaleZ;
-			float m_fPrevPosX, m_fPrevPosY, m_fPrevPosZ;
-	
 	};
 }
 #endif 
