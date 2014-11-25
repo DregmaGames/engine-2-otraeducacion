@@ -84,7 +84,7 @@ Renderer::Renderer():
 			float fViewportHeight= static_cast<float>(kViewport.Height);
 
 			D3DXMATRIX kProjectionMatrix;
-			D3DXMatrixPerspectiveFovLH(&kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,0.1f,100);
+			D3DXMatrixPerspectiveFovLH(&kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,0.1f,1000);
 
 			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
 

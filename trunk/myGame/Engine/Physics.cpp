@@ -42,8 +42,7 @@ hkpWorld* Physics::m_HWorld = NULL;
 
 bool Physics::HavokStarted = false;
 //*************************************************************
-//hkpRigidBody* Physics::m_RBody1 = NULL;
-//hkpRigidBody* Physics::m_RBody2 = NULL;
+hkpRigidBody* Physics::m_RBody1 = NULL;
 Physics*	  Physics::Instance		= NULL;
 //**************************************************************
 Physics::Physics ()
@@ -98,7 +97,7 @@ Physics::Physics ()
 		//----------VISUAL DEBUGER CONFIG END--
 
 		//----------TEST SCENE START---------
-		//StartTestScene();
+		StartTestScene();
 		//----------TEST SCENE START END---------
 
 		//----------Initialized------------------
@@ -118,40 +117,19 @@ Physics* Physics::getInstance(){
 void Physics::StartTestScene(){
 		//--------------------Test Scene--------------------
 			//--------Floor---------
-	/*hkpBoxShape* Floor = new hkpBoxShape(hkVector4(5.0f, 1.0f, 5.0f));
+	hkpBoxShape* Floor = new hkpBoxShape(hkVector4(1000.0f, 10.0f, 1000.0f));
 
 			hkpRigidBodyCinfo HavokRBodyInfo1;
 			HavokRBodyInfo1.m_shape = Floor;
-			HavokRBodyInfo1.m_position = hkVector4(0.0f, 0.0f, 0.0f);
+			HavokRBodyInfo1.m_position = hkVector4(0.0f, -10.0f, 0.0f);
 			HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_FIXED;
 			Floor->setRadius(0.0f);
+			m_RBody1 = new hkpRigidBody(HavokRBodyInfo1);
 
-			m_RBody2 = new hkpRigidBody(HavokRBodyInfo1);
-			m_HWorld->addEntity(m_RBody2);
-	
+			m_HWorld->addEntity(m_RBody1);
 			Floor->removeReference();
 			//-------Floor end--------
-			 //-------------Sphere--------------
-			 hkpSphereShape* sphereShape = new hkpSphereShape(0.5f);
-			 hkpRigidBodyCinfo HRBodyInfo2;
-
-			 HRBodyInfo2.m_shape = sphereShape;
-			 HRBodyInfo2.m_position = hkVector4(0.0f, 10.0f, 0.0f);
-			 HRBodyInfo2.m_motionType = hkpMotion::MOTION_DYNAMIC;
-			 const hkReal sphereMass = 5.0f;
- 
-			 hkMassProperties massProperties;
-			 hkpInertiaTensorComputer::computeShapeVolumeMassProperties(sphereShape, sphereMass, massProperties);
-         
-			 HRBodyInfo2.setMassProperties(massProperties);
-			 HRBodyInfo2.m_restitution = (hkReal) 2.5;
-         
-
-			 m_RBody2 = new hkpRigidBody(HRBodyInfo2);
-			 m_HWorld->addEntity(m_RBody2);
-			 sphereShape->removeReference();
-			 //-------------Sphere end--------------
-		 //--------------------Test Scene--------------------*/
+		 //--------------------Test Scene--------------------
 }
 
 Physics::~Physics (){
