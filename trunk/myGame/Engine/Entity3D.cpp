@@ -17,8 +17,7 @@ Entity3D::Entity3D() :
 	m_pkTransformationMatrix(new D3DXMATRIX()),
 	m_pkTransformationLocalMatrix(new D3DXMATRIX()),
 	m_pkParent(NULL),
-	m_pkRigidBody(new RigidBody())
-	{
+	m_pkRigidBody(new RigidBody()){
 		updateLocalTransformation();
 	}
 
@@ -70,11 +69,11 @@ Entity3D::Entity3D() :
 
 		//build matrix
 		D3DXMatrixIdentity(m_pkTransformationLocalMatrix);
-		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,&kTransMat,m_pkTransformationMatrix);
-		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,&kTransMat,&rotationMatrixX);
-		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,&kTransMat,&rotationMatrixY);
-		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,&kTransMat,&rotationMatrixZ);
-		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,&kScaleMat,m_pkTransformationMatrix);
+		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,m_pkTransformationLocalMatrix,&kTransMat);
+		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,m_pkTransformationLocalMatrix,&rotationMatrixX);
+		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,m_pkTransformationLocalMatrix,&rotationMatrixY);
+		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,m_pkTransformationLocalMatrix,&rotationMatrixZ);
+		D3DXMatrixMultiply(m_pkTransformationLocalMatrix,m_pkTransformationLocalMatrix,&kScaleMat);
 	}
 
 	const Matrix Entity3D::transformationMatrix()
@@ -118,49 +117,4 @@ Entity3D::Entity3D() :
 	{
 		m_pkRigidBody->setPosition(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(),fRotationZ);
 	}
-	//ESTO ERA EL DRAWAABB FIJARSE POR QUE AHORA VA EN OTRA CLASE
-	
-		/*static Mesh* s_AKAABBMesh;
-		static bool s_bIsInitialized = false;
-
-		if(!s_bIsInitialized)
-		{
-			s_bIsInitialized = true;
-			s_AKAABBMesh = new Mesh(pkRenderer);
-			MeshVertex * pakVertices = new MeshVertex[8];
-			unsigned short* pausIndices = new unsigned short[24];
-
-			pakVertices[0].x = +0.5f;       pakVertices[0].y = +0.5f;       pakVertices[0].z = +0.5f;
-			pakVertices[1].x = +0.5f;       pakVertices[1].y = +0.5f;       pakVertices[1].z = -0.5f;
-			pakVertices[2].x = +0.5f;       pakVertices[2].y = -0.5f;       pakVertices[2].z = +0.5f;
-			pakVertices[3].x = +0.5f;       pakVertices[3].y = -0.5f;       pakVertices[3].z = -0.5f;
-			pakVertices[4].x = -0.5f;       pakVertices[4].y = +0.5f;       pakVertices[4].z = +0.5f;
-			pakVertices[5].x = -0.5f;       pakVertices[5].y = +0.5f;       pakVertices[5].z = -0.5f;
-			pakVertices[6].x = -0.5f;       pakVertices[6].y = -0.5f;       pakVertices[6].z = +0.5f;
-			pakVertices[7].x = -0.5f;       pakVertices[7].y = -0.5f;       pakVertices[7].z = -0.5f;
-
-			pausIndices[0] =	0;			pausIndices[1] =	1;			pausIndices[2] =	1;		pausIndices[3] = 3;
-			pausIndices[4] =	3;			pausIndices[5] =	2;			pausIndices[6] =	2;		pausIndices[7] = 0;
-			pausIndices[8] =	4;			pausIndices[9] =	5;			pausIndices[10] =	5;		pausIndices[11] = 7;
-			pausIndices[12] =	7;			pausIndices[13] =	6;			pausIndices[14] =	6;		pausIndices[15] = 4;
-			pausIndices[16] =	0;			pausIndices[17] =	4;			pausIndices[18] =	1;		pausIndices[19] = 5;
-			pausIndices[20] =	3;			pausIndices[21] =	7;			pausIndices[22] =	2;		pausIndices[23] = 6;
-
-			s_AKAABBMesh->setData(pakVertices,8,LineStrip,pausIndices,24);
-
-			delete[] pakVertices;
-			delete[] pausIndices;
-		}
-
-		s_AKAABBMesh->setPos((m_pkTransformationMatrix->_41 + m_pkTransformationLocalMatrix->_41) / aabb().width() + aabb().offset()->x / aabb().width()  ,
-							 (m_pkTransformationMatrix->_42 + m_pkTransformationLocalMatrix->_42) / aabb().width() + aabb().offset()->y / aabb().height() , 
-							 (m_pkTransformationMatrix->_43 + m_pkTransformationLocalMatrix->_43) / aabb().width() + aabb().offset()->z / aabb().depth()  );
-						  
-	
-
-		s_AKAABBMesh->setScale(aabb().width(), aabb().height(), aabb().depth() );
-		s_AKAABBMesh->updateTransformation();
-		s_AKAABBMesh->draw();*/
-
-
 
