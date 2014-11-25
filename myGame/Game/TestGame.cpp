@@ -14,10 +14,10 @@ using namespace Juego;
 	//importer.import3DScene("assets/dragons.obj", *rootNode);
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
-	importer->import3DScene("assets/sceneEngine.obj", *rootNode);
+	importer->import3DScene("assets/Chari.obj", *rootNode);
 	//rootNode->setPos(0,0,0);
 
-	pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("GeoSphere001", rootNode));
+	pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
 	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
 
 	doRigidBodys(*rootNode);
