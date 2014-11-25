@@ -183,8 +183,7 @@ Renderer::Renderer():
 	}
 
 	// ----------------------------------------------------------- 3D
-	void Renderer::draw(pGr::Primitive thePrimitive)
-	{
+	void Renderer::draw(pGr::Primitive thePrimitive){
 		int iPrimitiveCount = 0;
 
 	D3DPRIMITIVETYPE ePrimitiveType = primitivesMapping[thePrimitive];
@@ -214,7 +213,7 @@ Renderer::Renderer():
 		iPrimitiveCount = m_pkIndexBuffer->indexCount() - 2;
 	}
 
-		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[ePrimitiveType],0,0,m_pkVertexbuffer->vertexCount(), 0, iPrimitiveCount);
+		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, iPrimitiveCount);
 	}
 
 	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB)
