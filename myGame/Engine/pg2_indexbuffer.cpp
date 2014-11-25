@@ -65,4 +65,5 @@ void IndexBuffer::bind ()
 
 	m_rkRenderer.setCurrentIndexBuffer(this);
 }
+
 //---------------------------------------------------------------------------

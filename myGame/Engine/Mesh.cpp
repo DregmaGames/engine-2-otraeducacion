@@ -86,12 +86,16 @@ void Mesh::setDataMesh(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Pr
 
 }
 
-void Mesh::draw(){
+void Mesh::draw()
+{
+	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
+	m_pkRenderer.setCurrentTexture(s_Texture);
+
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
-	m_pkRenderer.setCurrentTexture(s_Texture);
-	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
-	m_pkRenderer.draw(&m_pkPrimitive);
+	
+	//m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
+	m_pkRenderer.draw(m_pkPrimitive);
 }
 
 void Mesh::setTexture(std::string pkTextureFile, DWORD theColor){
