@@ -93,6 +93,31 @@ Entity3D::Entity3D() :
 		(*m_pkTransformationMatrix) = (*m_pkTransformationLocalMatrix);
 	}
 
+	void Entity3D::setPosX(float fPosX)
+	{
+		m_pkRigidBody->setPosition(fPosX, m_pkRigidBody->getPosY(),m_pkRigidBody->getPosZ());
+	}
+	void Entity3D::setPosY(float fPosY)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), fPosY,m_pkRigidBody->getPosZ());
+	}
+	void Entity3D::setPosZ(float fPosZ)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), m_pkRigidBody->getPosY(),fPosZ);
+	}
+
+	void Entity3D::setRotationX(float fRotationX)
+	{
+		m_pkRigidBody->setPosition(fRotationX, m_pkRigidBody->getRotationY(),m_pkRigidBody->getRotationZ());
+	}
+	void Entity3D::setRotationY(float fRotationY)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getRotationX(), fRotationY,m_pkRigidBody->getRotationZ());
+	}
+	void Entity3D::setRotationZ(float fRotationZ)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(),fRotationZ);
+	}
 	//ESTO ERA EL DRAWAABB FIJARSE POR QUE AHORA VA EN OTRA CLASE
 	
 		/*static Mesh* s_AKAABBMesh;

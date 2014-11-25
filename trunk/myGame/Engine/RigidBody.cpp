@@ -34,21 +34,21 @@ void RigidBody::setPosition(float x, float y, float z){
 	m_pkRigidBody->unmarkForWrite();
 }
 
-float RigidBody::posX() const{
+float RigidBody::getPosX() const{
 	    m_pkRigidBody->markForRead();
         float fResult = -m_pkRigidBody->getPosition().getComponent(0);
         m_pkRigidBody->unmarkForRead();
         return fResult;
 }
 
-float RigidBody::posY() const{
+float RigidBody::getPosY() const{
 	    m_pkRigidBody->markForRead();
         float fResult = m_pkRigidBody->getPosition().getComponent(1);
         m_pkRigidBody->unmarkForRead();
         return fResult;
 }
 
-float RigidBody::posZ() const{
+float RigidBody::getPosZ() const{
 	    m_pkRigidBody->markForRead();
         float fResult = m_pkRigidBody->getPosition().getComponent(2);
         m_pkRigidBody->unmarkForRead();
@@ -66,7 +66,7 @@ void RigidBody::setRotation(float px, float py, float pz){
         m_pkRigidBody->unmarkForWrite();
 }
 
-float RigidBody::rotationX () const{
+float RigidBody::getRotationX () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
@@ -81,7 +81,7 @@ float RigidBody::rotationX () const{
 
         return fRotX;
 }
-float RigidBody::rotationY () const{
+float RigidBody::getRotationY () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
@@ -96,7 +96,7 @@ float RigidBody::rotationY () const{
 
         return fRotY;
 }
-float RigidBody::rotationZ () const{
+float RigidBody::getRotationZ () const{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;

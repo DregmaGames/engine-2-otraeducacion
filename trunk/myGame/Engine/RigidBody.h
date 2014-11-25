@@ -13,14 +13,14 @@ namespace pGr{
 		virtual ~RigidBody();
 
 		void setPosition(float,float,float);
-		float posX() const;
-		float posY() const;
-		float posZ() const;
+		float getPosX() const;
+		float getPosY() const;
+		float getPosZ() const;
 
 		void setRotation(float,float,float);
-		float rotationX () const;
-		float rotationY () const;
-		float rotationZ () const;
+		float getRotationX () const;
+		float getRotationY () const;
+		float getRotationZ () const;
 
 		const Matrix& transform () const { return m_pTransformation; };
 	

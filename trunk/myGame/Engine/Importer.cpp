@@ -47,12 +47,17 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 
 	pkAiNode->mTransformation.Decompose(v3AiScaling, qAiRotation, v3AiPosition);
 
-	node.setPos(v3AiPosition.x, v3AiPosition.y, v3AiPosition.z);
+	node.setPosX(v3AiPosition.x);
+	node.setPosY(v3AiPosition.y);
+	node.setPosZ(v3AiPosition.z);
 	node.setScale(v3AiScaling.x, v3AiScaling.y, v3AiScaling.z);
 	float fRotX, fRotY, fRotZ;
 	MATHJAVI::quaternionToEuler(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ);
 	
-	node.setRotation(fRotX, fRotY, fRotZ);
+	//node.setRotation(fRotX, fRotY, fRotZ);
+	node.setRotationX(fRotX);
+	node.setRotationY(fRotY);
+	node.setRotationZ(fRotZ);
 
 	float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();

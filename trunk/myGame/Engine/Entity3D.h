@@ -26,12 +26,12 @@ namespace pGr{
 			float getScaleX () const{ return m_fScaleX;}
 			float getScaleY () const{ return m_fScaleY;}
 			float getScaleZ () const{ return m_fScaleZ;}
-			float getPosX(){ return m_pkRigidBody->posX(); }
-			float getPosY(){ return m_pkRigidBody->posY(); }
-			float getPosZ(){ return m_pkRigidBody->posZ(); }
-			float getRotationX() const { return m_pkRigidBody->rotationX(); }
-			float getRotationY() const { return m_pkRigidBody->rotationY(); }
-			float getRotationZ() const { return m_pkRigidBody->rotationZ(); }
+			float getPosX(){ return m_pkRigidBody->getPosX(); }
+			float getPosY(){ return m_pkRigidBody->getPosY(); }
+			float getPosZ(){ return m_pkRigidBody->getPosZ(); }
+			float getRotationX() const { return m_pkRigidBody->getRotationX(); }
+			float getRotationY() const { return m_pkRigidBody->getRotationY(); }
+			float getRotationZ() const { return m_pkRigidBody->getRotationZ(); }
 
 			RigidBody* getRigidBody() const{ return m_pkRigidBody; }
 
@@ -43,8 +43,16 @@ namespace pGr{
 			void setName(std::string name){m_Name = name;}
 
 			void setPos(float fPosX,float fPosY,float fPosZ);
+
+			void setPosX(float fPosX);
+			void setPosY(float fPosY);
+			void setPosZ(float fPosZ);
+
 			void setScale(float m_fScaleX,float m_fScaleY, float m_fScaleZ);
-			void setRotation(float fRotationX, float fRotationY, float fRotationZ);
+			void setRotation(float fRotationX,float fRotationY,float fRotationZ);
+			void setRotationX(float fRotationX);
+			void setRotationY(float fRotationY);
+			void setRotationZ(float fRotationZ);
 			
 			virtual void draw() = 0;
 			void updateLocalTransformation();
