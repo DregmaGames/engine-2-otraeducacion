@@ -44,8 +44,6 @@ void Camera::roll(float angle){
 	rz+=angle;
 	updateTransform();
 }
-
-//ARREGLAAAR!!!!
 void Camera::updateTransform(){
 	/*
 	para ver lo que es roll, pitch y yaw mira esta imágen o muere.
