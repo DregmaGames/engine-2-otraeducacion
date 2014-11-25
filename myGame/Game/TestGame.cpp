@@ -14,10 +14,13 @@ using namespace Juego;
 	//importer.import3DScene("assets/dragons.obj", *rootNode);
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
-	importer->import3DScene("assets/Chari.obj", *rootNode);
+	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
 	//rootNode->setPos(0,0,0);
-
-	pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
+	
+	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
+	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon2.002", rootNode));
+	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Box001", rootNode));
+	pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon0.001", rootNode));
 	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
 
 	doRigidBodys(*rootNode);
@@ -96,7 +99,7 @@ void MyGame::doRigidBodys(pGr::Node& pkNode){
 				pGr::MeshCollider* collider = new pGr::MeshCollider();
 				collider->calculate(cMesh);
 				cMesh->getRigidBody()->setCollider(collider);
-				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Dynamic);
+				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Static);
 				pkPhysics->addEntity(cMesh->getRigidBody());
 			}
 		}
