@@ -97,7 +97,7 @@ Physics::Physics ()
 		//----------VISUAL DEBUGER CONFIG END--
 
 		//----------TEST SCENE START---------
-		StartTestScene();
+		//StartTestScene();
 		//----------TEST SCENE START END---------
 
 		//----------Initialized------------------

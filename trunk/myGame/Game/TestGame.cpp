@@ -11,7 +11,6 @@ using namespace Juego;
  bool MyGame::init(pGr::Renderer& rkRenderer,pGr::Physics& rkPhysics)
 {
 	rootNode = new pGr::Node();
-	//importer.import3DScene("assets/dragons.obj", *rootNode);
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
 	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
@@ -30,7 +29,6 @@ using namespace Juego;
 //---------------------------------------
 void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Timer& rkTimer)
 {
-	//input camera.
 	float movementSpeed = 0.1f;
 	float rotationSpeed = 0.1f;
 
@@ -99,7 +97,7 @@ void MyGame::doRigidBodys(pGr::Node& pkNode){
 				pGr::MeshCollider* collider = new pGr::MeshCollider();
 				collider->calculate(cMesh);
 				cMesh->getRigidBody()->setCollider(collider);
-				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Static);
+				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Dynamic);
 				pkPhysics->addEntity(cMesh->getRigidBody());
 			}
 		}

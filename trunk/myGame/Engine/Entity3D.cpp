@@ -89,6 +89,11 @@ Entity3D::Entity3D() :
 	void Entity3D::updateTransformation()
 	{
 		updateLocalTransformation();
+		if(m_pkParent){
+			D3DXMatrixIdentity(m_pkTransformationMatrix);
+			D3DXMatrixMultiply(m_pkTransformationMatrix,m_pkParent ->m_pkTransformationMatrix , m_pkTransformationLocalMatrix);
+		}
+		else
 		(*m_pkTransformationMatrix) = (*m_pkTransformationLocalMatrix);
 	}
 
