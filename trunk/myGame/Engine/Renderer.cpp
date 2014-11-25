@@ -121,18 +121,19 @@ Renderer::Renderer():
 
 	}
 	//-----------------------------------------------
-	void Renderer::draw(ColorVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
+	/*void Renderer::draw(ColorVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
 	{
 	}
 	void Renderer::draw(TextureCoordVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
 	{
-	}
+	}*/
 	void Renderer::setMatrix(MatrixType eMatrixType, const Matrix& rkMatrix)
 	{
 		m_pkDevice->SetTransform(g_eMatrixTypeMapping[eMatrixType],rkMatrix);
 	}
 
-	const Texture Renderer::loadTexture (const std::string& rkFilename,int iColorKey){
+	const Texture Renderer::loadTexture (const std::string& rkFilename,int iColorKey)
+	{
 		IDirect3DTexture9* pkTexture = NULL;
 		HRESULT hr= D3DXCreateTextureFromFileEx(
 			m_pkDevice,
@@ -156,7 +157,8 @@ Renderer::Renderer():
 
 	}
 
-	const Texture Renderer::loadTexture(const std::string& Fname){
+	const Texture Renderer::loadTexture(const std::string& Fname)
+	{
 		IDirect3DTexture9* p_Texture = NULL;
 		HRESULT HR = D3DXCreateTextureFromFileEx(m_pkDevice,
 			Fname.c_str(),
@@ -175,28 +177,63 @@ Renderer::Renderer():
 			return p_Texture;
 		}
 	}
-	void Renderer::setCurrentTexture(const Texture& rkTexture){
+	void Renderer::setCurrentTexture(const Texture& rkTexture)
+	{
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
 
 	// ----------------------------------------------------------- 3D
-	void Renderer::draw(pGr::Primitive *thePrimitive){
-		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[*thePrimitive],0,0,m_pkVertexbuffer->vertexCount(), 0, m_pkIndexBuffer->indexCount() / 3);
+	void Renderer::draw(pGr::Primitive thePrimitive)
+	{
+		int iPrimitiveCount = 0;
+
+	D3DPRIMITIVETYPE ePrimitiveType = primitivesMapping[thePrimitive];
+
+	if(ePrimitiveType == D3DPT_POINTLIST)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount();
+	}
+	else if(ePrimitiveType == D3DPT_LINELIST)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount() / 2;
+	}
+	else if(ePrimitiveType == D3DPT_LINESTRIP)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount() - 1;
+	}
+	else if(ePrimitiveType == D3DPT_TRIANGLELIST)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount() / 3;
+	}
+	else if(ePrimitiveType == D3DPT_TRIANGLESTRIP)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount() - 2;
+	}
+	else if(ePrimitiveType == D3DPT_TRIANGLEFAN)
+	{
+		iPrimitiveCount = m_pkIndexBuffer->indexCount() - 2;
 	}
 
-	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB){
+		m_pkDevice->DrawIndexedPrimitive(primitivesMapping[ePrimitiveType],0,0,m_pkVertexbuffer->vertexCount(), 0, iPrimitiveCount);
+	}
+
+	void Renderer::setCurrentVertexBuffer(VertexBuffer* theVB)
+	{
 		m_pkVertexbuffer = theVB;
 	}
 
-	void Renderer::setCurrentIndexBuffer(IndexBuffer* theIB){
+	void Renderer::setCurrentIndexBuffer(IndexBuffer* theIB)
+	{
 		m_pkIndexBuffer = theIB;
 	}
 
-	VertexBuffer* Renderer::CreateVB(size_t vSize, unsigned int FVF){
+	VertexBuffer* Renderer::CreateVB(size_t vSize, unsigned int FVF)
+	{
 		return new VertexBuffer(*this,m_pkDevice,vSize,FVF);
 	}
 
-	IndexBuffer* Renderer::CreateIB(){
+	IndexBuffer* Renderer::CreateIB()
+	{
 		return new IndexBuffer(*this,m_pkDevice);
 
 	}

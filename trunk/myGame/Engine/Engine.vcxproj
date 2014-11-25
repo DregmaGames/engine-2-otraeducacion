@@ -33,7 +33,6 @@
     <ClInclude Include="RenderTypes.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -59,7 +58,6 @@
     <ClCompile Include="RenderTypes.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

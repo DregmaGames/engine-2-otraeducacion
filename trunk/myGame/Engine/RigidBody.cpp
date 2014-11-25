@@ -28,34 +28,39 @@ RigidBody::~RigidBody(){
 	m_pkRigidBody = NULL;
 }
 
-void RigidBody::setPosition(float x, float y, float z){
+void RigidBody::setPosition(float x, float y, float z)
+{
 	m_pkRigidBody->markForWrite();
 	m_pkRigidBody->setPosition( hkVector4(-x, y, z) );
 	m_pkRigidBody->unmarkForWrite();
 }
 
-float RigidBody::getPosX() const{
+float RigidBody::getPosX() const
+{
 	    m_pkRigidBody->markForRead();
         float fResult = -m_pkRigidBody->getPosition().getComponent(0);
         m_pkRigidBody->unmarkForRead();
         return fResult;
 }
 
-float RigidBody::getPosY() const{
+float RigidBody::getPosY() const
+{
 	    m_pkRigidBody->markForRead();
         float fResult = m_pkRigidBody->getPosition().getComponent(1);
         m_pkRigidBody->unmarkForRead();
         return fResult;
 }
 
-float RigidBody::getPosZ() const{
+float RigidBody::getPosZ() const
+{
 	    m_pkRigidBody->markForRead();
         float fResult = m_pkRigidBody->getPosition().getComponent(2);
         m_pkRigidBody->unmarkForRead();
         return fResult;
 }
 
-void RigidBody::setRotation(float px, float py, float pz){
+void RigidBody::setRotation(float px, float py, float pz)
+{
 	    m_pkRigidBody->markForWrite();
 
         float x, y, z, w;
@@ -66,7 +71,8 @@ void RigidBody::setRotation(float px, float py, float pz){
         m_pkRigidBody->unmarkForWrite();
 }
 
-float RigidBody::getRotationX () const{
+float RigidBody::getRotationX () const
+{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
@@ -81,7 +87,9 @@ float RigidBody::getRotationX () const{
 
         return fRotX;
 }
-float RigidBody::getRotationY () const{
+
+float RigidBody::getRotationY () const
+{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
@@ -96,7 +104,9 @@ float RigidBody::getRotationY () const{
 
         return fRotY;
 }
-float RigidBody::getRotationZ () const{
+
+float RigidBody::getRotationZ () const
+{
         m_pkRigidBody->markForRead();
 
         float fRotX, fRotY, fRotZ;
@@ -112,14 +122,16 @@ float RigidBody::getRotationZ () const{
         return fRotZ;
 }
 
-void RigidBody::setCollider(Collider* pkCollider){
+void RigidBody::setCollider(Collider* pkCollider)
+{
 	m_pkCollider = pkCollider;
 	m_pkRigidBody->markForWrite();
 	m_pkRigidBody->setShape( m_pkCollider->shape() );
 	m_pkRigidBody->unmarkForWrite();
 }
 
-void RigidBody::setHavokMotion(RigidBody::HavokMotion type){
+void RigidBody::setHavokMotion(RigidBody::HavokMotion type)
+{
 	m_HMotion = type;
 	m_pkRigidBody->markForWrite();
 	m_pkRigidBody->setMotionType( s_HavokMType[type] );
