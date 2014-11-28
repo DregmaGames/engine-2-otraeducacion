@@ -64,12 +64,10 @@ float RigidBody::getPosZ() const
 void RigidBody::setRotation(float px, float py, float pz)
 {
 	    m_pkRigidBody->markForWrite();
-
         float x, y, z, w;
         MATHJAVI::eulerToQuaternion(px, py, pz, x, y, z, w);
         hkQuaternion kRotation(x, y, z, w);
         m_pkRigidBody->setRotation(kRotation);
-
         m_pkRigidBody->unmarkForWrite();
 }
 

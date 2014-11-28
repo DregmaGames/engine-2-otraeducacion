@@ -42,13 +42,14 @@ namespace pGr{
 			std::string getName(){return m_Name;}
 			void setName(std::string name){m_Name = name;}
 
-			void setPos(float fPosX,float fPosY,float fPosZ);
-
-			void setPosX(float fPosX);
-			void setPosY(float fPosY);
-			void setPosZ(float fPosZ);
-
 			void setScale(float m_fScaleX,float m_fScaleY, float m_fScaleZ);
+
+			void setPosition(float fPosX,float fPosY,float fPosZ);
+			void setPositionX(float fPosX);
+			void setPositionY(float fPosY);
+			void setPositionZ(float fPosZ);
+
+
 			void setRotation(float fRotationX,float fRotationY,float fRotationZ);
 			void setRotationX(float fRotationX);
 			void setRotationY(float fRotationY);

@@ -58,6 +58,7 @@ Renderer::Renderer():
 		d.hDeviceWindow = hWnd;
 		d.EnableAutoDepthStencil = TRUE;
 		d.AutoDepthStencilFormat = D3DFMT_D16;
+		d.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 		if( m_pkD3D->CreateDevice(D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL, 
@@ -68,7 +69,7 @@ Renderer::Renderer():
 			== D3D_OK )
 		{
 			m_pkDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
-			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_CCW);
+			m_pkDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
 			//m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME); //renderiza en ireframe.
 
 			m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
@@ -120,13 +121,6 @@ Renderer::Renderer():
 			NULL);
 
 	}
-	//-----------------------------------------------
-	/*void Renderer::draw(ColorVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
-	{
-	}
-	void Renderer::draw(TextureCoordVertex* apkVertices,pGr::Primitive primitive,size_t vertexCount)
-	{
-	}*/
 	void Renderer::setMatrix(MatrixType eMatrixType, const Matrix& rkMatrix)
 	{
 		m_pkDevice->SetTransform(g_eMatrixTypeMapping[eMatrixType],rkMatrix);
@@ -235,5 +229,15 @@ Renderer::Renderer():
 	{
 		return new IndexBuffer(*this,m_pkDevice);
 
+	}
+
+	void Renderer::wireframe(bool wire){
+		if (wire){
+			m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME); //renderiza en wireframe.	
+		}
+		else
+		{
+			m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID); //renderiza en solid.	
+		}
 	}
 	// -----------------------------------------------------------/3D

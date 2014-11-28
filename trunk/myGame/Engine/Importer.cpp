@@ -47,9 +47,9 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 
 	pkAiNode->mTransformation.Decompose(v3AiScaling, qAiRotation, v3AiPosition);
 
-	node.setPosX(v3AiPosition.x);
-	node.setPosY(v3AiPosition.y);
-	node.setPosZ(v3AiPosition.z);
+	node.setPositionX(v3AiPosition.x);
+	node.setPositionY(v3AiPosition.y);
+	node.setPositionZ(v3AiPosition.z);
 	node.setScale(v3AiScaling.x, v3AiScaling.y, v3AiScaling.z);
 	float fRotX, fRotY, fRotZ;
 	MATHJAVI::quaternionToEuler(qAiRotation.x, qAiRotation.y, qAiRotation.z, qAiRotation.w, fRotX, fRotY, fRotZ);

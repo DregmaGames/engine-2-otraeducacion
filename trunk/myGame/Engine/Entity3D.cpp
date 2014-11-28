@@ -18,9 +18,9 @@ Entity3D::Entity3D() :
 	m_pkTransformationLocalMatrix(new D3DXMATRIX()),
 	m_pkParent(NULL),
 	m_pkRigidBody(new RigidBody()){
+		D3DXMatrixIdentity(m_pkTransformationMatrix);
 		updateLocalTransformation();
 	}
-
 	Entity3D::~Entity3D()
 	{
 		delete m_pkTransformationMatrix;
@@ -33,16 +33,54 @@ Entity3D::Entity3D() :
 		m_pkRigidBody = NULL;
 	}
 
-	void Entity3D::setPos (float fPosX,float fPosY, float fPosZ)
+	void Entity3D::setPositionX(float fPosX)
+	{
+		m_pkRigidBody->setPosition(fPosX, m_pkRigidBody->getPosY(), m_pkRigidBody->getPosZ());
+		std::cout << "posX: " << m_pkRigidBody->getPosX() << std::endl;
+		updateLocalTransformation();
+	}
+	void Entity3D::setPositionY(float fPosY)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), fPosY, m_pkRigidBody->getPosZ());
+		std::cout << "posY: " << m_pkRigidBody->getPosY() << std::endl;
+		updateLocalTransformation();
+	}
+	void Entity3D::setPositionZ(float fPosZ)
+	{
+		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), m_pkRigidBody->getPosY(), fPosZ);
+		std::cout << "posZ: " << m_pkRigidBody->getPosZ() << std::endl;
+		updateLocalTransformation();
+	}
+
+	void Entity3D::setRotationX(float fRotationX)
+	{
+		m_pkRigidBody->setRotation(fRotationX, m_pkRigidBody->getRotationY(), m_pkRigidBody->getRotationZ());
+		std::cout << "rotX: " << m_pkRigidBody->getRotationX() << std::endl;
+		updateLocalTransformation();
+	}
+	void Entity3D::setRotationY(float fRotationY)
+	{
+		m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), fRotationY, m_pkRigidBody->getRotationZ());
+		std::cout << "rotY: " << m_pkRigidBody->getRotationY() << std::endl;
+		updateLocalTransformation();
+	}
+	void Entity3D::setRotationZ(float fRotationZ)
+	{
+		m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(), fRotationZ);
+		std::cout << "rotZ: " << m_pkRigidBody->getRotationZ() << std::endl;
+		updateLocalTransformation();
+	}
+
+	void Entity3D::setPosition (float fPosX,float fPosY, float fPosZ)
 	{
 		m_pkRigidBody->setPosition(fPosX, fPosY, fPosZ);
-		
+		updateLocalTransformation();
 	}
 
 	void Entity3D::setRotation (float fRotX, float fRotY, float fRotZ)
 	{
 		m_pkRigidBody->setRotation(fRotX, fRotY, fRotZ);
-		
+		updateLocalTransformation();
 	}
 
 	void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ)
@@ -54,6 +92,7 @@ Entity3D::Entity3D() :
 
 	void Entity3D::updateLocalTransformation ()
 	{
+		//std::cout << "updateLocalTransformation: " << getName() << std::endl;
 		//tranlation matrix
 		D3DXMATRIX kTransMat;
 		D3DXMatrixTranslation(&kTransMat, getPosX(), getPosY(), getPosZ());
@@ -88,38 +127,11 @@ Entity3D::Entity3D() :
 
 	void Entity3D::updateTransformation()
 	{
-		updateLocalTransformation();
 		if(m_pkParent){
 			D3DXMatrixIdentity(m_pkTransformationMatrix);
 			D3DXMatrixMultiply(m_pkTransformationMatrix,m_pkParent ->m_pkTransformationMatrix , m_pkTransformationLocalMatrix);
 		}
 		else
 		(*m_pkTransformationMatrix) = (*m_pkTransformationLocalMatrix);
-	}
-
-	void Entity3D::setPosX(float fPosX)
-	{
-		m_pkRigidBody->setPosition(fPosX, m_pkRigidBody->getPosY(),m_pkRigidBody->getPosZ());
-	}
-	void Entity3D::setPosY(float fPosY)
-	{
-		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), fPosY,m_pkRigidBody->getPosZ());
-	}
-	void Entity3D::setPosZ(float fPosZ)
-	{
-		m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), m_pkRigidBody->getPosY(),fPosZ);
-	}
-
-	void Entity3D::setRotationX(float fRotationX)
-	{
-		m_pkRigidBody->setPosition(fRotationX, m_pkRigidBody->getRotationY(),m_pkRigidBody->getRotationZ());
-	}
-	void Entity3D::setRotationY(float fRotationY)
-	{
-		m_pkRigidBody->setPosition(m_pkRigidBody->getRotationX(), fRotationY,m_pkRigidBody->getRotationZ());
-	}
-	void Entity3D::setRotationZ(float fRotationZ)
-	{
-		m_pkRigidBody->setPosition(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(),fRotationZ);
 	}
 

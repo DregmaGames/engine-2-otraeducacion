@@ -25,7 +25,6 @@ void Scene::deInit()
 
 void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 {
-	
 	for(int i=0; i < m_pkEntity3D.size(); i++){
 		m_pkEntity3D[i]->draw();
 	}
@@ -35,7 +34,6 @@ void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 		rootNode->updateTransformation();
 		rootNode->draw();
 	}
-
 }
 
 bool Scene::addEntity(Entity3D* Entity){

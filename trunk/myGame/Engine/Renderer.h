@@ -39,6 +39,7 @@ namespace pGr
 		const Texture loadTexture(const std::string& rkFilename,int COLOR);
 		const Texture loadTexture (const std::string& Fname);
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
+		void wireframe(bool wire);
 
 		Camera * m_pkCamera;
 	private:
