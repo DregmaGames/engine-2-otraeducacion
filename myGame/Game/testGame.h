@@ -25,16 +25,16 @@ namespace Juego
 		MyGame();
 		bool init(pGr::Renderer&,pGr::Physics& physics);
 		void frame(pGr::Renderer&,pGr::DirectInput&,pGr::Timer& rkTimer);
+		void inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput);
 		void deinit();
 
 		pGr::Node* rootNode;
 
 		void doRigidBodys(pGr::Node & pkNode);
-			
-		
 	private:
 
 		pGr::Mesh* mesh;
+		pGr::Node* nodeMesh;
 
 		pGr::Entity3D* lookForMesh(const std::string& name, const pGr::Node* rootNode);
 		

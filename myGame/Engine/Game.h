@@ -10,6 +10,7 @@ namespace pGr
 	class Physics;
 	class Renderer;
 	class DirectInput;
+	class Scene;
 	
 	class MYENGINE_API Game
 	{
@@ -18,7 +19,6 @@ namespace pGr
 
 		bool getDone();
 		void setDone(bool done);
-
 		virtual bool init (pGr::Renderer&, pGr::Physics& physics)=0;
 		virtual void frame(pGr::Renderer&,pGr::DirectInput& rkInput, pGr::Timer& t)=0;
 		virtual void deinit()=0;
