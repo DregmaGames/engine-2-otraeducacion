@@ -24,7 +24,7 @@ AABB::~AABB()
 }
 void AABB::setDataAABB(float fWidth, float fHeight, float fDepth, float fOffsetX, float fOffsetY, float fOffsetZ)
 {
-	/*m_pkOffset->x = fOffsetX;
+	m_pkOffset->x = fOffsetX;
 	m_pkOffset->y = fOffsetY;
 	m_pkOffset->z = fOffsetZ;
 
@@ -39,7 +39,7 @@ void AABB::setDataAABB(float fWidth, float fHeight, float fDepth, float fOffsetX
 
 	m_fWidth = fWidth;
 	m_fHeight = fHeight;
-	m_fDepth = fDepth;*/
+	m_fDepth = fDepth;
 
 }
 

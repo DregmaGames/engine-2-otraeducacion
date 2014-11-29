@@ -84,7 +84,23 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		aiMesh* pkAiMesh = pkAiScene->mMeshes[ pkAiNode->mMeshes[i] ];
 		aiMaterial* pkAiMaterial = pkAiScene->mMaterials[pkAiMesh->mMaterialIndex];
 		importMesh(pkAiMesh, pkAiMaterial, *pkMesh);
+		/*
+		float fAabbMaxX = pkMesh->getPosX() + (pkMesh->aabb().offset()->x + (pkMesh->aabb().width() / 2));
+		float fAabbMaxY = pkMesh->getPosY() + (pkMesh->aabb().offset()->y + (pkMesh->aabb().height() / 2));
+		float fAabbMaxZ = pkMesh->getPosZ() + (pkMesh->aabb().offset()->z + (pkMesh->aabb().depth() / 2));
 
+		float fAabbMinX = pkMesh->getPosX() + (pkMesh->aabb().offset()->x - (pkMesh->aabb().width() / 2));
+		float fAabbMinY = pkMesh->getPosY() + (pkMesh->aabb().offset()->y - (pkMesh->aabb().height() / 2));
+		float fAabbMinZ = pkMesh->getPosZ() + (pkMesh->().offset()->z - (pkMesh->aabb().depth() / 2));
+
+		if (fMaxX < fAabbMaxX) fMaxX = fAabbMaxX;
+		if (fMaxY < fAabbMaxY) fMaxY = fAabbMaxY;
+		if (fMaxZ < fAabbMaxZ) fMaxZ = fAabbMaxZ;
+
+		if (fMinX > fAabbMinX) fMinX = fAabbMinX;
+		if (fMinY > fAabbMinY) fMinY = fAabbMinY;
+		if (fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
+		*/
 	}
 
 	return true;
