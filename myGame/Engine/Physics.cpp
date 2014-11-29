@@ -53,7 +53,8 @@ Physics::Physics ()
 		#endif
 
 		//Havok con Memory Leak Detector
-		hkMemoryRouter* memoryRouter = hkMemoryInitUtil::initChecking( hkMallocAllocator::m_defaultMallocAllocator,  hkMemorySystem::FrameInfo(1024 * 1024));
+		hkMemoryRouter* memoryRouter = hkMemoryInitUtil::initChecking( hkMallocAllocator::m_defaultMallocAllocator, 
+		hkMemorySystem::FrameInfo(1024 * 1024));
 		hkBaseSystem::init(memoryRouter, HavokFailure);
 		//------------------------------
 

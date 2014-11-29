@@ -29,7 +29,7 @@ namespace Juego
 		void deinit();
 
 		pGr::Node* rootNode;
-
+		pGr::Node* pokemonNode; 
 		void doRigidBodys(pGr::Node & pkNode);
 	private:
 

@@ -33,7 +33,7 @@ void Node::removeChild(Entity3D* pkChild){
 void Node::updateTransformation()
 {
 	Entity3D::updateTransformation();
-	std::cout <<"childsNum: "<< m_pkChilds.size()<<std::endl;
+	//std::cout <<"childsNum: "<< m_pkChilds.size()<<std::endl;
 	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); it++)
 	{
 		(*it)->updateTransformation();
@@ -45,5 +45,18 @@ void Node::draw()
 	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) 
 	{
 		(*it)->draw();
+	}
+}
+
+Entity3D* Node::getEntityFromName(std::string name)
+{
+	std::cout << "Buscando rigidbody " <<  std::endl;
+	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) 
+	{
+		if((*it)->getName() == name)
+		{
+			std::cout << "lo encontre " <<  std::endl;
+			return (*it);
+		}
 	}
 }

@@ -31,7 +31,7 @@ void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 
 	if(rootNode != NULL)
 	{
-		rootNode->updateTransformation();
+		//rootNode->updateTransformation();
 		rootNode->draw();
 	}
 }

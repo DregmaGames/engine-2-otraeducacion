@@ -17,6 +17,7 @@ namespace pGr
 			~Node();
 
 			void draw();
+			Entity3D* getEntityFromName(std::string name);
 			void updateTransformation();
 			void addChild (Entity3D* pkChild);
 			void removeChild(Entity3D* pkChild);
