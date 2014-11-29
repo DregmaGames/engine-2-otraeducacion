@@ -7,6 +7,7 @@
 #include "RenderTypes.h"
 #include "myengine_api.h"
 #include "RigidBody.h"
+#include "AABB.h"
 #include <string>
 
 namespace pGr{
@@ -15,6 +16,7 @@ namespace pGr{
 	class Timer;
 	class Renderer;
 	class Rigidbody;
+	class AABB;
 	class MYENGINE_API Entity3D
 	{
 		friend class Node;
@@ -60,6 +62,9 @@ namespace pGr{
 			virtual void updateTransformation();
 			void setParent (Node* pkParent);
 
+			const AABB& getAABB() const;
+			AABB& getAABB();
+
 		protected:
 
 			Matrix m_pkTransformationMatrix;
@@ -67,6 +72,7 @@ namespace pGr{
 
 		private:
 
+			AABB* m_pkAABB;
 			Node* m_pkParent;
 			RigidBody* m_pkRigidBody;
 

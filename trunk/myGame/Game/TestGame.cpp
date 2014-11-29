@@ -17,7 +17,8 @@ float timer = 0;
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
 	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
-	//rootNode->setPosition(0,0,0);
+	rootNode->setPosition(0,0,0);
+
 
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon2.002", rootNode));
@@ -25,6 +26,12 @@ float timer = 0;
 	nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon0.001", rootNode));
 	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
 	
+	//rootNode->addChild(pokemonNode);
+	//pokemonNode->setParent(rootNode);
+
+	//pokemonNode->addChild(nodeMesh);
+	//nodeMesh->setParent(pokemonNode);
+
 	//doRigidBodys(*rootNode);
 	std::cout << "Copyright by chinoscorp"<<std::endl;
 	std::cout << "nodeMeshName: "<<nodeMesh->getName() << std::endl;
@@ -35,15 +42,13 @@ float timer = 0;
 void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Timer& rkTimer)
 {
 	timer += rkTimer.timeBetweenFrames();
-	//if (rootNode)
-	//{
-
-		rootNode->updateTransformation();
+	if (rootNode)
+	{
+		//rootNode->updateTransformation();
 		rootNode->draw();
-	//}
-
-	
-	//hardcodeo para que no se caguen las inputs
+	}
+	//hardcodeo para que no se caguen las inputs(por tener tantos fps, haha
+	//si tenes menos de 60 fps, se caga igual...
 	if (timer < 30) return;
 	timer = 0;
 	inputs(rkRenderer, rkInput);
@@ -54,47 +59,41 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 {
 		float movementSpeed = 0.1f;
 		float rotationSpeed = 0.1f;
+		/***********************************************************************************************************/
 		if (rkInput.keyDown(pGr::Input::KEY_F1)){
 			rootNode->setRotationY(rootNode->getRotationY() + movementSpeed);
-			std::cout << "NAME ROOT: " << rootNode->getName() << std::endl;
+			rootNode->updateTransformation();
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_F2)){
 			rootNode->setRotationY(rootNode->getRotationY() - movementSpeed);
+			rootNode->updateTransformation();
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_UP))
 		{
 			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
-			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
-			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_DOWN))
 		{
 			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
-			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
-			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_RIGHT))
 		{
 			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
-			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
-			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
 		}
 	
 		if (rkInput.keyDown(pGr::Input::KEY_LEFT))
 		{
 			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
-			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
-			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
 		}
-		//std::cout << "rootNode: " << rootNode->getRotationY() << std::endl;
+		/*******************************************************************************************************/
 		//Aceletar//
 		if (rkInput.keyDown(pGr::Input::KEY_LSHIFT)){
 			movementSpeed = 0.5f;
