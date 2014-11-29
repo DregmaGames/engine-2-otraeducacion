@@ -13,17 +13,18 @@ float timer = 0;
  bool MyGame::init(pGr::Renderer& rkRenderer,pGr::Physics& rkPhysics)
 {
 	rootNode = new pGr::Node();
+	pokemonNode = new pGr::Node();
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
 	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
-	rootNode->setPosition(0,0,0);
-	
+	//rootNode->setPosition(0,0,0);
+
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon2.002", rootNode));
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Box001", rootNode));
 	nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon0.001", rootNode));
 	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
-
+	
 	//doRigidBodys(*rootNode);
 	std::cout << "Copyright by chinoscorp"<<std::endl;
 	std::cout << "nodeMeshName: "<<nodeMesh->getName() << std::endl;
@@ -34,15 +35,113 @@ float timer = 0;
 void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Timer& rkTimer)
 {
 	timer += rkTimer.timeBetweenFrames();
-	if (rootNode){
+	//if (rootNode)
+	//{
+
+		rootNode->updateTransformation();
 		rootNode->draw();
-	}
+	//}
+
+	
 	//hardcodeo para que no se caguen las inputs
 	if (timer < 30) return;
 	timer = 0;
 	inputs(rkRenderer, rkInput);
 	//------------------------------------------
 }
+
+void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
+{
+		float movementSpeed = 0.1f;
+		float rotationSpeed = 0.1f;
+		if (rkInput.keyDown(pGr::Input::KEY_F1)){
+			rootNode->setRotationY(rootNode->getRotationY() + movementSpeed);
+			std::cout << "NAME ROOT: " << rootNode->getName() << std::endl;
+		}
+
+		if (rkInput.keyDown(pGr::Input::KEY_F2)){
+			rootNode->setRotationY(rootNode->getRotationY() - movementSpeed);
+		}
+
+		if (rkInput.keyDown(pGr::Input::KEY_UP))
+		{
+			std::cout << "deberia estar moviendolo " <<  std::endl;
+			rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
+			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+		}
+		//
+		if (rkInput.keyDown(pGr::Input::KEY_DOWN))
+		{
+			std::cout << "deberia estar moviendolo " <<  std::endl;
+			rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
+			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+		}
+		//
+		if (rkInput.keyDown(pGr::Input::KEY_RIGHT))
+		{
+			std::cout << "deberia estar moviendolo " <<  std::endl;
+			rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
+			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+		}
+	
+		if (rkInput.keyDown(pGr::Input::KEY_LEFT))
+		{
+			std::cout << "deberia estar moviendolo " <<  std::endl;
+			rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
+			//nodeMesh->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+			//rootNode->setPosition(rootNode->getPosX() - 100.0f,rootNode->getPosY() ,rootNode->getPosZ());
+		}
+		//std::cout << "rootNode: " << rootNode->getRotationY() << std::endl;
+		//Aceletar//
+		if (rkInput.keyDown(pGr::Input::KEY_LSHIFT)){
+			movementSpeed = 0.5f;
+		}
+		//Aceletar//
+
+		//******Atras y adelante************//
+		if (rkInput.keyDown(pGr::Input::KEY_W)){
+			rkRenderer.m_pkCamera->walk(movementSpeed);
+		}
+		if (rkInput.keyDown(pGr::Input::KEY_S)){
+			rkRenderer.m_pkCamera->walk(-movementSpeed);
+		}
+		//******Atras y adelante************//
+
+		//******Girar derecha/izquierda************//
+		if (rkInput.keyDown(pGr::Input::KEY_D)){
+			rkRenderer.m_pkCamera->roll(rotationSpeed);
+		}if (rkInput.keyDown(pGr::Input::KEY_A)){
+			rkRenderer.m_pkCamera->roll(-rotationSpeed);
+		}
+		//******Girar derecha/izquierda************//
+
+		//******Arriba y abajo************//
+		if (rkInput.keyDown(pGr::Input::KEY_SPACE)){
+			rkRenderer.m_pkCamera->fly(movementSpeed);
+		}
+		if (rkInput.keyDown(pGr::Input::KEY_LCONTROL)){
+			rkRenderer.m_pkCamera->fly(-movementSpeed);
+		}
+		//******Arriba y abajo************//
+
+		//******Moverse para los costados************//
+		if (rkInput.keyDown(pGr::Input::KEY_E)){
+			rkRenderer.m_pkCamera->strafe(movementSpeed);
+		}
+		if (rkInput.keyDown(pGr::Input::KEY_Q)){
+			rkRenderer.m_pkCamera->strafe(-movementSpeed);
+		}
+		//******Moverse para los costados************//
+		if (rkInput.keyDown(pGr::Input::KEY_O)){
+			rkRenderer.wireframe(true);
+		}
+		if (rkInput.keyDown(pGr::Input::KEY_P)){
+			rkRenderer.wireframe(false);
+		}
+	}
 //---------------------------------------
 void MyGame::deinit()
 {
@@ -95,60 +194,4 @@ void MyGame::doRigidBodys(pGr::Node& pkNode){
 		}
 		return NULL;
 	}
-	void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput){
-		float movementSpeed = 0.1f;
-		float rotationSpeed = 0.1f;
-		if (rkInput.keyDown(pGr::Input::KEY_F1)){
-			rootNode->setRotationY(rootNode->getRotationY() + 0.01f);
-		}
-		if (rkInput.keyDown(pGr::Input::KEY_F2)){
-			rootNode->setRotationY(rootNode->getRotationY() - 0.01f);
-		}
-		//std::cout << "rootNode: " << rootNode->getRotationY() << std::endl;
-		//Aceletar//
-		if (rkInput.keyDown(pGr::Input::KEY_LSHIFT)){
-			movementSpeed = 0.5f;
-		}
-		//Aceletar//
-
-		//******Atras y adelante************//
-		if (rkInput.keyDown(pGr::Input::KEY_W)){
-			rkRenderer.m_pkCamera->walk(movementSpeed);
-		}
-		if (rkInput.keyDown(pGr::Input::KEY_S)){
-			rkRenderer.m_pkCamera->walk(-movementSpeed);
-		}
-		//******Atras y adelante************//
-
-		//******Girar derecha/izquierda************//
-		if (rkInput.keyDown(pGr::Input::KEY_D)){
-			rkRenderer.m_pkCamera->roll(rotationSpeed);
-		}if (rkInput.keyDown(pGr::Input::KEY_A)){
-			rkRenderer.m_pkCamera->roll(-rotationSpeed);
-		}
-		//******Girar derecha/izquierda************//
-
-		//******Arriba y abajo************//
-		if (rkInput.keyDown(pGr::Input::KEY_SPACE)){
-			rkRenderer.m_pkCamera->fly(movementSpeed);
-		}
-		if (rkInput.keyDown(pGr::Input::KEY_LCONTROL)){
-			rkRenderer.m_pkCamera->fly(-movementSpeed);
-		}
-		//******Arriba y abajo************//
-
-		//******Moverse para los costados************//
-		if (rkInput.keyDown(pGr::Input::KEY_E)){
-			rkRenderer.m_pkCamera->strafe(movementSpeed);
-		}
-		if (rkInput.keyDown(pGr::Input::KEY_Q)){
-			rkRenderer.m_pkCamera->strafe(-movementSpeed);
-		}
-		//******Moverse para los costados************//
-		if (rkInput.keyDown(pGr::Input::KEY_O)){
-			rkRenderer.wireframe(true);
-		}
-		if (rkInput.keyDown(pGr::Input::KEY_P)){
-			rkRenderer.wireframe(false);
-		}
-	}
+	

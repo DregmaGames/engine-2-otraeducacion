@@ -58,7 +58,8 @@ namespace pGr{
 			virtual void draw() = 0;
 			void updateLocalTransformation();
 			virtual void updateTransformation();
-		
+			void setParent (Node* pkParent);
+
 		protected:
 
 			Matrix m_pkTransformationMatrix;
@@ -69,7 +70,7 @@ namespace pGr{
 			Node* m_pkParent;
 			RigidBody* m_pkRigidBody;
 
-			void setParent (Node* pkParent);
+			
 			float m_fScaleX,m_fScaleY, m_fScaleZ;
 	};
 }

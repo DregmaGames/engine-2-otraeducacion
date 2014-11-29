@@ -71,7 +71,7 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	{
 		Node* pkNode = new Node();
 		node.addChild(pkNode);
-
+		pkNode->setParent(&node);
 		importNode(pkAiNode->mChildren[i], pkAiScene, *pkNode);
 
 	}
@@ -80,7 +80,7 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	{
 		Mesh* pkMesh = new Mesh(this->getRenderer());
 		node.addChild(pkMesh);
-
+		pkMesh->setParent(&node);
 		aiMesh* pkAiMesh = pkAiScene->mMeshes[ pkAiNode->mMeshes[i] ];
 		aiMaterial* pkAiMaterial = pkAiScene->mMaterials[pkAiMesh->mMaterialIndex];
 		importMesh(pkAiMesh, pkAiMaterial, *pkMesh);
