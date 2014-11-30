@@ -33,6 +33,7 @@ namespace pGr{
 			bool getEntity(Mesh**, std::string);
 			bool getNode(Node& theNodeDir);
 			bool addEntity(Entity3D*);
+
 			
 			char* xmlPath;
 			Node* rootNode;

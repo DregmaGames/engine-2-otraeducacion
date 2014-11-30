@@ -17,13 +17,12 @@ namespace pGr
 			~Node();
 
 			void draw();
-			//void ifNeededtoDraw(Entity3D& node);
 			Entity3D* getEntityFromName(std::string name);
 			void updateTransformation();
 			void addChild (Entity3D* pkChild);
 			void removeChild(Entity3D* pkChild);
 			const std::vector<Entity3D*>& childs () const{ return m_pkChilds; }
-	
+			void ifNeededtoDraw(Entity3D& pkNode);
 		private:
 			std::vector<Entity3D*> m_pkChilds;
 	};

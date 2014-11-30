@@ -2,12 +2,13 @@
 #include "myEngine_API.h"
 #include "Renderer.h"
 #include "Mathjavi.h"
-#include "Entity3D.h"
+
 #include <string>
 #include <iostream>
 namespace pGr
 {
 	class MATHJAVI;
+	class Entity3D;
 	class MYENGINE_API Camera
 	{
 		protected:
@@ -15,7 +16,7 @@ namespace pGr
 			Plane FrustumBox[6];
 			void BuildFrustumBox();
 			Renderer* m_pkRenderer;
-			//static Camera* instance;
+			
 
 		public:
 			Camera(IDirect3DDevice9& device, Renderer* pkRenderer);
@@ -23,7 +24,7 @@ namespace pGr
 
 			static enum { OUTSIDE, INTERSECT, INSIDE };
 
-			//int AABBinFrustum(Entity3D&);
+			int AABBinFrustum(Entity3D&);
 
 			void updateTransform();
 			void initCamera(Renderer* pkRenderer);
@@ -35,8 +36,10 @@ namespace pGr
 			void fly(float dist);
 			void walk(float dist);
 			void strafe(float dist);
+			
 
 		private:
+
 			float rx,ry,rz;
 
 			D3DXVECTOR3 camera_eye;//pos eye

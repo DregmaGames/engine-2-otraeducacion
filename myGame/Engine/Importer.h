@@ -34,7 +34,7 @@ namespace pGr{
 			void importMesh(Mesh&, std::string);
 			Renderer& getRenderer() const{ return *m_Renderer; }
 			bool import3DScene(const std::string& fileName, Node& node);
-		  
+			
 		protected:
 
 			Importer();

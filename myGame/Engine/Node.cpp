@@ -48,13 +48,43 @@ void Node::draw()
 
 Entity3D* Node::getEntityFromName(std::string name)
 {
-	std::cout << "Buscando rigidbody " <<  std::endl;
 	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); ++it) 
 	{
 		if((*it)->getName() == name)
 		{
-			std::cout << "lo encontre " <<  std::endl;
 			return (*it);
 		}
+	}
+}
+
+void Node::ifNeededtoDraw(Entity3D& pkNode)
+{
+
+	int Result = pGr::Renderer::getCamera()->AABBinFrustum(pkNode);
+
+	switch(Result){
+	
+		case Camera::INSIDE :
+
+			pkNode.draw();
+			break;
+
+		case Camera::INTERSECT:
+			{
+			pGr::Node* pkChild = dynamic_cast<pGr::Node*>(&pkNode);
+			if(pkChild){ // its a node...
+			
+				for( std::vector<Entity3D*>::const_iterator it = pkChild->childs().begin(); it != pkChild->childs().end(); it++){
+				
+					ifNeededtoDraw( *(*it) );
+
+				}
+
+			}else{
+				pkNode.draw();
+			}
+
+			break;
+			}
 	}
 }
