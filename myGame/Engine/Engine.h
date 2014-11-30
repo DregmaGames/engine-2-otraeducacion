@@ -34,7 +34,6 @@ namespace pGr
 		
 	//rendering
 	private:
-
 		Game* pgGame;
 		Timer* m_pkTimer;
 		Physics* m_pkPhysics;

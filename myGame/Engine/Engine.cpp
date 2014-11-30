@@ -41,7 +41,6 @@ bool Engine::init (){
 	//create window
 	if(m_pkWindow->createWindow(m_uiWidth,m_uiHeight) == TRUE && m_pkRenderer->init(m_pkWindow->getHWND()) == TRUE &&
 		m_pkInput->init(m_hInstance,m_pkWindow->getHWND()))return true;
-
 	return false;
 }
 void Engine::run()

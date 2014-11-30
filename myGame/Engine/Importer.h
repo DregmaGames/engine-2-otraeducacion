@@ -23,7 +23,6 @@ namespace pGr{
 	class Node;
 	class Scene;
 	class Renderer;
-	
 	class MYENGINE_API Importer
 	{
 		friend class Engine;

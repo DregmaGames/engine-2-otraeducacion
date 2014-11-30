@@ -17,6 +17,7 @@ Entity3D::Entity3D() :
 	m_pkTransformationMatrix(new D3DXMATRIX()),
 	m_pkTransformationLocalMatrix(new D3DXMATRIX()),
 	m_pkParent(NULL),
+	m_pkAABB(new AABB()),
 	m_pkRigidBody(new RigidBody())
 	{
 		D3DXMatrixIdentity(m_pkTransformationMatrix);
@@ -104,11 +105,6 @@ Entity3D::Entity3D() :
 		D3DXMatrixRotationX(&rotationMatrixX, getRotationX());
 		D3DXMatrixRotationY(&rotationMatrixY, getRotationY());
 		D3DXMatrixRotationZ(&rotationMatrixZ, getRotationZ());
-
-		//Quien fue el forrrrrrroooooooooooooooo.
-		//D3DXMatrixRotationX(&rotationMatrixX, getRotationX());
-		//D3DXMatrixRotationX(&rotationMatrixY, getRotationY());
-		//D3DXMatrixRotationX(&rotationMatrixZ, getRotationZ());
 
 		D3DXMATRIX kScaleMat;
 		D3DXMatrixScaling(&kScaleMat, m_fScaleX, m_fScaleY, m_fScaleZ);
