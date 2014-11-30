@@ -171,11 +171,14 @@ int Camera::AABBinFrustum(Entity3D& pkNode)
 		float d_m_r = d - r;
 
 		if (d_p_r < -frustumPlane->d){
+			std::cout<<"OUTSIDE"<<std::endl;
 			result = OUTSIDE;
 			break;
 		}
-		else if (d_m_r < -frustumPlane->d)
+		else if (d_m_r < -frustumPlane->d){
+			std::cout<<"INTERSECT"<<std::endl;
 			result = INTERSECT;
+		}
 	}
 	return result;
 }
