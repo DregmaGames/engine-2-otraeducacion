@@ -2,19 +2,31 @@
 #include "myEngine_API.h"
 #include "Renderer.h"
 #include "Mathjavi.h"
+#include "Entity3D.h"
 #include <string>
+#include <iostream>
 namespace pGr
 {
+	class MATHJAVI;
 	class MYENGINE_API Camera
 	{
-		public:
+		protected:
+			/*creamos los 6 pñanos del frustum, adelante, atras, arriba abajo, izquierda, derecha, en el orto*/
+			Plane FrustumBox[6];
+			void BuildFrustumBox();
+			Renderer* m_pkRenderer;
+			//static Camera* instance;
 
-			Camera(IDirect3DDevice9& device);
+		public:
+			Camera(IDirect3DDevice9& device, Renderer* pkRenderer);
 			~Camera();
 
+			static enum { OUTSIDE, INTERSECT, INSIDE };
+
+			//int AABBinFrustum(Entity3D&);
+
 			void updateTransform();
-			void initCamera();
-			void DebugCamPos();
+			void initCamera(Renderer* pkRenderer);
 
 			void yaw(float angle);
 			void roll(float angle);
@@ -25,14 +37,15 @@ namespace pGr
 			void strafe(float dist);
 
 		private:
-
 			float rx,ry,rz;
 
-			D3DXVECTOR3 camera_eye;
-			D3DXVECTOR3 camera_target;
-			D3DXVECTOR3 camera_up;
-			D3DXVECTOR3 camera_right;
-			D3DXMATRIX Camera_TransformMatrix;
-			IDirect3DDevice9* camera_device;
+			D3DXVECTOR3 camera_eye;//pos eye
+			D3DXVECTOR3 camera_target;//pos target
+			D3DXVECTOR3 camera_up;//vector up
+			D3DXVECTOR3 camera_right;//vector right
+
+			D3DXMATRIX Camera_TransformMatrix;//transform
+
+			IDirect3DDevice9* camera_device;//device
 	};
 }

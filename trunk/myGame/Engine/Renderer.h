@@ -25,8 +25,6 @@ namespace pGr
 	public:
 		void beginFrame();
 		void endFrame();
-		//void draw(ColorVertex* apkVertices, Primitive ePrimitive,size_t vertexCount);
-		//void draw(TextureCoordVertex* apkVertex, Primitive ePrimitive, size_t vertexCount);
 		// --------------------------- 3D
 		void draw(pGr::Primitive);
 		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
@@ -41,12 +39,15 @@ namespace pGr
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
 		void wireframe(bool wire);
 
+		const Matrix& getProjectionMatrix() const;
+
 		Camera * m_pkCamera;
-	private:
-		std::vector<pGr::Texture> m_akTextures;
-		IDirect3D9 *m_pkD3D;
-		// Representa al hardware
 		IDirect3DDevice9* m_pkDevice;
+	private:
+		Matrix kProjectionMatrix;
+		std::vector<pGr::Texture> m_akTextures;
+		IDirect3D9* m_pkD3D;
+		// Representa al hardware
 
 		VertexBuffer* m_pkVertexbuffer;
 		IndexBuffer* m_pkIndexBuffer;

@@ -15,7 +15,6 @@ Node::~Node()
 	{
 		Entity3D* pkChild = m_pkChilds.back();
 		m_pkChilds.pop_back();
-
 		delete pkChild;
 		pkChild = NULL;
 	} 
@@ -33,7 +32,6 @@ void Node::removeChild(Entity3D* pkChild){
 void Node::updateTransformation()
 {
 	Entity3D::updateTransformation();
-	//std::cout <<"childsNum: "<< m_pkChilds.size()<<std::endl;
 	for(std::vector<Entity3D*>::iterator it = m_pkChilds.begin(); it != m_pkChilds.end(); it++)
 	{
 		(*it)->updateTransformation();

@@ -44,7 +44,7 @@ void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Ti
 	timer += rkTimer.timeBetweenFrames();
 	if (rootNode)
 	{
-		//rootNode->updateTransformation();
+		rootNode->updateTransformation();
 		rootNode->draw();
 	}
 	//hardcodeo para que no se caguen las inputs(por tener tantos fps, haha
@@ -62,35 +62,29 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 		/***********************************************************************************************************/
 		if (rkInput.keyDown(pGr::Input::KEY_F1)){
 			rootNode->setRotationY(rootNode->getRotationY() + movementSpeed);
-			rootNode->updateTransformation();
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_F2)){
 			rootNode->setRotationY(rootNode->getRotationY() - movementSpeed);
-			rootNode->updateTransformation();
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_UP))
 		{
-			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_DOWN))
 		{
-			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_RIGHT))
 		{
-			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
 		}
 	
 		if (rkInput.keyDown(pGr::Input::KEY_LEFT))
 		{
-			std::cout << "deberia estar moviendolo " <<  std::endl;
 			rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
 		}
 		/*******************************************************************************************************/

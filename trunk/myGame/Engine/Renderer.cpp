@@ -25,11 +25,11 @@ Renderer::Renderer():
 	m_pkD3D(NULL),
 		m_pkDevice(NULL),
 		m_pkVertexbuffer(NULL),
-		m_pkIndexBuffer(NULL)
+		m_pkIndexBuffer(NULL),
+		kProjectionMatrix(new D3DXMATRIX())
 	{
 
 	}
-
 	//-----------------------------------------------
 	Renderer::~Renderer(){
 		if(m_pkD3D){
@@ -65,7 +65,7 @@ Renderer::Renderer():
 			hWnd, 
 			D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
 			&d, 
-			&m_pkDevice) 
+			&m_pkDevice)
 			== D3D_OK )
 		{
 			m_pkDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
@@ -84,12 +84,12 @@ Renderer::Renderer():
 			float fViewportWidth= static_cast<float>(kViewport.Width);
 			float fViewportHeight= static_cast<float>(kViewport.Height);
 
-			D3DXMATRIX kProjectionMatrix;
-			D3DXMatrixPerspectiveFovLH(&kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,0.1f,1000);
+			//D3DXMATRIX kProjectionMatrix;
+			D3DXMatrixPerspectiveFovLH(kProjectionMatrix,D3DXToRadian(90),fViewportWidth/fViewportHeight,0.1f,1000);
 
-			m_pkDevice->SetTransform(D3DTS_PROJECTION,&kProjectionMatrix);
+			m_pkDevice->SetTransform(D3DTS_PROJECTION,kProjectionMatrix);
 
-			m_pkCamera = new Camera(*m_pkDevice);
+			m_pkCamera = new Camera(*m_pkDevice, (Renderer*)this);
 			return true;
 		}
 		return false;
@@ -126,6 +126,9 @@ Renderer::Renderer():
 		m_pkDevice->SetTransform(g_eMatrixTypeMapping[eMatrixType],rkMatrix);
 	}
 
+	const Matrix&	Renderer::getProjectionMatrix() const{
+		return kProjectionMatrix;
+	}
 	const Texture Renderer::loadTexture (const std::string& rkFilename,int iColorKey)
 	{
 		IDirect3DTexture9* pkTexture = NULL;
