@@ -102,6 +102,7 @@ void Camera::initCamera(Renderer* pkRenderer){
 	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
 	walk(-20);
 	fly(15);
+	BuildFrustumBox();
 }
 void Camera::BuildFrustumBox(){
 	std::cout << "Building Frustum Box -> Camera" << std::endl;
