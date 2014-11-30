@@ -33,7 +33,6 @@ float timer = 0;
 	//nodeMesh->setParent(pokemonNode);
 
 	//doRigidBodys(*rootNode);
-	std::cout << "Copyright by chinoscorp"<<std::endl;
 	std::cout << "nodeMeshName: "<<nodeMesh->getName() << std::endl;
 	std::cout << "rootNodeName: " << rootNode->getName() << std::endl;
 	return true;
@@ -45,7 +44,8 @@ void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Ti
 	if (rootNode)
 	{
 		rootNode->updateTransformation();
-		rootNode->draw();
+		rootNode->ifNeededtoDraw(*rootNode);
+		//rootNode->draw();
 	}
 	//hardcodeo para que no se caguen las inputs(por tener tantos fps, haha
 	//si tenes menos de 60 fps, se caga igual...
@@ -159,7 +159,7 @@ void MyGame::doRigidBodys(pGr::Node& pkNode){
 				pGr::MeshCollider* collider = new pGr::MeshCollider();
 				collider->calculate(cMesh);
 				cMesh->getRigidBody()->setCollider(collider);
-				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Dynamic);
+				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Static);
 				pkPhysics->addEntity(cMesh->getRigidBody());
 			}
 		}
