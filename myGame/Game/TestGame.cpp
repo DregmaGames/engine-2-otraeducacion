@@ -134,10 +134,10 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 		if (rkInput.keyDown(pGr::Input::KEY_P)){
 			rkRenderer.wireframe(false);
 		}
-		if (rkInput.keyDown(pGr::Input::KEY_F))
+		/*if (rkInput.keyDown(pGr::Input::KEY_F))
 		{
 			rootNode->ifNeededtoDraw(*rootNode);
-		}
+		}*/
 	}
 //---------------------------------------
 void MyGame::deinit()
