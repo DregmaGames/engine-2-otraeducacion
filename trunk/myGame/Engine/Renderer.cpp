@@ -5,6 +5,7 @@
 
 //-----------------------------------------------
 using namespace pGr;
+Camera* Renderer::m_pkCamera = NULL;
 
 D3DPRIMITIVETYPE primitivesMapping[pGr::PrimitiveCount] =
 {
@@ -15,14 +16,16 @@ D3DPRIMITIVETYPE primitivesMapping[pGr::PrimitiveCount] =
 	D3DPT_LINESTRIP,
 	D3DPT_TRIANGLEFAN
 };
+
 D3DTRANSFORMSTATETYPE g_eMatrixTypeMapping [MatrixTypeCount] =
 {
 	D3DTS_VIEW,
 	D3DTS_PROJECTION,
 	D3DTS_WORLD
 };
+
 Renderer::Renderer():
-	m_pkD3D(NULL),
+		m_pkD3D(NULL),
 		m_pkDevice(NULL),
 		m_pkVertexbuffer(NULL),
 		m_pkIndexBuffer(NULL),
@@ -166,21 +169,24 @@ Renderer::Renderer():
 			NULL,
 			NULL,
 			&p_Texture);
-		if(HR != D3D_OK){
+		if(HR != D3D_OK)
+		{
 			return NoTexture;
-		}
-		else{
+		}else
+		{
 			m_akTextures.push_back(p_Texture);
 			return p_Texture;
 		}
 	}
+
 	void Renderer::setCurrentTexture(const Texture& rkTexture)
 	{
 		m_pkDevice->SetTexture(0, rkTexture);//el 0 es para especificar si es normalmap, difuse, specular, etc;
 	}
 
 	// ----------------------------------------------------------- 3D
-	void Renderer::draw(pGr::Primitive thePrimitive){
+	void Renderer::draw(pGr::Primitive thePrimitive)
+	{
 		int iPrimitiveCount = 0;
 
 	D3DPRIMITIVETYPE ePrimitiveType = primitivesMapping[thePrimitive];
@@ -242,5 +248,10 @@ Renderer::Renderer():
 		{
 			m_pkDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID); //renderiza en solid.	
 		}
+	}
+
+	Camera* Renderer::getCamera()
+	{
+		return m_pkCamera;
 	}
 	// -----------------------------------------------------------/3D

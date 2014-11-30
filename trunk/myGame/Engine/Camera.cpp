@@ -1,5 +1,7 @@
 #include "Camera.h"
+#include "Entity3D.h"
 using namespace pGr;
+
 
 Camera::Camera(IDirect3DDevice9 &device, Renderer* pkRenderer)
 	:
@@ -146,10 +148,13 @@ void Camera::BuildFrustumBox(){
 		D3DXPlaneNormalize(FrustumBox[i], FrustumBox[i]);
 	}
 }
-/*int Camera::AABBinFrustum(Entity3D& pkNode){
+int Camera::AABBinFrustum(Entity3D& pkNode)
+{
 	AABB& b = pkNode.getAABB();
+
 	D3DXVECTOR3 aabbSize = D3DXVECTOR3(b.width(), b.height(), b.depth());
-	D3DXVECTOR3 aabbCenter = D3DXVECTOR3(b.offset()->x + pkNode.transformationMatrix()->_41, b.offset()->y + pkNode.transformationMatrix()->_42, b.offset()->z + pkNode.transformationMatrix()->_43);
+	D3DXVECTOR3 aabbCenter = D3DXVECTOR3(b.offset()->x + pkNode.transformationMatrix()->_41, 
+		b.offset()->y + pkNode.transformationMatrix()->_42, b.offset()->z + pkNode.transformationMatrix()->_43);
 
 	int result = INSIDE;
 	for (int i = 0; i < 6; i++){
@@ -173,4 +178,4 @@ void Camera::BuildFrustumBox(){
 			result = INTERSECT;
 	}
 	return result;
-}*/
+}

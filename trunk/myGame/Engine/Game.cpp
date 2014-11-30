@@ -1,5 +1,6 @@
 #include "Game.h"
-
+#include "Scene.h"
+#include "Importer.h"
 using namespace pGr;
 
 Game::Game() : done(false) 

@@ -7,7 +7,6 @@
 #include "RenderTypes.h"
 #include "myengine_api.h"
 #include "RigidBody.h"
-#include "AABB.h"
 #include <string>
 
 namespace pGr{
@@ -66,7 +65,7 @@ namespace pGr{
 			AABB& getAABB();
 
 		protected:
-
+			
 			Matrix m_pkTransformationMatrix;
 			Matrix m_pkTransformationLocalMatrix;
 

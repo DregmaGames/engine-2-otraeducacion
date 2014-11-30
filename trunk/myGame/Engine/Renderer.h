@@ -41,14 +41,15 @@ namespace pGr
 
 		const Matrix& getProjectionMatrix() const;
 
-		Camera * m_pkCamera;
+		static Camera * m_pkCamera;
 		IDirect3DDevice9* m_pkDevice;
+		static Camera* getCamera();
 	private:
-		Matrix kProjectionMatrix;
+		
 		std::vector<pGr::Texture> m_akTextures;
 		IDirect3D9* m_pkD3D;
 		// Representa al hardware
-
+		Matrix kProjectionMatrix;
 		VertexBuffer* m_pkVertexbuffer;
 		IndexBuffer* m_pkIndexBuffer;
 
