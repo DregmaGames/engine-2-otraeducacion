@@ -66,8 +66,8 @@ void Node::LookingBox(Entity3D& pkEntity)
 		pkEntity.draw();
 		break;
 	case Camera::OUTSIDE:
-		std::cout << "Outside: Dont need to draw" << std::endl;
-		pkEntity.draw();
+		//std::cout << "Outside: Dont need to draw" << std::endl;
+		//pkEntity.draw();
 		break;
 	case Camera::INTERSECT:
 		pGr::Node* pkChild = dynamic_cast<pGr::Node*>(&pkEntity);

@@ -38,45 +38,37 @@ Entity3D::~Entity3D()
 void Entity3D::setPositionX(float fPosX)
 {
 	m_pkRigidBody->setPosition(fPosX, m_pkRigidBody->getPosY(), m_pkRigidBody->getPosZ());
-	updateLocalTransformation();
 }
 void Entity3D::setPositionY(float fPosY)
 {
 	m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), fPosY, m_pkRigidBody->getPosZ());
-	updateLocalTransformation();
 }
 void Entity3D::setPositionZ(float fPosZ)
 {
 	m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), m_pkRigidBody->getPosY(), fPosZ);
-	updateLocalTransformation();
 }
 
 void Entity3D::setRotationX(float fRotationX)
 {
 	m_pkRigidBody->setRotation(fRotationX, m_pkRigidBody->getRotationY(), m_pkRigidBody->getRotationZ());
-	updateLocalTransformation();
 }
 void Entity3D::setRotationY(float fRotationY)
 {
 	m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), fRotationY, m_pkRigidBody->getRotationZ());
-	updateLocalTransformation();
 }
 void Entity3D::setRotationZ(float fRotationZ)
 {
 	m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(), fRotationZ);
-	updateLocalTransformation();
 }
 
 void Entity3D::setPosition(float fPosX, float fPosY, float fPosZ)
 {
 	m_pkRigidBody->setPosition(fPosX, fPosY, fPosZ);
-	updateLocalTransformation();
 }
 
 void Entity3D::setRotation(float fRotX, float fRotY, float fRotZ)
 {
 	m_pkRigidBody->setRotation(fRotX, fRotY, fRotZ);
-	updateLocalTransformation();
 }
 
 void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ)
@@ -84,7 +76,6 @@ void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ)
 	m_fScaleX = fScaleX;
 	m_fScaleY = fScaleY;
 	m_fScaleZ = fScaleZ;
-	updateLocalTransformation();
 }
 
 void Entity3D::updateLocalTransformation()
@@ -124,6 +115,7 @@ void Entity3D::setParent(Node* pkParent)
 
 void Entity3D::updateTransformation()
 {
+	updateLocalTransformation();
 	if (m_pkParent){
 		D3DXMatrixIdentity(m_pkTransformationMatrix);
 		D3DXMatrixMultiply(m_pkTransformationMatrix, m_pkParent->m_pkTransformationMatrix, m_pkTransformationLocalMatrix);

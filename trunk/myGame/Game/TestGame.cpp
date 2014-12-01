@@ -6,12 +6,17 @@
 //---------------------------------------
 using namespace Juego;
 float timer = 0; //no tocar.
+bool Flag = false;
 //---------------------------------------
 MyGame::MyGame()
 {
 }
 bool MyGame::init(pGr::Renderer& rkRenderer, pGr::Physics& rkPhysics)
 {
+	std::cout << "DebugConsole" << std::endl;
+	std::cout << "Copyright FrRiBiMe All rights reserved." << std::endl;
+	std::cout << "Special thanks to gooogle.com" << std::endl;
+
 	rootNode = new pGr::Node();
 	pokemonNode = new pGr::Node();
 
@@ -27,7 +32,7 @@ bool MyGame::init(pGr::Renderer& rkRenderer, pGr::Physics& rkPhysics)
 	pokemonNode->addChild(nodeMesh);
 	nodeMesh->setParent(pokemonNode);
 	*/
-	doRigidBodys(*rootNode);
+	//doRigidBodys(*rootNode);
 	return true;
 }
 //---------------------------------------
@@ -130,6 +135,10 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 	}
 	if (rkInput.keyDown(pGr::Input::KEY_P)){
 		rkRenderer.wireframe(false);
+	}
+	if (rkInput.keyDown(pGr::Input::KEY_U)&&!Flag){
+		Flag = true;
+		doRigidBodys(*rootNode);
 	}
 }
 //---------------------------------------

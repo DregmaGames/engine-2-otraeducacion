@@ -115,7 +115,7 @@ Physics* Physics::getInstance(){
 	return Instance;
 }
 
-void Physics::StartTestScene(){
+/*void Physics::StartTestScene(){
 	//--------------------Test Scene--------------------
 	//--------Floor---------
 	hkpBoxShape* Floor = new hkpBoxShape(hkVector4(1000.0f, 10.0f, 1000.0f));
@@ -131,7 +131,7 @@ void Physics::StartTestScene(){
 	Floor->removeReference();
 	//-------Floor end--------
 	//--------------------Test Scene--------------------
-}
+}*/
 
 Physics::~Physics(){
 	/*	m_RBody1->removeReference();
@@ -157,7 +157,6 @@ void Physics::addEntity(pGr::RigidBody* rigidBody){
 }
 
 void Physics::update(float DeltaTime){
-	std::cout << "physics" << std::endl;
 	m_VDebugger->step();
 	float fHavokStep = (DeltaTime / 1000.0f);
 	if (fHavokStep < 0.00000001f) {
