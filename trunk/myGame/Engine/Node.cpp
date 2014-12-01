@@ -59,7 +59,7 @@ Entity3D* Node::getEntityFromName(std::string name)
 
 void Node::LookingBox(Entity3D& pkEntity)
 {
-	int Result = pGr::Renderer::getCamera()->AABBinFrustum(pkEntity);
+	int Result = pGr::Renderer::getCamera()->AABBwithFrustum(pkEntity);
 	switch (Result)
 	{
 	case Camera::INSIDE:
