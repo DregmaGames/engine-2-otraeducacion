@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "pg1_timer.h"
 #include "Scene.h"
+#include "Mesh.h"
 //-----------------------------------------------
 #include "Game.h"
 #include "Importer.h"
@@ -57,14 +58,13 @@ void Engine::run()
 	
 	m_pkTimer->firstMeasure();
 
-	while(!bDone){
-
+	while(!bDone)
+	{
+		Mesh::amountDraw = 0;
+		
 		m_pkTimer->measure();
 		//Update FPS-----------------------------
-		static std::stringstream Title;
-		Title.str("");
-		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: "  << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
-		m_pkWindow->setWindowName(Title.str());
+		
 		//---------------------------------------
 
 		m_pkInput->reacquire();
@@ -77,6 +77,11 @@ void Engine::run()
 		//pgGame->getCurrentScene()->drawScene(m_pkRenderer,m_pkTimer);
 		m_pkRenderer->endFrame();
 
+		static std::stringstream Title;
+		Title.str("");
+		Title << m_pkWindow->getWindowName() << " (" << m_pkTimer->fps() << " FPS) Scene: "  << "Amount MEsh: " <<  Mesh::amountDraw << " || Enchine <Frere> <Rios <Bianco> <Mercatante>";
+		m_pkWindow->setWindowName(Title.str());
+
 		// capturo el mensaje de Windows---------
 		if(PeekMessage(&kMsg,NULL,0,0,PM_REMOVE))
 		{
@@ -85,7 +90,7 @@ void Engine::run()
 			DispatchMessage(&kMsg);
 		}
 		//---------------------------------------
-
+		
 		if(kMsg.message == WM_QUIT)
 			bDone = true;
 	}

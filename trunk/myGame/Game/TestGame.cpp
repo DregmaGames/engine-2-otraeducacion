@@ -17,7 +17,7 @@ float timer = 0;
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
 	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
-	rootNode->setPosition(0,0,0);
+	rootNode->setPosition(0,0,300);
 
 
 	//pGr::Node* nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("Cube.001_Cube.002", rootNode));
@@ -33,18 +33,18 @@ float timer = 0;
 	//nodeMesh->setParent(pokemonNode);
 
 	//doRigidBodys(*rootNode);
-	std::cout << "nodeMeshName: "<<nodeMesh->getName() << std::endl;
-	std::cout << "rootNodeName: " << rootNode->getName() << std::endl;
+	//std::cout << "nodeMeshName: "<<nodeMesh->getName() << std::endl;
+	//std::cout << "rootNodeName: " << rootNode->getName() << std::endl;
 	return true;
 }
 //---------------------------------------
-void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Timer& rkTimer)
+void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Timer& rkTimer)
 {
 	timer += rkTimer.timeBetweenFrames();
 	if (rootNode)
 	{
 		rootNode->updateTransformation();
-		rootNode->ifNeededtoDraw(*rootNode);
+		rootNode->LookingBox(*rootNode);
 		//rootNode->draw();
 	}
 	//hardcodeo para que no se caguen las inputs(por tener tantos fps, haha
@@ -57,35 +57,35 @@ void MyGame::frame (pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput,pGr::Ti
 
 void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 {
-		float movementSpeed = 0.1f;
-		float rotationSpeed = 0.1f;
+		float movementSpeed = 1.0f;
+		float rotationSpeed = 0.01f;
 		/***********************************************************************************************************/
 		if (rkInput.keyDown(pGr::Input::KEY_F1)){
-			rootNode->setRotationY(rootNode->getRotationY() + movementSpeed);
+			rootNode->setRotationY(rootNode->getRotationY() + rotationSpeed);
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_F2)){
-			rootNode->setRotationY(rootNode->getRotationY() - movementSpeed);
+			rootNode->setRotationY(rootNode->getRotationY() - rotationSpeed);
 		}
 
 		if (rkInput.keyDown(pGr::Input::KEY_UP))
 		{
-			rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
+			rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_DOWN))
 		{
-			rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
+			rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
 		}
 		//
 		if (rkInput.keyDown(pGr::Input::KEY_RIGHT))
 		{
-			rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
+			rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
 		}
 	
 		if (rkInput.keyDown(pGr::Input::KEY_LEFT))
 		{
-			rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
+			rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
 		}
 		/*******************************************************************************************************/
 		//Aceletar//
@@ -136,7 +136,7 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 		}
 		/*if (rkInput.keyDown(pGr::Input::KEY_F))
 		{
-			rootNode->ifNeededtoDraw(*rootNode);
+			rootNode->LookingBox(*rootNode);  
 		}*/
 	}
 //---------------------------------------

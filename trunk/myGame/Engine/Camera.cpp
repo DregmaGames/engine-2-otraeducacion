@@ -107,6 +107,7 @@ void Camera::initCamera(Renderer* pkRenderer){
 void Camera::BuildFrustumBox(){
 	std::cout << "Building Frustum Box -> Camera" << std::endl;
 	D3DXMATRIX FrustunMatrix;
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
 	D3DXMatrixMultiply(&FrustunMatrix, &Camera_TransformMatrix, m_pkRenderer->getProjectionMatrix());
 	// left plane
 	FrustumBox[0]->a = FrustunMatrix._14 + FrustunMatrix._11;
@@ -172,12 +173,12 @@ int Camera::AABBinFrustum(Entity3D& pkNode)
 		float d_m_r = d - r;
 
 		if (d_p_r < -frustumPlane->d){
-			std::cout<<"OUTSIDE"<<std::endl;
+			std::cout<<"OUTSIDE" << pkNode.getName() <<std::endl;
 			result = OUTSIDE;
 			break;
 		}
 		else if (d_m_r < -frustumPlane->d){
-			std::cout<<"INTERSECT"<<std::endl;
+			std::cout<<"INTERSECT" << pkNode.getName() <<std::endl;
 			result = INTERSECT;
 		}
 	}

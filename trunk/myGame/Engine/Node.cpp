@@ -57,27 +57,28 @@ Entity3D* Node::getEntityFromName(std::string name)
 	}
 }
 
-void Node::ifNeededtoDraw(Entity3D& pkNode)
+void Node::LookingBox(Entity3D& pkNode)
 {
 
 	int Result = pGr::Renderer::getCamera()->AABBinFrustum(pkNode);
 
-	switch(Result){
-	
+	switch(Result)
+	{
 		case Camera::INSIDE :
-			std::cout<<"ADENTRO DEL INSIDE"<<std::endl;
+			
 			pkNode.draw();
 			break;
 
 		case Camera::INTERSECT:
 			{
-			std::cout<<"ADENTRO DEL INTER"<<std::endl;
+			
 			pGr::Node* pkChild = dynamic_cast<pGr::Node*>(&pkNode);
-			if(pkChild){ 
+			if(pkChild)
+			{ 
 			
 				for( std::vector<Entity3D*>::const_iterator it = pkChild->childs().begin(); it != pkChild->childs().end(); it++){
 				
-					ifNeededtoDraw( *(*it) );
+					LookingBox( *(*it) );
 
 				}
 

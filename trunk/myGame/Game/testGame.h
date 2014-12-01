@@ -16,8 +16,6 @@
 
 namespace Juego
 {
-	
-
 	class MyGame : public pGr::Game
 	{
 
@@ -31,6 +29,7 @@ namespace Juego
 		pGr::Node* rootNode;
 		pGr::Node* pokemonNode; 
 		void doRigidBodys(pGr::Node & pkNode);
+
 	private:
 
 		pGr::Mesh* mesh;
