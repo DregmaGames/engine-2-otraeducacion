@@ -8,13 +8,13 @@ namespace pGr
 {
 	class Window
 	{
-	public:	
+	public:
 		Window(HINSTANCE hInstance);
 		~Window();
 
-		std::string getWindowName(){return windowName;}
+		std::string getWindowName(){ return windowName; }
 		bool setWindowName(std::string p);
-		bool createWindow(unsigned int uiWidth,unsigned int uiHeight);
+		bool createWindow(unsigned int uiWidth, unsigned int uiHeight);
 		HWND getHWND(){ return m_hWnd; }
 		static LRESULT CALLBACK WindProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

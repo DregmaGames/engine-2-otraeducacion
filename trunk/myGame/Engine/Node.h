@@ -11,19 +11,19 @@ namespace pGr
 	class MYENGINE_API Node : public Entity3D
 	{
 
-		public:
+	public:
 
-			Node();
-			~Node();
+		Node();
+		~Node();
 
-			void draw();
-			Entity3D* getEntityFromName(std::string name);
-			void updateTransformation();
-			void addChild (Entity3D* pkChild);
-			void removeChild(Entity3D* pkChild);
-			const std::vector<Entity3D*>& childs () const{ return m_pkChilds; }
-			void LookingBox(Entity3D& pkNode);
-		private:
-			std::vector<Entity3D*> m_pkChilds;
+		void draw();
+		Entity3D* getEntityFromName(std::string name);
+		void updateTransformation();
+		void addChild(Entity3D* pkChild);
+		void removeChild(Entity3D* pkChild);
+		const std::vector<Entity3D*>& childs() const{ return m_pkChilds; }
+		void LookingBox(Entity3D& pkNode);
+	private:
+		std::vector<Entity3D*> m_pkChilds;
 	};
 }

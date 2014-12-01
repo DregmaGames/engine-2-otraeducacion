@@ -19,7 +19,7 @@
 
 using namespace pGr;
 Importer* Importer::Instance = NULL;
-Importer::Importer () {
+Importer::Importer() {
 
 }
 Importer::~Importer() {
@@ -30,16 +30,16 @@ bool Importer::init(Renderer* renderer){
 	return true;
 }
 
-bool Importer::import3DScene (const std::string& rkFilename, Node& node){
+bool Importer::import3DScene(const std::string& rkFilename, Node& node){
 
 	Assimp::Importer kImporter;
 	const aiScene* pkAiScene = kImporter.ReadFile(rkFilename, aiProcess_Triangulate | aiProcess_SortByPType);
 	importNode(pkAiScene->mRootNode, pkAiScene, node);
 	return true;
 }
-bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node)
+bool Importer::importNode(const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node)
 {
-	node.setName( pkAiNode->mName.C_Str() );
+	node.setName(pkAiNode->mName.C_Str());
 
 	aiVector3t<float> v3AiScaling;
 	aiQuaterniont<float> qAiRotation;
@@ -64,7 +64,7 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	//------------
 
 	//Childs nodes.
-	for(unsigned int i=0; i<pkAiNode->mNumChildren; i++)
+	for (unsigned int i = 0; i < pkAiNode->mNumChildren; i++)
 	{
 		Node* pkNode = new Node();
 		node.addChild(pkNode);
@@ -92,15 +92,15 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 	//----------
 
 	//Childs Meshes.
-	for(unsigned int i=0; i<pkAiNode->mNumMeshes; i++)
+	for (unsigned int i = 0; i < pkAiNode->mNumMeshes; i++)
 	{
 		Mesh* pkMesh = new Mesh(this->getRenderer());
 		node.addChild(pkMesh);
 		pkMesh->setParent(&node);
-		aiMesh* pkAiMesh = pkAiScene->mMeshes[ pkAiNode->mMeshes[i] ];
+		aiMesh* pkAiMesh = pkAiScene->mMeshes[pkAiNode->mMeshes[i]];
 		aiMaterial* pkAiMaterial = pkAiScene->mMaterials[pkAiMesh->mMaterialIndex];
 		importMesh(pkAiMesh, pkAiMaterial, *pkMesh);
-		
+
 		//Actualizo las AABB tomando en cuenta los meshes.
 		float fAabbMaxX = pkMesh->getPosX() + (pkMesh->getAABB().offset()->x + (pkMesh->getAABB().width() / 2));
 		float fAabbMaxY = pkMesh->getPosY() + (pkMesh->getAABB().offset()->y + (pkMesh->getAABB().height() / 2));
@@ -117,15 +117,14 @@ bool Importer::importNode (const aiNode* pkAiNode, const aiScene* pkAiScene, Nod
 		if (fMinX > fAabbMinX) fMinX = fAabbMinX;
 		if (fMinY > fAabbMinY) fMinY = fAabbMinY;
 		if (fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
-		
+
 	}
 	node.getAABB().setDataAABB(fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ), (fMinX - fMaxX) / 2 - node.getPosX(), (fMinY - fMaxY) / 2 - node.getPosY(), (fMinZ - fMaxZ) / 2 - node.getPosZ());
-	cout << " minx: " << fMinX << " maxx: " << fMaxX << " miny: " << fMinY << " maxy: " << fMaxY << " minz: " << fMinZ << " maxz: " << fMaxZ << endl;
 	return true;
 }
 bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh)
 {
-	mesh.setName( pkAiMesh->mName.C_Str() );
+	mesh.setName(pkAiMesh->mName.C_Str());
 
 	float fMaxX = std::numeric_limits<float>::lowest();
 	float fMaxY = std::numeric_limits<float>::lowest();
@@ -134,29 +133,29 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 	float fMinX = std::numeric_limits<float>::max();
 	float fMinY = std::numeric_limits<float>::max();
 	float fMinZ = std::numeric_limits<float>::max();
-	
+
 	MeshVertex* pakVertices = new MeshVertex[pkAiMesh->mNumVertices];
 
-	for(unsigned int i=0; i<pkAiMesh->mNumVertices; i++)
+	for (unsigned int i = 0; i < pkAiMesh->mNumVertices; i++)
 	{
 		pakVertices[i].x = pkAiMesh->mVertices[i].x;
 		pakVertices[i].y = pkAiMesh->mVertices[i].y;
 		pakVertices[i].z = pkAiMesh->mVertices[i].z;
-		if( pkAiMesh->mTextureCoords[0] != NULL )
+		if (pkAiMesh->mTextureCoords[0] != NULL)
 		{
 			pakVertices[i].u = pkAiMesh->mTextureCoords[0][i].x;
 			pakVertices[i].v = -pkAiMesh->mTextureCoords[0][i].y;
 		}
 
-			if( fMaxX < pakVertices[i].x ) fMaxX = pakVertices[i].x;
-			if( fMaxY < pakVertices[i].y ) fMaxY = pakVertices[i].y;
-			if( fMaxZ < pakVertices[i].z ) fMaxZ = pakVertices[i].z;
+		if (fMaxX < pakVertices[i].x) fMaxX = pakVertices[i].x;
+		if (fMaxY < pakVertices[i].y) fMaxY = pakVertices[i].y;
+		if (fMaxZ < pakVertices[i].z) fMaxZ = pakVertices[i].z;
 
-			if( fMinX > pakVertices[i].x ) fMinX = pakVertices[i].x;
-			if( fMinY > pakVertices[i].y ) fMinY = pakVertices[i].y;
-			if( fMinZ > pakVertices[i].z ) fMinZ = pakVertices[i].z;
+		if (fMinX > pakVertices[i].x) fMinX = pakVertices[i].x;
+		if (fMinY > pakVertices[i].y) fMinY = pakVertices[i].y;
+		if (fMinZ > pakVertices[i].z) fMinZ = pakVertices[i].z;
 
-		if(pkAiMesh->HasNormals())
+		if (pkAiMesh->HasNormals())
 		{
 			pakVertices[i].nx = pkAiMesh->mNormals[i].x;
 			pakVertices[i].ny = pkAiMesh->mNormals[i].y;
@@ -166,47 +165,40 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 
 	size_t uiIndexCount = pkAiMesh->mNumFaces * 3;
 	unsigned short* pausIndices = new unsigned short[uiIndexCount];
-	for(unsigned int i=0; i<pkAiMesh->mNumFaces; i++)
+	for (unsigned int i = 0; i < pkAiMesh->mNumFaces; i++)
 	{
 		assert(pkAiMesh->mFaces[i].mNumIndices == 3);
 		pausIndices[i * 3 + 0] = pkAiMesh->mFaces[i].mIndices[0];
 		pausIndices[i * 3 + 1] = pkAiMesh->mFaces[i].mIndices[1];
 		pausIndices[i * 3 + 2] = pkAiMesh->mFaces[i].mIndices[2];
 	}
-	mesh.setDataMesh(pakVertices, pkAiMesh->mNumVertices, pGr::Primitive::TriangleList, pausIndices, uiIndexCount);
+	mesh.setMeshData(pakVertices, pkAiMesh->mNumVertices, pGr::Primitive::TriangleList, pausIndices, uiIndexCount);
 	mesh.setName(pkAiMesh->mName.C_Str());
 
-	if(pkAiMaterial){
+	if (pkAiMaterial){
 		aiString kAiTexturePath;
 		pkAiMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &kAiTexturePath);
 
-		std::string kTexturePath( kAiTexturePath.C_Str());
+		std::string kTexturePath(kAiTexturePath.C_Str());
 
-		if( !kTexturePath.empty() && kTexturePath.at(0) == '/' )
+		if (!kTexturePath.empty() && kTexturePath.at(0) == '/')
 		{
 			kTexturePath = "." + kTexturePath;
 		}
-		
-		std::stringstream ss;
-		std::string s( ss.str() );
-		OutputDebugString( s.c_str() );
 
-		Texture TheTexture = m_Renderer->loadTexture("assets/"+kTexturePath);
+		Texture TheTexture = m_Renderer->loadTexture("assets/" + kTexturePath);
 		mesh.setTexture(TheTexture);
 	}
-	
 	delete[] pakVertices;
 	pakVertices = NULL;
-
 	return true;
 }
 
 Importer* Importer::getInstance()
 {
-	if(Instance == NULL){
+	if (Instance == NULL){
 		Instance = new Importer();
 	}
-
 	return Instance;
 }
 

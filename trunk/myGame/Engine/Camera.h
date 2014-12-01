@@ -11,44 +11,47 @@ namespace pGr
 	class Entity3D;
 	class MYENGINE_API Camera
 	{
-		protected:
-			/*creamos los 6 pñanos del frustum, adelante, atras, arriba abajo, izquierda, derecha, en el orto*/
-			Plane FrustumBox[6];
-			void BuildFrustumBox();
-			Renderer* m_pkRenderer;
-			
+	protected:
+		/*creamos los 6 pñanos del frustum, adelante, atras, arriba abajo, izquierda, derecha, en el orto*/
+		Plane FrustumBox[6];
+		void BuildFrustumBox();
+		Renderer* m_rkRenderer;
 
-		public:
-			Camera(IDirect3DDevice9& device, Renderer* pkRenderer);
-			~Camera();
 
-			static enum { OUTSIDE, INTERSECT, INSIDE };
+	public:
+		Camera(IDirect3DDevice9& device, Renderer* pkRenderer);
+		~Camera();
 
-			int AABBinFrustum(Entity3D&);
+		static enum { OUTSIDE, INTERSECT, INSIDE };
 
-			void updateTransform();
-			void initCamera(Renderer* pkRenderer);
+		int AABBinFrustum(Entity3D&);
 
-			void yaw(float angle);
-			void roll(float angle);
-			void pitch(float angle);
+		void updateTransform();
+		void initCamera(Renderer* pkRenderer);
 
-			void fly(float dist);
-			void walk(float dist);
-			void strafe(float dist);
-			
+		void yaw(float angle);
+		void roll(float angle);
+		void pitch(float angle);
 
-		private:
+		void fly(float dist);
+		void walk(float dist);
+		void strafe(float dist);
 
-			float rx,ry,rz;
 
-			D3DXVECTOR3 camera_eye;//pos eye
-			D3DXVECTOR3 camera_target;//pos target
-			D3DXVECTOR3 camera_up;//vector up
-			D3DXVECTOR3 camera_right;//vector right
+	private:
 
-			D3DXMATRIX Camera_TransformMatrix;//transform
+		float rx, ry, rz;
 
-			IDirect3DDevice9* camera_device;//device
+		Renderer* m_pkRenderer;
+		D3DXVECTOR3 camera_eye;//pos eye
+		D3DXVECTOR3 camera_target;//pos target
+		D3DXVECTOR3 camera_up;//vector up
+		D3DXVECTOR3 camera_right;//vector right
+
+
+		D3DXMATRIX m_MatView;//MATRIX VIEW CAMERA.
+		D3DXMATRIX Camera_TransformMatrix;//transform
+
+		IDirect3DDevice9* camera_device;//device
 	};
 }

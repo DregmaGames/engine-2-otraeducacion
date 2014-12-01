@@ -1,4 +1,4 @@
-#include "Camera.h"
+ï»¿#include "Camera.h"
 #include "Entity3D.h"
 using namespace pGr;
 
@@ -6,10 +6,10 @@ using namespace pGr;
 Camera::Camera(IDirect3DDevice9 &device, Renderer* pkRenderer)
 	:
 	Camera_TransformMatrix(),
-	camera_eye		(0.0f, 0.0f, 0.0f),
-	camera_target	(0.0f, 0.0f, 1.0f),
-	camera_up		(0.0f, 1.0f, 0.0f),
-	camera_right	(1.0f, 0.0f, 0.0f),
+	camera_eye(0.0f, 0.0f, 0.0f),
+	camera_target(0.0f, 0.0f, 1.0f),
+	camera_up(0.0f, 1.0f, 0.0f),
+	camera_right(1.0f, 0.0f, 0.0f),
 	rx(0),
 	ry(0),
 	rz(0)
@@ -21,6 +21,10 @@ Camera::Camera(IDirect3DDevice9 &device, Renderer* pkRenderer)
 	initCamera(pkRenderer);
 }
 Camera::~Camera(){
+	for (UINT i = 0; i < 6; i++){
+		delete FrustumBox[i];
+		FrustumBox[i] = NULL;
+	}
 }
 void Camera::fly(float distance){
 	camera_eye += distance*camera_up;
@@ -35,21 +39,21 @@ void Camera::walk(float distance){
 	updateTransform();
 }
 void Camera::yaw(float angle){
-	rx+=angle;
+	rx += angle;
 	updateTransform();
 }
 void Camera::pitch(float angle){
-	ry+=angle;
+	ry += angle;
 	updateTransform();
 }
 void Camera::roll(float angle){
-	rz+=angle;
+	rz += angle;
 	updateTransform();
 }
-void Camera::updateTransform(){
-	/*para ver lo que es roll, pitch y yaw mira esta imágen o muerete.*/
+/*void Camera::updateTransform(){
+	//para ver lo que es roll, pitch y yaw mira esta imÃ¡gen o muerete.
 	https://developer.valvesoftware.com/w/images/7/7e/Roll_pitch_yaw.gif
-	/******************************************************************/
+	//*****************************************************************
 
 	D3DXMATRIX MatrixResult;
 
@@ -57,58 +61,103 @@ void Camera::updateTransform(){
 	D3DXMATRIX MatrixPitch;
 	D3DXMATRIX MatrixYaw;
 
-	//crear una matriz por cada rotación.
+	//crear una matriz por cada rotaciÃ³n.
 	D3DXMatrixRotationAxis(&MatrixRoll, &camera_right, rx);
 	D3DXMatrixRotationAxis(&MatrixPitch, &camera_target, ry);
 	D3DXMatrixRotationAxis(&MatrixYaw, &camera_up, rz);
 
 	//combinar las matrices en 1(MatrixResult).
-	D3DXMatrixMultiply(&MatrixResult, &MatrixRoll,&MatrixPitch);
-	D3DXMatrixMultiply(&MatrixResult, &MatrixYaw ,&MatrixResult);
+	D3DXMatrixMultiply(&MatrixResult, &MatrixRoll, &MatrixPitch);
+	D3DXMatrixMultiply(&MatrixResult, &MatrixYaw, &MatrixResult);
 
 	//transformar los vectores en la matriz.
-	D3DXVec3TransformCoord(&camera_right,&camera_right,&MatrixResult);
-	D3DXVec3TransformCoord(&camera_up,&camera_up,&MatrixResult);
+	D3DXVec3TransformCoord(&camera_right, &camera_right, &MatrixResult);
+	D3DXVec3TransformCoord(&camera_up, &camera_up, &MatrixResult);
 
-	//con los otros vectores transformados a la matriz, saco el 3º vctor haciendo producto cruz.
+	//con los otros vectores transformados a la matriz, saco el 3Âº vctor haciendo producto cruz.
 	D3DXVec3Cross(&camera_target, &camera_right, &camera_up);
 
 	//normalizamos los vectores.
-	D3DXVec3Normalize(&camera_right,&camera_right);
-	D3DXVec3Normalize(&camera_up,&camera_up);
-	D3DXVec3Normalize(&camera_target,&camera_target);
+	D3DXVec3Normalize(&camera_right, &camera_right);
+	D3DXVec3Normalize(&camera_up, &camera_up);
+	D3DXVec3Normalize(&camera_target, &camera_target);
 
-	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
-	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
-	float fView41,fView42,fView43;
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix, &camera_eye, &camera_target, &camera_up);
+	camera_device->SetTransform(D3DTS_VIEW, &Camera_TransformMatrix);
+	float fView41, fView42, fView43;
 	fView41 = -D3DXVec3Dot(&camera_right, &camera_eye);
-    fView42 = -D3DXVec3Dot(&camera_up, &camera_eye);
-    fView43 = -D3DXVec3Dot(&camera_target, &camera_eye);
+	fView42 = -D3DXVec3Dot(&camera_up, &camera_eye);
+	fView43 = -D3DXVec3Dot(&camera_target, &camera_eye);
 
 
-	D3DXMATRIX m_MatView(	camera_right.x,	camera_up.x,		camera_target.x,		0.0f,
-							camera_right.y,	camera_up.y,		camera_target.y,		0.0f,
-							camera_right.z,	camera_up.z,		camera_target.z,		0.0f,
-							fView41,		fView42,			fView43,				1.0f);
+	D3DXMATRIX m_MatView(camera_right.x, camera_up.x, camera_target.x, 0.0f,
+	camera_right.y, camera_up.y, camera_target.y, 0.0f,
+	camera_right.z, camera_up.z, camera_target.z, 0.0f,
+	fView41, fView42, fView43, 1.0f);
 
-    camera_device->SetTransform(D3DTS_VIEW,&m_MatView);
-
-    rx = ry = rz = 0.0f;
+	camera_device->SetTransform(D3DTS_VIEW, &m_MatView);
+	rx = ry = rz = 0.0f;
 	BuildFrustumBox();
+	}*/
+void Camera::updateTransform()
+{
+	//Matrices to store the transformations about our axes
+	D3DXMATRIX MatTotal;
+	D3DXMATRIX MatRotateAroundRight;
+	D3DXMATRIX MatRotateAroundUp;
+	D3DXMATRIX MatRotateAroundLookAt;
+	//Get the matrix for each rotation
+	D3DXMatrixRotationAxis(&MatRotateAroundRight, &camera_right, ry);
+	D3DXMatrixRotationAxis(&MatRotateAroundUp, &camera_up, rz);
+	D3DXMatrixRotationAxis(&MatRotateAroundLookAt, &camera_target, rx);
+	//Combine the transformations into one matrix
+	D3DXMatrixMultiply(&MatTotal, &MatRotateAroundUp, &MatRotateAroundRight);
+	D3DXMatrixMultiply(&MatTotal, &MatRotateAroundLookAt, &MatTotal);
+	//Transforms two vectors by our matrix and computes the third by
+	//cross product
+	D3DXVec3TransformCoord(&camera_right, &camera_right, &MatTotal);
+	D3DXVec3TransformCoord(&camera_up, &camera_up, &MatTotal);
+	D3DXVec3Cross(&camera_target, &camera_right, &camera_up);
+	//Check to ensure vectors are perpendicular
+	if (fabs(D3DXVec3Dot(&camera_up, &camera_right)) > 0.01)
+	{
+		//If theyÂ’re not
+		D3DXVec3Cross(&camera_up, &camera_target, &camera_right);
+	}
+	//Normalize our vectors
+	D3DXVec3Normalize(&camera_right, &camera_right);
+	D3DXVec3Normalize(&camera_up, &camera_up);
+	D3DXVec3Normalize(&camera_target, &camera_target);
+	//Compute the bottom row of the view matrix
+	float fView41, fView42, fView43;
+	fView41 = -D3DXVec3Dot(&camera_right, &camera_eye);
+	fView42 = -D3DXVec3Dot(&camera_up, &camera_eye);
+	fView43 = -D3DXVec3Dot(&camera_target, &camera_eye);
+	//Fill in the view matrix
+	m_MatView = D3DXMATRIX(camera_right.x, camera_up.x, camera_target.x, 0.0f,
+		camera_right.y, camera_up.y, camera_target.y, 0.0f,
+		camera_right.z, camera_up.z, camera_target.z, 0.0f,
+		fView41, fView42, fView43, 1.0f);
+	BuildFrustumBox();
+	//Set view transform
+	m_rkRenderer->loadIdentity();
+	m_rkRenderer->setTransformMatrix(&m_MatView);
+	//Reset update members
+	rx = ry = rz = 0.0f;
 }
 void Camera::initCamera(Renderer* pkRenderer){
-	m_pkRenderer = pkRenderer;
-	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
-	camera_device->SetTransform(D3DTS_VIEW,&Camera_TransformMatrix);
+	m_rkRenderer = pkRenderer;
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix, &camera_eye, &camera_target, &camera_up);
+	camera_device->SetTransform(D3DTS_VIEW, &Camera_TransformMatrix);
 	walk(-20);
 	fly(15);
 	BuildFrustumBox();
 }
 void Camera::BuildFrustumBox(){
-	std::cout << "Building Frustum Box -> Camera" << std::endl;
+	//std::cout << "Building Frustum Box -> Camera" << std::endl;
 	D3DXMATRIX FrustunMatrix;
-	D3DXMatrixLookAtLH(&Camera_TransformMatrix,&camera_eye, &camera_target, &camera_up);
-	D3DXMatrixMultiply(&FrustunMatrix, &Camera_TransformMatrix, m_pkRenderer->getProjectionMatrix());
+	D3DXMatrixLookAtLH(&Camera_TransformMatrix, &camera_eye, &camera_target, &camera_up);
+	D3DXMatrixMultiply(&FrustunMatrix, &Camera_TransformMatrix, m_rkRenderer->getProjectionMatrix());
 	// left plane
 	FrustumBox[0]->a = FrustunMatrix._14 + FrustunMatrix._11;
 	FrustumBox[0]->b = FrustunMatrix._24 + FrustunMatrix._21;
@@ -146,7 +195,7 @@ void Camera::BuildFrustumBox(){
 	FrustumBox[5]->d = FrustunMatrix._44 - FrustunMatrix._43;
 
 	// normalize planes
-	for (UINT i = 0; i<6; i++){
+	for (UINT i = 0; i < 6; i++){
 		D3DXPlaneNormalize(FrustumBox[i], FrustumBox[i]);
 	}
 }
@@ -155,7 +204,7 @@ int Camera::AABBinFrustum(Entity3D& pkNode)
 	AABB& b = pkNode.getAABB();
 
 	D3DXVECTOR3 aabbSize = D3DXVECTOR3(b.width(), b.height(), b.depth());
-	D3DXVECTOR3 aabbCenter = D3DXVECTOR3(b.offset()->x + pkNode.transformationMatrix()->_41, 
+	D3DXVECTOR3 aabbCenter = D3DXVECTOR3(b.offset()->x + pkNode.transformationMatrix()->_41,
 		b.offset()->y + pkNode.transformationMatrix()->_42, b.offset()->z + pkNode.transformationMatrix()->_43);
 
 	int result = INSIDE;
@@ -173,12 +222,10 @@ int Camera::AABBinFrustum(Entity3D& pkNode)
 		float d_m_r = d - r;
 
 		if (d_p_r < -frustumPlane->d){
-			std::cout<<"OUTSIDE" << pkNode.getName() <<std::endl;
 			result = OUTSIDE;
 			break;
 		}
 		else if (d_m_r < -frustumPlane->d){
-			std::cout<<"INTERSECT" << pkNode.getName() <<std::endl;
 			result = INTERSECT;
 		}
 	}

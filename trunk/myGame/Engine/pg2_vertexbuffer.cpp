@@ -6,31 +6,31 @@
 //---------------------------------------------------------------------------
 using namespace pGr;
 //---------------------------------------------------------------------------
-VertexBuffer::VertexBuffer (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF)
-:
-m_uiFVF(uiFVF),
-m_uiVertexSize(uiVertexSize),
-m_uiVertexCount(0),
-m_pkVertexBuffer(NULL),
-m_pkDevice(pkDevice),
-m_rkRenderer(rkRenderer)
+VertexBuffer::VertexBuffer(Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF)
+	:
+	m_uiFVF(uiFVF),
+	m_uiVertexSize(uiVertexSize),
+	m_uiVertexCount(0),
+	m_pkVertexBuffer(NULL),
+	m_pkDevice(pkDevice),
+	m_rkRenderer(rkRenderer)
 {
 	// nothing to do
 }
 //---------------------------------------------------------------------------
-VertexBuffer::~VertexBuffer ()
+VertexBuffer::~VertexBuffer()
 {
-	if(m_pkVertexBuffer)
+	if (m_pkVertexBuffer)
 	{
 		m_pkVertexBuffer->Release();
 		m_pkVertexBuffer = NULL;
 	}
 }
 //---------------------------------------------------------------------------
-void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
+void VertexBuffer::setVertexData(const void* pakVertices, size_t uiVertexCount)
 {
 	// release if previously created
-	if(m_pkVertexBuffer)
+	if (m_pkVertexBuffer)
 	{
 		m_pkVertexBuffer->Release();
 		m_pkVertexBuffer = NULL;
@@ -38,13 +38,13 @@ void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
 
 	// create vertex buffer
 	HRESULT hr = m_pkDevice->CreateVertexBuffer(
-												uiVertexCount * m_uiVertexSize,
-												D3DUSAGE_WRITEONLY,
-												m_uiFVF,
-												D3DPOOL_DEFAULT,
-												&m_pkVertexBuffer,
-												NULL
-	);
+		uiVertexCount * m_uiVertexSize,
+		D3DUSAGE_WRITEONLY,
+		m_uiFVF,
+		D3DPOOL_DEFAULT,
+		&m_pkVertexBuffer,
+		NULL
+		);
 
 	assert(hr == D3D_OK);
 
@@ -52,10 +52,10 @@ void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
 
 	hr = m_pkVertexBuffer->Lock(0, 0, (void**)(&pVertices), 0);
 
-	memcpy(pVertices, 
-		   pakVertices, 
-		   uiVertexCount * m_uiVertexSize
-	);
+	memcpy(pVertices,
+		pakVertices,
+		uiVertexCount * m_uiVertexSize
+		);
 
 	hr = m_pkVertexBuffer->Unlock();
 
@@ -63,11 +63,11 @@ void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
 	m_uiVertexCount = uiVertexCount;
 }
 //---------------------------------------------------------------------------
-void VertexBuffer::bind ()
+void VertexBuffer::bind()
 {
 	// bind the buffer
 	HRESULT hr;
-	
+
 	hr = m_pkDevice->SetVertexShader(NULL);
 	assert(hr == D3D_OK);
 

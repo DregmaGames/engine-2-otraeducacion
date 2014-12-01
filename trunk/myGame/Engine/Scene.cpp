@@ -6,18 +6,18 @@
 
 using namespace pGr;
 
-Scene::Scene() : rootNode(NULL) 
+Scene::Scene() : rootNode(NULL)
 {
 	//Nothing to do.
 }
-Scene::~Scene() 
+Scene::~Scene()
 {
 	deInit();
 }
 
 void Scene::deInit()
 {
-	for(int i=0; i < m_pkEntity3D.size(); i++){
+	for (int i = 0; i < m_pkEntity3D.size(); i++){
 		delete m_pkEntity3D[i];
 		m_pkEntity3D[i] = NULL;
 	}
@@ -25,11 +25,11 @@ void Scene::deInit()
 
 void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 {
-	for(int i=0; i < m_pkEntity3D.size(); i++){
+	for (int i = 0; i < m_pkEntity3D.size(); i++){
 		m_pkEntity3D[i]->draw();
 	}
 
-	if(rootNode != NULL)
+	if (rootNode != NULL)
 	{
 		//rootNode->updateTransformation();
 		rootNode->draw();
@@ -47,9 +47,9 @@ bool Scene::getNode(Node& theNodeDir){
 }
 
 bool Scene::getEntity(Mesh** Entity, std::string Name){
-	if(m_pkEntity3D.empty()) return false;
-	for(int i=0; i < m_pkEntity3D.size(); i++){
-		if(m_pkEntity3D[i]->getName() == Name){
+	if (m_pkEntity3D.empty()) return false;
+	for (int i = 0; i < m_pkEntity3D.size(); i++){
+		if (m_pkEntity3D[i]->getName() == Name){
 			*Entity = (Mesh*)m_pkEntity3D[i];
 			return true;
 		}

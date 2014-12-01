@@ -3,22 +3,21 @@
 
 using namespace pGr;
 
-AABB::AABB()	:	m_pkOffset( new D3DXVECTOR3() )
+AABB::AABB() : m_pkOffset(new D3DXVECTOR3())
 {
-	for(int i=0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		m_pkCorners[i]	= new D3DXVECTOR3();
+		m_pkCorners[i] = new D3DXVECTOR3();
 	}
 }
 
 AABB::~AABB()
 {
-	for(int i=0; i < 8; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		delete m_pkCorners[i];
-		m_pkCorners[i]	= NULL;
+		m_pkCorners[i] = NULL;
 	}
-
 	delete m_pkOffset;
 	m_pkOffset = NULL;
 }
@@ -40,7 +39,6 @@ void AABB::setDataAABB(float fWidth, float fHeight, float fDepth, float fOffsetX
 	m_fWidth = fWidth;
 	m_fHeight = fHeight;
 	m_fDepth = fDepth;
-
 }
 
 const Vector3& AABB::offset() const

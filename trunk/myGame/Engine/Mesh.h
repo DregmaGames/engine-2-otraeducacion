@@ -10,34 +10,36 @@ namespace pGr
 	class Timer;
 
 	class MYENGINE_API Mesh : public Entity3D{
-		public:
+	public:
 
-			Mesh(Renderer&);
-			~Mesh();
+		Mesh(Renderer&);
+		~Mesh();
 
-			static int amountDraw;
-			void draw();
-			void setTexture(Texture& theTexture);
-			void setTexture(std::string, DWORD theColor);
-			void setDataMesh(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices,size_t indexCount);
-			
-			const VertexBuffer* vertexBuffer() const;
-			const IndexBuffer*	  indexBuffer() const;
+		static int amountDraw; //Just for debbug
 
-			const std::vector<MeshVertex>& vertexs() const;
-			const std::vector<unsigned short> indexs() const;
+		void draw();
 
-			protected:
+		void setTexture(Texture& theTexture);
+		void setTexture(std::string, DWORD theColor);
+		void setMeshData(const MeshVertex*, size_t vertexCount, pGr::Primitive, const unsigned short* pausIndices, size_t indexCount);
 
-			Texture s_Texture;
-			Renderer& m_pkRenderer;
-			Primitive m_pkPrimitive; //enum
+		const VertexBuffer* vertexBuffer() const;
+		const IndexBuffer* indexBuffer() const;
 
-			IndexBuffer*	m_pkIndexBuffer;
-			VertexBuffer*	m_pkVertexBuffer;
+		const std::vector<MeshVertex>& vertexs() const;
+		const std::vector<unsigned short> indexs() const;
 
-			private:
-			std::vector<MeshVertex> m_pkVertex;
-			std::vector<unsigned short> m_pkIndex;
+	protected:
+		Texture m_kTexture;
+		Primitive m_kPrimitive;
+
+		Renderer& m_rkRenderer;
+
+		IndexBuffer* m_pkIndexBuffer;
+		VertexBuffer* m_pkVertexBuffer;
+
+	private:
+		std::vector<MeshVertex> m_kVertex;
+		std::vector<unsigned short> m_kIndex;
 	};
 }

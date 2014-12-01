@@ -4,4 +4,4 @@
 // color vertex D3D define
 const int pGr::ColorVertexType = (D3DFVF_XYZ | D3DFVF_DIFFUSE);
 const int pGr::TextureCoordVertexType = (D3DFVF_XYZ | D3DFVF_TEX1);
-const int pGr::MeshVertexType	=  (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1);
+const int pGr::MeshVertexType = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1);

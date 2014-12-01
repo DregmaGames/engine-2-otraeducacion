@@ -9,29 +9,29 @@
 //---------------------------------------------------------------------------
 using namespace pGr;
 //---------------------------------------------------------------------------
-IndexBuffer::IndexBuffer (Renderer& rkRenderer, IDirect3DDevice9* pkDevice)
-:
-m_uiIndexCount(0),
-m_IndexBuffer(NULL),
-m_pkDevice(pkDevice),
-m_rkRenderer(rkRenderer)
+IndexBuffer::IndexBuffer(Renderer& rkRenderer, IDirect3DDevice9* pkDevice)
+	:
+	m_uiIndexCount(0),
+	m_IndexBuffer(NULL),
+	m_pkDevice(pkDevice),
+	m_rkRenderer(rkRenderer)
 {
 	// nothing to do
 }
 //---------------------------------------------------------------------------
-IndexBuffer::~IndexBuffer ()
+IndexBuffer::~IndexBuffer()
 {
-	if(m_IndexBuffer)
+	if (m_IndexBuffer)
 	{
 		m_IndexBuffer->Release();
 		m_IndexBuffer = NULL;
 	}
 }
 //---------------------------------------------------------------------------
-void IndexBuffer::setIndexData (const unsigned short* pausIndices, size_t uiIndexCount)
+void IndexBuffer::setIndexData(const unsigned short* pausIndices, size_t uiIndexCount)
 {
 	// release if previously created
-	if(m_IndexBuffer)
+	if (m_IndexBuffer)
 	{
 		m_IndexBuffer->Release();
 		m_IndexBuffer = NULL;
@@ -39,14 +39,14 @@ void IndexBuffer::setIndexData (const unsigned short* pausIndices, size_t uiInde
 
 	// create vertex buffer
 	HRESULT hr = m_pkDevice->CreateIndexBuffer(
-												uiIndexCount * sizeof(unsigned short),
-												D3DUSAGE_WRITEONLY,
-												D3DFMT_INDEX16,
-												D3DPOOL_MANAGED,
-												&m_IndexBuffer,
-												NULL
-	);
-	
+		uiIndexCount * sizeof(unsigned short),
+		D3DUSAGE_WRITEONLY,
+		D3DFMT_INDEX16,
+		D3DPOOL_MANAGED,
+		&m_IndexBuffer,
+		NULL
+		);
+
 	// copy index data
 	void* pvIndices;
 
@@ -58,7 +58,7 @@ void IndexBuffer::setIndexData (const unsigned short* pausIndices, size_t uiInde
 	m_uiIndexCount = uiIndexCount;
 }
 //---------------------------------------------------------------------------
-void IndexBuffer::bind ()
+void IndexBuffer::bind()
 {
 	HRESULT hr = m_pkDevice->SetIndices(m_IndexBuffer);
 	assert(hr == D3D_OK);

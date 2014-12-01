@@ -14,32 +14,32 @@
 //---------------------------------------------------------------------------
 namespace pGr
 {
-//---------------------------------------------------------------------------
-class MYENGINE_API DirectInput : public Input
-{
-public:
-	DirectInput ();
-	~DirectInput ();
+	//---------------------------------------------------------------------------
+	class MYENGINE_API DirectInput : public Input
+	{
+	public:
+		DirectInput();
+		~DirectInput();
 
-	bool init (HINSTANCE hInstance, HWND hWnd);
-	void deinit ();
+		bool init(HINSTANCE hInstance, HWND hWnd);
+		void deinit();
 
-	// Mouse y Keyboard
-	void acquire ();
-	void reacquire ();
-	void unacquire ();
-	void reset ();
+		// Mouse y Keyboard
+		void acquire();
+		void reacquire();
+		void unacquire();
+		void reset();
 
-private:
-	LPDIRECTINPUT8 m_lpObjectOne;
-	LPDIRECTINPUT8 m_lpObjectTwo;
+	private:
+		LPDIRECTINPUT8 m_lpObjectOne;
+		LPDIRECTINPUT8 m_lpObjectTwo;
 
-	LPDIRECTINPUTDEVICE8 m_lpKeyboard;
-	LPDIRECTINPUTDEVICE8 m_lpMouse;
+		LPDIRECTINPUTDEVICE8 m_lpKeyboard;
+		LPDIRECTINPUTDEVICE8 m_lpMouse;
 
-	DIMOUSESTATE m_kMouseTaken;
-};
-//---------------------------------------------------------------------------
+		DIMOUSESTATE m_kMouseTaken;
+	};
+	//---------------------------------------------------------------------------
 } // end namespace
 //---------------------------------------------------------------------------
 #endif // PG1_DIRECTINPUT_H

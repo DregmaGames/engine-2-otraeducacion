@@ -12,18 +12,18 @@ namespace pGr{
 		RigidBody();
 		virtual ~RigidBody();
 
-		void setPosition(float,float,float);
+		void setPosition(float, float, float);
 		float getPosX() const;
 		float getPosY() const;
 		float getPosZ() const;
 
-		void setRotation(float,float,float);
-		float getRotationX () const;
-		float getRotationY () const;
-		float getRotationZ () const;
+		void setRotation(float, float, float);
+		float getRotationX() const;
+		float getRotationY() const;
+		float getRotationZ() const;
 
-		const Matrix& transform () const { return m_pTransformation; };
-	
+		const Matrix& transform() const { return m_pTransformation; };
+
 		void setCollider(Collider*);
 		const Collider* collider() const { return m_pkCollider; };
 
@@ -34,7 +34,7 @@ namespace pGr{
 		};
 
 		void setHavokMotion(HavokMotion type);
-		HavokMotion havokMotion () const { return m_HMotion; };
+		HavokMotion havokMotion() const { return m_HMotion; };
 
 	private:
 		Matrix m_pTransformation;

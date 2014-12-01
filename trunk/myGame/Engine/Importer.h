@@ -27,28 +27,28 @@ namespace pGr{
 	{
 		friend class Engine;
 
-		public:
+	public:
 
-			bool init(Renderer*);
-			static Importer* getInstance();
-			void importMesh(Mesh&, std::string);
-			Renderer& getRenderer() const{ return *m_Renderer; }
-			bool import3DScene(const std::string& fileName, Node& node);
-			
-		protected:
+		bool init(Renderer*);
+		static Importer* getInstance();
+		void importMesh(Mesh&, std::string);
+		Renderer& getRenderer() const{ return *m_Renderer; }
+		bool import3DScene(const std::string& fileName, Node& node);
 
-			Importer();
-			~Importer();
+	protected:
 
-		private:
+		Importer();
+		~Importer();
 
-			Renderer* m_Renderer;
-			static Importer* Instance;
-				
-			bool importNode(const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node);
-			bool importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh);
-			void quaternionToEulerAngles (float qX, float qY, float qZ, float qW, 
-								  float& orfRotX, float& orfRotY, float& orfRotZ);
+	private:
+
+		Renderer* m_Renderer;
+		static Importer* Instance;
+
+		bool importNode(const aiNode* pkAiNode, const aiScene* pkAiScene, Node& node);
+		bool importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh);
+		void quaternionToEulerAngles(float qX, float qY, float qZ, float qW,
+			float& orfRotX, float& orfRotY, float& orfRotZ);
 	};
 }
 #endif//IMPORTER_H
