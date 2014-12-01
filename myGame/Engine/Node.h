@@ -22,7 +22,7 @@ namespace pGr
 			void addChild (Entity3D* pkChild);
 			void removeChild(Entity3D* pkChild);
 			const std::vector<Entity3D*>& childs () const{ return m_pkChilds; }
-			void ifNeededtoDraw(Entity3D& pkNode);
+			void LookingBox(Entity3D& pkNode);
 		private:
 			std::vector<Entity3D*> m_pkChilds;
 	};

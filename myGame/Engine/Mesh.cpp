@@ -3,6 +3,7 @@
 #include "RenderTypes.h"
 using namespace pGr;
 
+int Mesh::amountDraw = 0;
 /*Mesh::Mesh(Renderer& p_Renderer) : m_pkRenderer(p_Renderer)
 {
 	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::MeshVertex), pGr::MeshVertexType);
@@ -88,7 +89,7 @@ void Mesh::setDataMesh(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Pr
 
 void Mesh::draw(){
 
-
+	amountDraw++;
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
 	m_pkRenderer.setCurrentTexture(s_Texture);

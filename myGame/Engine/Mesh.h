@@ -15,6 +15,7 @@ namespace pGr
 			Mesh(Renderer&);
 			~Mesh();
 
+			static int amountDraw;
 			void draw();
 			void setTexture(Texture& theTexture);
 			void setTexture(std::string, DWORD theColor);
