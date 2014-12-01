@@ -24,7 +24,7 @@ namespace pGr
 
 		static enum { OUTSIDE, INTERSECT, INSIDE };
 
-		int AABBinFrustum(Entity3D&);
+		int AABBwithFrustum(Entity3D&);
 
 		void updateTransform();
 		void initCamera(Renderer* pkRenderer);

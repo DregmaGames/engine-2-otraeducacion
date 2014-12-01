@@ -199,7 +199,7 @@ void Camera::BuildFrustumBox(){
 		D3DXPlaneNormalize(FrustumBox[i], FrustumBox[i]);
 	}
 }
-int Camera::AABBinFrustum(Entity3D& pkNode)
+int Camera::AABBwithFrustum(Entity3D& pkNode)
 {
 	AABB& b = pkNode.getAABB();
 
