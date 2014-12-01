@@ -19,64 +19,64 @@ namespace pGr{
 	class MYENGINE_API Entity3D
 	{
 		friend class Node;
-		public:
+	public:
 
-			Entity3D();
-			virtual ~Entity3D();
+		Entity3D();
+		virtual ~Entity3D();
 
-			float getScaleX () const{ return m_fScaleX;}
-			float getScaleY () const{ return m_fScaleY;}
-			float getScaleZ () const{ return m_fScaleZ;}
-			float getPosX(){ return m_pkRigidBody->getPosX(); }
-			float getPosY(){ return m_pkRigidBody->getPosY(); }
-			float getPosZ(){ return m_pkRigidBody->getPosZ(); }
-			float getRotationX() const { return m_pkRigidBody->getRotationX(); }
-			float getRotationY() const { return m_pkRigidBody->getRotationY(); }
-			float getRotationZ() const { return m_pkRigidBody->getRotationZ(); }
+		float getScaleX() const{ return m_fScaleX; }
+		float getScaleY() const{ return m_fScaleY; }
+		float getScaleZ() const{ return m_fScaleZ; }
+		float getPosX(){ return m_pkRigidBody->getPosX(); }
+		float getPosY(){ return m_pkRigidBody->getPosY(); }
+		float getPosZ(){ return m_pkRigidBody->getPosZ(); }
+		float getRotationX() const { return m_pkRigidBody->getRotationX(); }
+		float getRotationY() const { return m_pkRigidBody->getRotationY(); }
+		float getRotationZ() const { return m_pkRigidBody->getRotationZ(); }
 
-			RigidBody* getRigidBody() const{ return m_pkRigidBody; }
+		RigidBody* getRigidBody() const{ return m_pkRigidBody; }
 
-			std::string m_Name;	//nombre del objeto
+		std::string m_Name;	//nombre del objeto
 
-			const Matrix transformationMatrix();
-			
-			std::string getName(){return m_Name;}
-			void setName(std::string name){m_Name = name;}
+		const Matrix transformationMatrix();
 
-			void setScale(float m_fScaleX,float m_fScaleY, float m_fScaleZ);
+		std::string getName(){ return m_Name; }
+		void setName(std::string name){ m_Name = name; }
 
-			void setPosition(float fPosX,float fPosY,float fPosZ);
-			void setPositionX(float fPosX);
-			void setPositionY(float fPosY);
-			void setPositionZ(float fPosZ);
+		void setScale(float m_fScaleX, float m_fScaleY, float m_fScaleZ);
+
+		void setPosition(float fPosX, float fPosY, float fPosZ);
+		void setPositionX(float fPosX);
+		void setPositionY(float fPosY);
+		void setPositionZ(float fPosZ);
 
 
-			void setRotation(float fRotationX,float fRotationY,float fRotationZ);
-			void setRotationX(float fRotationX);
-			void setRotationY(float fRotationY);
-			void setRotationZ(float fRotationZ);
-			
-			virtual void draw() = 0;
-			void updateLocalTransformation();
-			virtual void updateTransformation();
-			void setParent (Node* pkParent);
+		void setRotation(float fRotationX, float fRotationY, float fRotationZ);
+		void setRotationX(float fRotationX);
+		void setRotationY(float fRotationY);
+		void setRotationZ(float fRotationZ);
 
-			const AABB& getAABB() const;
-			AABB& getAABB();
+		virtual void draw() = 0;
+		void updateLocalTransformation();
+		virtual void updateTransformation();
+		void setParent(Node* pkParent);
 
-		protected:
-			
-			Matrix m_pkTransformationMatrix;
-			Matrix m_pkTransformationLocalMatrix;
+		const AABB& getAABB() const;
+		AABB& getAABB();
 
-		private:
+	protected:
 
-			AABB* m_pkAABB;
-			Node* m_pkParent;
-			RigidBody* m_pkRigidBody;
+		Matrix m_pkTransformationMatrix;
+		Matrix m_pkTransformationLocalMatrix;
 
-			
-			float m_fScaleX,m_fScaleY, m_fScaleZ;
+	private:
+
+		AABB* m_pkAABB;
+		Node* m_pkParent;
+		RigidBody* m_pkRigidBody;
+
+
+		float m_fScaleX, m_fScaleY, m_fScaleZ;
 	};
 }
 #endif 

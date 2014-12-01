@@ -14,7 +14,7 @@ namespace pGr
 	struct MYENGINE_API ColorVertex
 	{
 		//Guarda las coordenadas del vertice
-		float x; 
+		float x;
 		float y;
 		float z;
 
@@ -33,11 +33,11 @@ namespace pGr
 
 	extern const int TextureCoordVertexType;
 
-		struct MYENGINE_API	MeshVertex
+	struct MYENGINE_API	MeshVertex
 	{
-		float x,y,z;
-		float nx,ny,nz;
-		float u,v;
+		float x, y, z;
+		float nx, ny, nz;
+		float u, v;
 	};
 
 	extern const int MeshVertexType;
@@ -50,7 +50,7 @@ namespace pGr
 	//primitivas
 	enum Primitive
 	{
-		TriangleList= 0,
+		TriangleList = 0,
 		TriangleStrip,
 		PointList,
 		LineList,

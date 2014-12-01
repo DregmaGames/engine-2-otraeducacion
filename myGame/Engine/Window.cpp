@@ -20,7 +20,7 @@ bool Window::setWindowName(std::string p){
 }
 //----------------------------------
 bool Window::createWindow(unsigned int uiWidth, unsigned int uiHeight)
-{	
+{
 	/**///Cuando averigue lo que hace les explico....
 	/**///ventanita para mandar mensajes y debugear mas fácil.
 	/**/AllocConsole();
@@ -36,7 +36,7 @@ bool Window::createWindow(unsigned int uiWidth, unsigned int uiHeight)
 	/**/setvbuf(hf_in, NULL, _IONBF, 128);
 	/**/*stdin = *hf_in;
 	/**///use the console just like a normal one - printf(), getchar().
-	
+
 
 	//reg window
 	WNDCLASS kWC = { 0 }; // estructura de la clase ventana

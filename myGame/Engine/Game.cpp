@@ -3,7 +3,7 @@
 #include "Importer.h"
 using namespace pGr;
 
-Game::Game() : done(false) 
+Game::Game() : done(false)
 {
 	//NOTHING TO DO HERE / NOPE.avi
 }
@@ -11,7 +11,7 @@ Game::Game() : done(false)
 
 void Game::setDone(bool auxDone)
 {
-	 done = auxDone;
+	done = auxDone;
 }
 
 bool Game::getDone()

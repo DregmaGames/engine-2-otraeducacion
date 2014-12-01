@@ -43,58 +43,58 @@ hkpWorld* Physics::m_HWorld = NULL;
 bool Physics::HavokStarted = false;
 //*************************************************************
 hkpRigidBody* Physics::m_RBody1 = NULL;
-Physics*	  Physics::Instance		= NULL;
+Physics*	  Physics::Instance = NULL;
 //**************************************************************
-Physics::Physics ()
+Physics::Physics()
 {
-	if(!HavokStarted) {
-		#if defined(HK_COMPILER_HAS_INTRINSICS_IA32) && (HK_CONFIG_SIMD ==  HK_CONFIG_SIMD_ENABLED)
-			_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
-		#endif
+	if (!HavokStarted) {
+#if defined(HK_COMPILER_HAS_INTRINSICS_IA32) && (HK_CONFIG_SIMD ==  HK_CONFIG_SIMD_ENABLED)
+		_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+#endif
 
 		//Havok con Memory Leak Detector
-		hkMemoryRouter* memoryRouter = hkMemoryInitUtil::initChecking( hkMallocAllocator::m_defaultMallocAllocator, 
-		hkMemorySystem::FrameInfo(1024 * 1024));
+		hkMemoryRouter* memoryRouter = hkMemoryInitUtil::initChecking(hkMallocAllocator::m_defaultMallocAllocator,
+			hkMemorySystem::FrameInfo(1024 * 1024));
 		hkBaseSystem::init(memoryRouter, HavokFailure);
 		//------------------------------
 
 
 		//------------WORLD CONFIG-------------
-			//Physics-----
-			hkpWorldCinfo HavokWorldInfo;
-			HavokWorldInfo.m_gravity = hkVector4(0.0f, -9.8f, 0.0f);//Gravity
-			HavokWorldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_CONTINUOUS;
-			//------------
-			//World Limits
-			HavokWorldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
-			HavokWorldInfo.setBroadPhaseWorldSize(1000.0f);
-			//------------
-			//------------WORLD CREATION------
-				m_HWorld = new hkpWorld(HavokWorldInfo);
-				m_HWorld->m_wantDeactivation = false;
-				//World Block
-				//para poder modificarlo.
-				m_HWorld->markForWrite();
-				//-------------
-			//--------------------------------
-			//Collition detect
-			hkpAgentRegisterUtil::registerAllAgents(m_HWorld->getCollisionDispatcher());
+		//Physics-----
+		hkpWorldCinfo HavokWorldInfo;
+		HavokWorldInfo.m_gravity = hkVector4(0.0f, -9.8f, 0.0f);//Gravity
+		HavokWorldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_CONTINUOUS;
+		//------------
+		//World Limits
+		HavokWorldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
+		HavokWorldInfo.setBroadPhaseWorldSize(1000.0f);
+		//------------
+		//------------WORLD CREATION------
+		m_HWorld = new hkpWorld(HavokWorldInfo);
+		m_HWorld->m_wantDeactivation = false;
+		//World Block
+		//para poder modificarlo.
+		m_HWorld->markForWrite();
+		//-------------
+		//--------------------------------
+		//Collition detect
+		hkpAgentRegisterUtil::registerAllAgents(m_HWorld->getCollisionDispatcher());
 
 		//-----------WORLD CONFIG END---------
 
 
 		//-----------VISUAL DEBUGER CONFIG----
-			//Visual Debugger Tnitialization
-			m_HContext = new hkpPhysicsContext();
-			hkpPhysicsContext::registerAllPhysicsProcesses();
-			m_HContext->addWorld(m_HWorld);
-			m_HWorld->unmarkForWrite();
+		//Visual Debugger Tnitialization
+		m_HContext = new hkpPhysicsContext();
+		hkpPhysicsContext::registerAllPhysicsProcesses();
+		m_HContext->addWorld(m_HWorld);
+		m_HWorld->unmarkForWrite();
 
-			hkArray<hkProcessContext*> havokContexts;
-			havokContexts.pushBack(m_HContext);
+		hkArray<hkProcessContext*> havokContexts;
+		havokContexts.pushBack(m_HContext);
 
-			m_VDebugger = new hkVisualDebugger(havokContexts);
-			m_VDebugger->serve();
+		m_VDebugger = new hkVisualDebugger(havokContexts);
+		m_VDebugger->serve();
 		//----------VISUAL DEBUGER CONFIG END--
 
 		//----------TEST SCENE START---------
@@ -109,36 +109,36 @@ Physics::Physics ()
 }
 
 Physics* Physics::getInstance(){
-	if(Instance == NULL){
+	if (Instance == NULL){
 		Instance = new Physics();
 	}
 	return Instance;
 }
 
 void Physics::StartTestScene(){
-		//--------------------Test Scene--------------------
-			//--------Floor---------
+	//--------------------Test Scene--------------------
+	//--------Floor---------
 	hkpBoxShape* Floor = new hkpBoxShape(hkVector4(1000.0f, 10.0f, 1000.0f));
 
-			hkpRigidBodyCinfo HavokRBodyInfo1;
-			HavokRBodyInfo1.m_shape = Floor;
-			HavokRBodyInfo1.m_position = hkVector4(0.0f, -10.0f, 0.0f);
-			HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_FIXED;
-			Floor->setRadius(0.0f);
-			m_RBody1 = new hkpRigidBody(HavokRBodyInfo1);
+	hkpRigidBodyCinfo HavokRBodyInfo1;
+	HavokRBodyInfo1.m_shape = Floor;
+	HavokRBodyInfo1.m_position = hkVector4(0.0f, -10.0f, 0.0f);
+	HavokRBodyInfo1.m_motionType = hkpMotion::MOTION_FIXED;
+	Floor->setRadius(0.0f);
+	m_RBody1 = new hkpRigidBody(HavokRBodyInfo1);
 
-			m_HWorld->addEntity(m_RBody1);
-			Floor->removeReference();
-			//-------Floor end--------
-		 //--------------------Test Scene--------------------
+	m_HWorld->addEntity(m_RBody1);
+	Floor->removeReference();
+	//-------Floor end--------
+	//--------------------Test Scene--------------------
 }
 
-Physics::~Physics (){
-/*	m_RBody1->removeReference();
-	m_RBody1 = NULL;
+Physics::~Physics(){
+	/*	m_RBody1->removeReference();
+		m_RBody1 = NULL;
 
-	m_RBody2->removeReference();
-	m_RBody2 = NULL;*/
+		m_RBody2->removeReference();
+		m_RBody2 = NULL;*/
 
 	m_VDebugger->shutdown();
 	m_VDebugger->removeReference();
@@ -156,21 +156,22 @@ void Physics::addEntity(pGr::RigidBody* rigidBody){
 	m_HWorld->unmarkForWrite();
 }
 
-void Physics::update (float DeltaTime){
+void Physics::update(float DeltaTime){
+	std::cout << "physics" << std::endl;
 	m_VDebugger->step();
 	float fHavokStep = (DeltaTime / 1000.0f);
-	if(fHavokStep < 0.00000001f) {
+	if (fHavokStep < 0.00000001f) {
 		return;
 	}
 
-	if(fHavokStep > 4.0f) {
+	if (fHavokStep > 4.0f) {
 		fHavokStep = 3.9f;
 	}
 
 	m_HWorld->stepDeltaTime(fHavokStep);
 }
 
-void Physics::HavokFailure (const char* msg, void* userAgent){
+void Physics::HavokFailure(const char* msg, void* userAgent){
 	OutputDebugString(msg);
 }
 

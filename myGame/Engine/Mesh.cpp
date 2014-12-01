@@ -3,114 +3,61 @@
 #include "RenderTypes.h"
 using namespace pGr;
 
-int Mesh::amountDraw = 0;
-/*Mesh::Mesh(Renderer& p_Renderer) : m_pkRenderer(p_Renderer)
-{
-	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::MeshVertex), pGr::MeshVertexType);
-	m_pkIndexBuffer	 = m_pkRenderer.CreateIB();
-}
-
-Mesh::~Mesh()
-{
-	if(m_pkIndexBuffer){
-		delete m_pkIndexBuffer;
-		m_pkIndexBuffer = NULL;
-	}
-	if(m_pkVertexBuffer){
-		delete	m_pkVertexBuffer;
-		m_pkVertexBuffer = NULL;
-	}
-}
-
-void Mesh::setData(const MeshVertex* the_vertex, size_t vertexCount, Primitive thePrimitive, const unsigned short* pausIndices, size_t indexCount)
-{
-	m_pkPrimitive = thePrimitive;
-	m_pkVertexBuffer->setVertexData((void*) the_vertex, vertexCount);
-	m_pkIndexBuffer->setIndexData(pausIndices,indexCount);
-}
-
-void Mesh::draw()
-{
-	m_pkVertexBuffer->bind();
-	m_pkIndexBuffer->bind();
-	m_pkRenderer.setCurrentTexture(s_Texture);
-	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
-	m_pkRenderer.draw(&m_pkPrimitive);
-}
-
-void Mesh::setTexture(std::string pkTextureFile, DWORD theColor)
-{
-	s_Texture = m_pkRenderer.loadTexture(pkTextureFile,theColor);
-}
-
-void Mesh::setTexture(Texture& theTexture)
-{
-	s_Texture = theTexture;
-}*/
-
-Mesh::Mesh(Renderer & p_Renderer): m_pkRenderer(p_Renderer) , s_Texture(NoTexture){
-	m_pkVertexBuffer = m_pkRenderer.CreateVB(sizeof(pGr::MeshVertex), pGr::MeshVertexType);
-	m_pkIndexBuffer = m_pkRenderer.CreateIB();
+int Mesh::amountDraw = 0; //Just for debbug.
+Mesh::Mesh(Renderer & p_Renderer) : m_rkRenderer(p_Renderer), m_kTexture(NoTexture){
+	m_pkVertexBuffer = m_rkRenderer.CreateVB(sizeof(pGr::MeshVertex), pGr::MeshVertexType);
+	m_pkIndexBuffer = m_rkRenderer.CreateIB();
 }
 
 Mesh::~Mesh(){
-	
-	m_pkVertex.clear();
-	m_pkIndex.clear();
+	m_kVertex.clear();
+	m_kIndex.clear();
 
-	if(m_pkVertexBuffer){
+	if (m_pkVertexBuffer){
 		delete m_pkVertexBuffer;
 		m_pkVertexBuffer = NULL;
 	}
-	if(m_pkIndexBuffer){
+	if (m_pkIndexBuffer){
 		delete m_pkIndexBuffer;
 		m_pkIndexBuffer = NULL;
 	}
-
 }
 
-void Mesh::setDataMesh(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Primitive Prim, const unsigned short* pInt, size_t indexCount){
-	m_pkPrimitive = Prim;
+void Mesh::setMeshData(const MeshVertex* Tex_Vertex, size_t vertexCount, pGr::Primitive Prim, const unsigned short* pInt, size_t indexCount){
+	m_kPrimitive = Prim;
 	m_pkVertexBuffer->setVertexData((void *)Tex_Vertex, vertexCount);
-	m_pkIndexBuffer->setIndexData(pInt,indexCount);
+	m_pkIndexBuffer->setIndexData(pInt, indexCount);
 
+	// Save vertex
+	m_kVertex.resize(vertexCount);
+	memcpy(&(m_kVertex.front()), Tex_Vertex, vertexCount * sizeof(MeshVertex));
 
-	// Guardo Vertex
-	m_pkVertex.resize(vertexCount);
-	memcpy( &( m_pkVertex.front() ), Tex_Vertex, vertexCount * sizeof(MeshVertex) );
-
-
-	// Guardo Index
-	m_pkIndex.resize(indexCount);
-	memcpy( &( m_pkIndex.front() ), pInt, indexCount * sizeof(unsigned short) );
-
-
+	// Save index
+	m_kIndex.resize(indexCount);
+	memcpy(&(m_kIndex.front()), pInt, indexCount * sizeof(unsigned short));
 }
 
 void Mesh::draw(){
-
-	amountDraw++;
+	amountDraw++; //Just for debbug.
 	m_pkVertexBuffer->bind();
 	m_pkIndexBuffer->bind();
-	m_pkRenderer.setCurrentTexture(s_Texture);
-	m_pkRenderer.setMatrix(World, m_pkTransformationMatrix);
-	m_pkRenderer.draw(m_pkPrimitive);
-
-
+	m_rkRenderer.setCurrentTexture(m_kTexture);
+	m_rkRenderer.setMatrix(World, m_pkTransformationMatrix);
+	m_rkRenderer.draw(m_kPrimitive);
 }
 
 void Mesh::setTexture(std::string pkTextureFile, DWORD theColor){
-	s_Texture = m_pkRenderer.loadTexture(pkTextureFile,theColor);
+	m_kTexture = m_rkRenderer.loadTexture(pkTextureFile, theColor);
 }
 
 void Mesh::setTexture(Texture& theTexture){
-	s_Texture = theTexture;
+	m_kTexture = theTexture;
 }
 
 const std::vector<MeshVertex>& Mesh::vertexs() const{
-	return m_pkVertex;
+	return m_kVertex;
 }
 
 const std::vector<unsigned short> Mesh::indexs() const{
-	return m_pkIndex;
+	return m_kIndex;
 }

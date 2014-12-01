@@ -20,22 +20,25 @@ namespace pGr
 	public:
 		Renderer();
 		~Renderer();
-		bool init (HWND hWnd);
+		bool init(HWND hWnd);
 		//rendering
 	public:
 		void beginFrame();
 		void endFrame();
 		// --------------------------- 3D
+		void loadIdentity();
+		void setTransformMatrix(D3DXMATRIX * matrix);
+
 		void draw(pGr::Primitive);
 		void setCurrentVertexBuffer(pGr::VertexBuffer* m_VB);
 		void setCurrentIndexBuffer(pGr::IndexBuffer* m_IB);
 		VertexBuffer* CreateVB(size_t vSize, unsigned int FVF);
 		IndexBuffer* CreateIB();
 		// --------------------------- /3D
-		void setMatrix(MatrixType eMatrixType,const Matrix& );
+		void setMatrix(MatrixType eMatrixType, const Matrix&);
 		void setCurrentTexture(const Texture& rkTexture);
-		const Texture loadTexture(const std::string& rkFilename,int COLOR);
-		const Texture loadTexture (const std::string& Fname);
+		const Texture loadTexture(const std::string& rkFilename, int COLOR);
+		const Texture loadTexture(const std::string& Fname);
 		void setCameraPos(D3DXVECTOR3 Pos, D3DXVECTOR3 Look, D3DXVECTOR3 Up);
 		void wireframe(bool wire);
 
@@ -45,12 +48,12 @@ namespace pGr
 		IDirect3DDevice9* m_pkDevice;
 		static Camera* getCamera();
 	private:
-		
+
 		std::vector<pGr::Texture> m_akTextures;
 		IDirect3D9* m_pkD3D;
 		// Representa al hardware
 		Matrix kProjectionMatrix;
-		VertexBuffer* m_pkVertexbuffer;
+		VertexBuffer* m_pkVertexBuffer;
 		IndexBuffer* m_pkIndexBuffer;
 
 		UINT r;

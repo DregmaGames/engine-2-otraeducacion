@@ -21,18 +21,18 @@ namespace pGr
 	{
 
 	public:
-		Engine(HINSTANCE hInstance,unsigned int uiWidth,unsigned int uiHeight);
+		Engine(HINSTANCE hInstance, unsigned int uiWidth, unsigned int uiHeight);
 		~Engine();
 
-		bool init ();
+		bool init();
 		void run();
 
 		Window* m_pkWindow;
-		Renderer* m_pkRenderer;
+		Renderer* m_rkRenderer;
 
 		void setGame(Game* game);
-		
-	//rendering
+
+		//rendering
 	private:
 		Game* pgGame;
 		Timer* m_pkTimer;
@@ -40,7 +40,7 @@ namespace pGr
 		HINSTANCE m_hInstance;
 		DirectInput* m_pkInput;
 		unsigned int m_uiWidth;
-		unsigned int m_uiHeight;			
+		unsigned int m_uiHeight;
 	};
 	//-----------------------------------------------
 }

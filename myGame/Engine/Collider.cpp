@@ -19,11 +19,11 @@ Collider::~Collider(){
 	m_pkRigidBody->removeReference();
 	m_pkRigidBody = NULL;
 }
-void Collider::setPosition(float x,float y,float z){
-	m_pkRigidBody->setPosition( hkVector4(x,y,z) );
+void Collider::setPosition(float x, float y, float z){
+	m_pkRigidBody->setPosition(hkVector4(x, y, z));
 }
 
-BoxCollider::BoxCollider()	:	Collider(),	m_pkBox(NULL){
+BoxCollider::BoxCollider() : Collider(), m_pkBox(NULL){
 
 }
 
@@ -39,7 +39,7 @@ hkpShape* BoxCollider::shape(){
 	return m_pkBox;
 }
 
-MeshCollider::MeshCollider() :	Collider(),	m_pkMeshCollider(NULL){
+MeshCollider::MeshCollider() : Collider(), m_pkMeshCollider(NULL){
 
 }
 
@@ -49,10 +49,10 @@ MeshCollider::~MeshCollider(){
 void MeshCollider::calculate(const Mesh* pkMesh){
 	size_t iCount = pkMesh->indexs().size();
 	hkArray<hkVector4> aVertexs(iCount);
-	for(unsigned int i=0; i < iCount; i++){
-		aVertexs[i].set( -pkMesh->vertexs()[pkMesh->indexs()[i]].x,
-						  pkMesh->vertexs()[pkMesh->indexs()[i]].y, 
-						  pkMesh->vertexs()[pkMesh->indexs()[i]].z);
+	for (unsigned int i = 0; i < iCount; i++){
+		aVertexs[i].set(-pkMesh->vertexs()[pkMesh->indexs()[i]].x,
+			pkMesh->vertexs()[pkMesh->indexs()[i]].y,
+			pkMesh->vertexs()[pkMesh->indexs()[i]].z);
 	}
 
 	hkStridedVertices StridedVertices(aVertexs);
@@ -60,7 +60,7 @@ void MeshCollider::calculate(const Mesh* pkMesh){
 
 	hkpRigidBodyCinfo	rbInfo;
 	rbInfo.m_shape = m_pkMeshCollider;
-	rbInfo.m_position = hkVector4(0.0f,0.0f,0.0f);
+	rbInfo.m_position = hkVector4(0.0f, 0.0f, 0.0f);
 	rbInfo.m_motionType = hkpMotion::MOTION_FIXED;
 
 	m_pkRigidBody = new hkpRigidBody(rbInfo);

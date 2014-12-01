@@ -20,7 +20,7 @@ namespace pGr{
 		void update(float fk_DeltaTime);
 
 		static Physics* getInstance();
-		static void addEntity(RigidBody* pkR); 
+		static void addEntity(RigidBody* pkR);
 	private:
 		static Physics* Instance;
 		static void HavokFailure(const char* msg, void* userAgent);
