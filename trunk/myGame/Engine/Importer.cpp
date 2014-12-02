@@ -119,7 +119,19 @@ bool Importer::importNode(const aiNode* pkAiNode, const aiScene* pkAiScene, Node
 		if (fMinZ > fAabbMinZ) fMinZ = fAabbMinZ;
 
 	}
-	node.getAABB().setDataAABB(fabs(fMaxX - fMinX), fabs(fMaxY - fMinY), fabs(fMaxZ - fMinZ), (fMinX - fMaxX) / 2 - node.getPosX(), (fMinY - fMaxY) / 2 - node.getPosY(), (fMinZ - fMaxZ) / 2 - node.getPosZ());
+	/*node.getAABB().setDataAABB( fabs(fMaxX - fMinX), 
+								fabs(fMaxY - fMinY), 
+								fabs(fMaxZ - fMinZ), 
+								((fMaxX - fMinX) / 2 )- node.getPosX(), 
+								((fMaxY - fMinY) / 2 )- node.getPosY(), 
+								((fMaxZ - fMinZ) / 2 )- node.getPosZ()
+	);*/
+	node.getAABB().setDataAABB(fMaxX - fMinX, fMaxY - fMinY, fMaxZ - fMinZ, 
+							   ((fMaxX - fMinX) / 2)+fMinX, 
+							   ((fMaxY - fMinY) / 2)+fMinY, 
+							   ((fMaxZ - fMinZ) / 2)+fMinZ
+	);
+	
 	return true;
 }
 bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial, Mesh& mesh)
@@ -174,6 +186,11 @@ bool Importer::importMesh(const aiMesh* pkAiMesh, const aiMaterial* pkAiMaterial
 	}
 	mesh.setMeshData(pakVertices, pkAiMesh->mNumVertices, pGr::Primitive::TriangleList, pausIndices, uiIndexCount);
 	mesh.setName(pkAiMesh->mName.C_Str());
+	mesh.getAABB().setDataAABB(fMaxX - fMinX, fMaxY - fMinY, fMaxZ - fMinZ, 
+							   ((fMaxX - fMinX) / 2)+fMinX, 
+							   ((fMaxY - fMinY) / 2)+fMinY, 
+							   ((fMaxZ - fMinZ) / 2)+fMinZ
+	);
 
 	if (pkAiMaterial){
 		aiString kAiTexturePath;

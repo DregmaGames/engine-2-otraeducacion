@@ -11,6 +11,7 @@
 
 using namespace pGr;
 Entity3D::Entity3D() :
+
 m_fScaleX(1.0f),
 m_fScaleY(1.0f),
 m_fScaleZ(1.0f),
