@@ -22,7 +22,7 @@ bool MyGame::init(pGr::Renderer& rkRenderer, pGr::Physics& rkPhysics)
 
 	pGr::Importer* importer = pGr::Importer::getInstance();
 	importer->init(&rkRenderer);
-	importer->import3DScene("assets/PokemonNew/BR_Kyogre.obj", *rootNode);
+	importer->import3DScene("assets/Boxes.obj", *rootNode);
 
 	rootNode->setPosition(0, 0, 0);
 	/*nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon0.001", rootNode));
@@ -50,17 +50,17 @@ void MyGame::frame(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Ti
 	if (timer < 30) return;
 	timer = 0;
 	//------------------------------------------
-	inputs(rkRenderer, rkInput);
+	inputs(rkRenderer, rkInput, rkTimer);
 	//------------------------------------------
 }
 
-void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
+void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Timer& timer)
 {
-	float movementSpeed = 1.0f;
+	float movementSpeed = 0.4f;
 	float rotationSpeed = 0.3f;
 	/***********************************************************************************************************/
 	if (rkInput.keyDown(pGr::Input::KEY_F1)){
-		rootNode->setRotationY(rootNode->getRotationY() + rotationSpeed);
+		rootNode->setRotationY(rootNode->getRotationY() + rotationSpeed );
 	}
 
 	if (rkInput.keyDown(pGr::Input::KEY_F2)){
@@ -69,22 +69,22 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 
 	if (rkInput.keyDown(pGr::Input::KEY_UP))
 	{
-		rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed);
+		rootNode->setPositionZ(rootNode->getPosZ() - movementSpeed * timer.timeBetweenFrames());
 	}
 	//
 	if (rkInput.keyDown(pGr::Input::KEY_DOWN))
 	{
-		rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed);
+		rootNode->setPositionZ(rootNode->getPosZ() + movementSpeed * timer.timeBetweenFrames());
 	}
 	//
 	if (rkInput.keyDown(pGr::Input::KEY_RIGHT))
 	{
-		rootNode->setPositionX(rootNode->getPosX() - movementSpeed);
+		rootNode->setPositionX(rootNode->getPosX() - movementSpeed * timer.timeBetweenFrames());
 	}
 
 	if (rkInput.keyDown(pGr::Input::KEY_LEFT))
 	{
-		rootNode->setPositionX(rootNode->getPosX() + movementSpeed);
+		rootNode->setPositionX(rootNode->getPosX() + movementSpeed * timer.timeBetweenFrames());
 	}
 	/*******************************************************************************************************/
 	//Aceletar//
@@ -97,27 +97,27 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput)
 
 	//******Atras y adelante************//
 	if (rkInput.keyDown(pGr::Input::KEY_W)){
-		rkRenderer.m_pkCamera->walk(movementSpeed);
+		rkRenderer.m_pkCamera->walk(movementSpeed* timer.timeBetweenFrames());
 	}
 	if (rkInput.keyDown(pGr::Input::KEY_S)){
-		rkRenderer.m_pkCamera->walk(-movementSpeed);
+		rkRenderer.m_pkCamera->walk(-movementSpeed* timer.timeBetweenFrames());
 	}
 	//******Atras y adelante************//
 
 	//******Girar derecha/izquierda************//
 	if (rkInput.keyDown(pGr::Input::KEY_D)){
-		rkRenderer.m_pkCamera->roll(rotationSpeed);
+		rkRenderer.m_pkCamera->roll(rotationSpeed* timer.timeBetweenFrames());
 	}if (rkInput.keyDown(pGr::Input::KEY_A)){
-		rkRenderer.m_pkCamera->roll(-rotationSpeed);
+		rkRenderer.m_pkCamera->roll(-rotationSpeed* timer.timeBetweenFrames());
 	}
 	//******Girar derecha/izquierda************//
 
 	//******Arriba y abajo************//
 	if (rkInput.keyDown(pGr::Input::KEY_SPACE)){
-		rkRenderer.m_pkCamera->fly(movementSpeed);
+		rkRenderer.m_pkCamera->fly(movementSpeed* timer.timeBetweenFrames());
 	}
 	if (rkInput.keyDown(pGr::Input::KEY_LCONTROL)){
-		rkRenderer.m_pkCamera->fly(-movementSpeed);
+		rkRenderer.m_pkCamera->fly(-movementSpeed* timer.timeBetweenFrames());
 	}
 	//******Arriba y abajo************//
 

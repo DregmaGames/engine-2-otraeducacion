@@ -23,7 +23,7 @@ namespace Juego
 		MyGame();
 		bool init(pGr::Renderer&, pGr::Physics& physics);
 		void frame(pGr::Renderer&, pGr::DirectInput&, pGr::Timer& rkTimer);
-		void inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput);
+		void inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Timer& timer);
 		void deinit();
 
 	private:
