@@ -5,7 +5,6 @@
 #include "pg1_input.h"
 #include "pg1_directinput.h"
 #include "pg1_timer.h"
-#include "Physics.h"
 //-------------------------------
 namespace pGr
 {

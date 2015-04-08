@@ -6,7 +6,6 @@
 #include "Renderer.h"
 #include "RenderTypes.h"
 #include "myengine_api.h"
-#include "RigidBody.h"
 #include <string>
 
 namespace pGr{
@@ -27,14 +26,12 @@ namespace pGr{
 		float getScaleX() const{ return m_fScaleX; }
 		float getScaleY() const{ return m_fScaleY; }
 		float getScaleZ() const{ return m_fScaleZ; }
-		float getPosX(){ return m_pkRigidBody->getPosX(); }
-		float getPosY(){ return m_pkRigidBody->getPosY(); }
-		float getPosZ(){ return m_pkRigidBody->getPosZ(); }
-		float getRotationX() const { return m_pkRigidBody->getRotationX(); }
-		float getRotationY() const { return m_pkRigidBody->getRotationY(); }
-		float getRotationZ() const { return m_pkRigidBody->getRotationZ(); }
-
-		RigidBody* getRigidBody() const{ return m_pkRigidBody; }
+		float getPosX(){ return m_fPosX; }
+		float getPosY(){ return m_fPosY; }
+		float getPosZ(){ return m_fPosZ; }
+		float getRotationX() const { return m_fRotX; }
+		float getRotationY() const { return m_fRotY; }
+		float getRotationZ() const { return m_fRotZ; }
 
 		std::string m_Name;	//nombre del objeto
 
@@ -43,18 +40,23 @@ namespace pGr{
 		std::string getName(){ return m_Name; }
 		void setName(std::string name){ m_Name = name; }
 
+
+		
+
+		//seters
+		//scale
 		void setScale(float m_fScaleX, float m_fScaleY, float m_fScaleZ);
-
-		void setPosition(float fPosX, float fPosY, float fPosZ);
-		void setPositionX(float fPosX);
-		void setPositionY(float fPosY);
-		void setPositionZ(float fPosZ);
-
-
+		//pos
+		void setPosition(float m_fPosX, float m_fPosY, float m_fPosZ);
+		void setPositionX(float m_fPosX);
+		void setPositionY(float m_fPosY);
+		void setPositionZ(float m_fPosZ);
+		//rot
 		void setRotation(float fRotationX, float fRotationY, float fRotationZ);
 		void setRotationX(float fRotationX);
 		void setRotationY(float fRotationY);
 		void setRotationZ(float fRotationZ);
+		//------
 
 		virtual void draw() = 0;
 		void updateLocalTransformation();
@@ -73,9 +75,9 @@ namespace pGr{
 
 		AABB* m_pkAABB;
 		Node* m_pkParent;
-		RigidBody* m_pkRigidBody;
 
-
+		float m_fPosX, m_fPosY, m_fPosZ;
+		float m_fRotX, m_fRotY, m_fRotZ;
 		float m_fScaleX, m_fScaleY, m_fScaleZ;
 	};
 }

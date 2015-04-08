@@ -21,7 +21,7 @@ namespace Juego
 
 	public:
 		MyGame();
-		bool init(pGr::Renderer&, pGr::Physics& physics);
+		bool init(pGr::Renderer&);
 		void frame(pGr::Renderer&, pGr::DirectInput&, pGr::Timer& rkTimer);
 		void inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Timer& timer);
 		void deinit();
@@ -32,7 +32,6 @@ namespace Juego
 		pGr::Mesh* mesh;
 		pGr::Node* nodeMesh;
 
-		void doRigidBodys(pGr::Node & pkNode);
 		pGr::Entity3D* lookForMesh(const std::string& name, const pGr::Node* rootNode);
 	};
 }

@@ -11,15 +11,19 @@
 
 using namespace pGr;
 Entity3D::Entity3D() :
-
+m_fPosX(0.0f),
+m_fPosY(0.0f),
+m_fPosZ(0.0f),
+m_fRotX(0.0f),
+m_fRotY(0.0f),
+m_fRotZ(0.0f),
 m_fScaleX(1.0f),
 m_fScaleY(1.0f),
 m_fScaleZ(1.0f),
 m_pkTransformationMatrix(new D3DXMATRIX()),
 m_pkTransformationLocalMatrix(new D3DXMATRIX()),
 m_pkParent(NULL),
-m_pkAABB(new AABB()),
-m_pkRigidBody(new RigidBody())
+m_pkAABB(new AABB())
 {
 	D3DXMatrixIdentity(m_pkTransformationMatrix);
 	updateLocalTransformation();
@@ -31,45 +35,47 @@ Entity3D::~Entity3D()
 
 	delete m_pkTransformationLocalMatrix;
 	m_pkTransformationLocalMatrix = NULL;
-
-	delete m_pkRigidBody,
-		m_pkRigidBody = NULL;
 }
 
-void Entity3D::setPositionX(float fPosX)
-{
-	m_pkRigidBody->setPosition(fPosX, m_pkRigidBody->getPosY(), m_pkRigidBody->getPosZ());
+void Entity3D::setRotationX(float fRotX){
+	m_fRotX = fRotX;
+	updateLocalTransformation();
 }
-void Entity3D::setPositionY(float fPosY)
-{
-	m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), fPosY, m_pkRigidBody->getPosZ());
+void Entity3D::setRotationY(float fRotY){
+	m_fRotX = fRotY;
+	updateLocalTransformation();
 }
-void Entity3D::setPositionZ(float fPosZ)
-{
-	m_pkRigidBody->setPosition(m_pkRigidBody->getPosX(), m_pkRigidBody->getPosY(), fPosZ);
-}
-
-void Entity3D::setRotationX(float fRotationX)
-{
-	m_pkRigidBody->setRotation(fRotationX, m_pkRigidBody->getRotationY(), m_pkRigidBody->getRotationZ());
-}
-void Entity3D::setRotationY(float fRotationY)
-{
-	m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), fRotationY, m_pkRigidBody->getRotationZ());
-}
-void Entity3D::setRotationZ(float fRotationZ)
-{
-	m_pkRigidBody->setRotation(m_pkRigidBody->getRotationX(), m_pkRigidBody->getRotationY(), fRotationZ);
+void Entity3D::setRotationZ(float fRotZ){
+	m_fRotX = fRotZ;
+	updateLocalTransformation();
 }
 
-void Entity3D::setPosition(float fPosX, float fPosY, float fPosZ)
-{
-	m_pkRigidBody->setPosition(fPosX, fPosY, fPosZ);
+void Entity3D::setPositionX(float fPosX){
+	m_fPosX = fPosX;
+	updateLocalTransformation();
+}
+void Entity3D::setPositionY(float fPosY){
+	m_fPosY = fPosY;
+	updateLocalTransformation();
+}
+void Entity3D::setPositionZ(float fPosZ){
+	m_fPosX = fPosZ;
+	updateLocalTransformation();
+}
+
+void Entity3D::setPosition(float fPosX, float fPosY, float fPosZ){
+	m_fPosX = fPosX;
+	m_fPosY = fPosY;
+	m_fPosZ = fPosZ;
+	updateLocalTransformation();
 }
 
 void Entity3D::setRotation(float fRotX, float fRotY, float fRotZ)
 {
-	m_pkRigidBody->setRotation(fRotX, fRotY, fRotZ);
+	m_fRotX = fRotX;
+	m_fRotY = fRotY;
+	m_fRotZ = fRotZ;
+	updateLocalTransformation();
 }
 
 void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ)
@@ -77,31 +83,31 @@ void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ)
 	m_fScaleX = fScaleX;
 	m_fScaleY = fScaleY;
 	m_fScaleZ = fScaleZ;
+	updateLocalTransformation();
 }
 
 void Entity3D::updateLocalTransformation()
 {
 	//tranlation matrix
 	D3DXMATRIX kTransMat;
-	D3DXMatrixTranslation(&kTransMat, getPosX(), getPosY(), getPosZ());
+	D3DXMatrixTranslation(&kTransMat, m_fPosX, m_fPosY, m_fPosZ);
 
-	//rotacion de la matrix
+	//rotacion en z de la matrix
 	D3DXMATRIX rotationMatrixX, rotationMatrixY, rotationMatrixZ;
-	D3DXMatrixRotationX(&rotationMatrixX, getRotationX());
-	D3DXMatrixRotationY(&rotationMatrixY, getRotationY());
-	D3DXMatrixRotationZ(&rotationMatrixZ, getRotationZ());
+	D3DXMatrixRotationZ(&rotationMatrixX, m_fRotX);
+	D3DXMatrixRotationZ(&rotationMatrixY, m_fRotY);
+	D3DXMatrixRotationZ(&rotationMatrixZ, m_fRotZ);
 
 	D3DXMATRIX kScaleMat;
 	D3DXMatrixScaling(&kScaleMat, m_fScaleX, m_fScaleY, m_fScaleZ);
 
 	//build matrix
 	D3DXMatrixIdentity(m_pkTransformationLocalMatrix);
-	//************
-	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, m_pkTransformationLocalMatrix, &kTransMat);
-	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, m_pkTransformationLocalMatrix, &rotationMatrixX);
-	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, m_pkTransformationLocalMatrix, &rotationMatrixY);
-	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, m_pkTransformationLocalMatrix, &rotationMatrixZ);
-	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, m_pkTransformationLocalMatrix, &kScaleMat);
+	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, &kTransMat, m_pkTransformationMatrix);
+	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, &kTransMat, &rotationMatrixZ);
+	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, &kTransMat, &rotationMatrixY);
+	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, &kTransMat, &rotationMatrixX);
+	D3DXMatrixMultiply(m_pkTransformationLocalMatrix, &kScaleMat, m_pkTransformationMatrix);
 }
 
 const Matrix Entity3D::transformationMatrix()

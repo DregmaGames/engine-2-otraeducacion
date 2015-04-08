@@ -21,8 +21,7 @@ Engine::Engine(HINSTANCE hInstance, unsigned int uiWidth, unsigned int uiHeight)
 	m_rkRenderer(new Renderer()),
 	pgGame(NULL),
 	m_pkInput(new DirectInput()),
-	m_pkTimer(new Timer()),
-	m_pkPhysics(new Physics())
+	m_pkTimer(new Timer())
 {
 	//Nothing to do
 }
@@ -52,7 +51,7 @@ void Engine::run()
 	if (!pgGame){
 		return;
 	}
-	if (!pgGame->init(*m_rkRenderer, *m_pkPhysics)){
+	if (!pgGame->init(*m_rkRenderer)){
 		return;
 	}
 
@@ -66,7 +65,7 @@ void Engine::run()
 
 		m_pkInput->reacquire();
 		//render frame
-		m_pkPhysics->update(m_pkTimer->timeBetweenFrames());
+		//m_pkPhysics->update(m_pkTimer->timeBetweenFrames());
 
 		m_rkRenderer->beginFrame();
 		pgGame->frame(*m_rkRenderer, *m_pkInput, *m_pkTimer);

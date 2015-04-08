@@ -9,7 +9,6 @@
 namespace pGr
 {
 	class Timer;
-	class Physics;
 	class Renderer;
 	class DirectInput;
 	class Scene;
@@ -22,7 +21,7 @@ namespace pGr
 
 		bool getDone();
 		void setDone(bool done);
-		virtual bool init(pGr::Renderer&, pGr::Physics& physics) = 0;
+		virtual bool init(pGr::Renderer&) = 0;
 		virtual void frame(pGr::Renderer&, pGr::DirectInput& rkInput, pGr::Timer& t) = 0;
 		virtual void deinit() = 0;
 

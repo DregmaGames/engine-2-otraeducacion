@@ -7,7 +7,7 @@
 #include <string>
 
 #include "myEngine_API.h"
-#include "tinyxml2.h"
+//#include "tinyxml2.h"
 #include "RenderTypes.h"
 
 // Assimp
