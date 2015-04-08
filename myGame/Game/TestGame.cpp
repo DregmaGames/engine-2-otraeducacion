@@ -1,6 +1,5 @@
 #include "TestGame.h"
 #include "Renderer.h"
-#include "Collider.h"
 #include <iostream>
 //---------------------------------------
 using namespace Juego;
@@ -40,7 +39,7 @@ void MyGame::frame(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::Ti
 	}
 	//hardcodeo para que no se caguen las inputs(por tener tantos fps, haha
 	//si tenes menos de 60 fps, se caga igual...
-	if (timer < 30) return;
+	if (timer < 15) return;
 	timer = 0;
 	//------------------------------------------
 	inputs(rkRenderer, rkInput, rkTimer);
