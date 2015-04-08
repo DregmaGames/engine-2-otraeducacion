@@ -4,9 +4,6 @@
     <Filter Include="source">
       <UniqueIdentifier>{ebcab20d-be8d-4839-a6dc-7fe05d22f753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\2D">
-      <UniqueIdentifier>{95f313f5-26c1-4cb5-8c09-5ec64f9221d7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -42,13 +39,7 @@
     <ClInclude Include="Window.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="AABB.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Entity3D.h">
@@ -63,23 +54,14 @@
     <ClInclude Include="pg2_vertexbuffer.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="Physics.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="tinyxml2.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>source\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +69,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -125,22 +104,13 @@
     <ClCompile Include="pg2_vertexbuffer.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="Physics.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="RenderTypes.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
@@ -148,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="Mathjavi.cpp">
       <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>source\2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

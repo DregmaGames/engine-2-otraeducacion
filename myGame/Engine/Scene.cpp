@@ -25,7 +25,7 @@ void Scene::deInit()
 
 void Scene::drawScene(pGr::Renderer* mkRenderer, pGr::Timer* timer)
 {
-	for (int i = 0; i < m_pkEntity3D.size(); i++){
+	for (UINT i = 0; i < m_pkEntity3D.size(); i++){
 		m_pkEntity3D[i]->draw();
 	}
 

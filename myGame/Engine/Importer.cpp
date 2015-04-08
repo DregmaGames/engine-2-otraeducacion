@@ -10,7 +10,7 @@
 #include <limits>
 #include <cstddef>
 #include <iostream>
-#include<sstream>
+#include <sstream>
 
 #include "../assimp/assimp/include/Importer.hpp"
 #include "../assimp/assimp/include/scene.h"

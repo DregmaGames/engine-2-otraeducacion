@@ -1,6 +1,5 @@
 #include "TestGame.h"
 #include "Renderer.h"
-#include "RigidBody.h"
 #include "Collider.h"
 #include <iostream>
 //---------------------------------------
@@ -11,11 +10,13 @@ bool Flag = false;
 MyGame::MyGame()
 {
 }
-bool MyGame::init(pGr::Renderer& rkRenderer, pGr::Physics& rkPhysics)
+bool MyGame::init(pGr::Renderer& rkRenderer)
 {
+	//Console
 	std::cout << "DebugConsole" << std::endl;
 	std::cout << "Copyright FrRiBiMe All rights reserved." << std::endl;
 	std::cout << "Special thanks to gooogle.com" << std::endl;
+	//console end
 
 	rootNode = new pGr::Node();
 	pokemonNode = new pGr::Node();
@@ -25,14 +26,6 @@ bool MyGame::init(pGr::Renderer& rkRenderer, pGr::Physics& rkPhysics)
 	importer->import3DScene("assets/Boxes.obj", *rootNode);
 
 	rootNode->setPosition(0, 0, 0);
-	/*nodeMesh = dynamic_cast<pGr::Node*>(lookForMesh("polygon0.001", rootNode));
-	mesh = dynamic_cast<pGr::Mesh*>(nodeMesh->childs()[0]);
-	rootNode->addChild(pokemonNode);
-	pokemonNode->setParent(rootNode);
-	pokemonNode->addChild(nodeMesh);
-	nodeMesh->setParent(pokemonNode);
-	*/
-	//doRigidBodys(*rootNode);
 	return true;
 }
 //---------------------------------------
@@ -136,10 +129,6 @@ void MyGame::inputs(pGr::Renderer& rkRenderer, pGr::DirectInput& rkInput, pGr::T
 	if (rkInput.keyDown(pGr::Input::KEY_P)){
 		rkRenderer.wireframe(false);
 	}
-	if (rkInput.keyDown(pGr::Input::KEY_U)&&!Flag){
-		Flag = true;
-		doRigidBodys(*rootNode);
-	}
 }
 //---------------------------------------
 void MyGame::deinit()
@@ -147,27 +136,6 @@ void MyGame::deinit()
 
 }
 //---------------------------------------
-void MyGame::doRigidBodys(pGr::Node& pkNode){
-	pGr::Physics* pkPhysics = pGr::Physics::getInstance();
-
-	for (std::vector<pGr::Entity3D*>::const_iterator it = pkNode.childs().begin(); it != pkNode.childs().end(); it++){
-		pGr::Node* pNode = dynamic_cast<pGr::Node*>(*it);
-
-		if (pNode){
-			doRigidBodys(*pNode);
-		}
-		else{
-			pGr::Mesh* cMesh = dynamic_cast<pGr::Mesh*>(*it);
-			if (cMesh){
-				pGr::MeshCollider* collider = new pGr::MeshCollider();
-				collider->calculate(cMesh);
-				cMesh->getRigidBody()->setCollider(collider);
-				cMesh->getRigidBody()->setHavokMotion(pGr::RigidBody::HavokMotion::Dynamic);
-				pkPhysics->addEntity(cMesh->getRigidBody());
-			}
-		}
-	}
-}
 pGr::Entity3D* MyGame::lookForMesh(const std::string& name, const pGr::Node* rootNode)
 {
 	for (std::vector<pGr::Entity3D*>::const_iterator it = rootNode->childs().begin(); it != rootNode->childs().end(); it++)
